@@ -1,0 +1,37 @@
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const root = __dirname;
+const elements = new Map();
+const el = key => { if (!elements.has(key)) elements.set(key, {innerHTML:'',textContent:'',value:'',dataset:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},focus(){}}); return elements.get(key); };
+const saved={};
+const context={window:{addEventListener(){},scrollTo(){}},document:{querySelector:el,querySelectorAll(){return []},body:el('body')},location:{hash:'#home'},localStorage:{getItem:k=>saved[k]||null,setItem:(k,v)=>saved[k]=v},setTimeout(){},console,Math};
+vm.createContext(context);
+vm.runInContext(fs.readFileSync(root+'/content.js','utf8'),context);
+vm.runInContext(fs.readFileSync(root+'/app.js','utf8'),context);
+const notes=context.window.DBMS_NOTES;
+assert.equal(notes.length,15);
+const ids=new Set();
+for(const n of notes){assert(n.items.length>=10 && n.items.length<=20);assert(n.summary.length>=3);assert(n.example.length>60);for(const q of n.items){assert(!ids.has(q.id));ids.add(q.id);assert.equal(q.choices.length,4);assert.equal(new Set(q.choices).size,4);assert(q.choices.includes(q.answer));assert(q.explanation.length>30);}}
+assert.equal(ids.size,184);
+assert.equal(notes.filter(n=>n.focus).length,9);
+vm.runInContext("startQuiz('exam')",context);
+let quiz=JSON.parse(saved['dbms-notebook-v1']).quiz;
+assert.equal(quiz.ids.length,30);
+assert.equal(new Set(quiz.ids).size,30);
+for(const id of quiz.ids){const question=notes.flatMap(n=>n.items).find(q=>q.id===id);assert.deepEqual([...quiz.choices[id]].sort(),[...question.choices].sort());}
+vm.runInContext("state.quiz.ids.forEach(id=>state.quiz.answers[id]=byId[id].answer); save(); renderQuiz(document.querySelector('#exam-body'));",context);
+el('#submit-quiz').onclick();
+assert(el('#exam-body').innerHTML.includes('30 / 30'));
+assert(el('#weighted-score').textContent.includes('60/100'));
+vm.runInContext("state.quiz.essayMarks={university:{0:true,1:true,2:true,3:true,4:true},transfer:{0:true,1:true,2:true,3:true,4:true}}; updateWeighted();",context);
+assert(el('#weighted-score').textContent.includes('100/100'));
+vm.runInContext("startQuiz(1);state.quiz.ids.forEach(id=>state.quiz.answers[id]=byId[id].choices[1]);save();renderQuiz(document.querySelector('#note-body'));",context);
+el('#submit-quiz').onclick();
+const result=JSON.parse(saved['dbms-notebook-v1']);
+assert.equal(result.scores[1],0);
+assert.equal(Object.values(result.cards).filter(v=>v==='again').length,10);
+vm.runInContext("state.drafts.university='Persist this essay';save();",context);
+assert.equal(JSON.parse(saved['dbms-notebook-v1']).drafts.university,'Persist this essay');
+assert.equal(vm.runInContext("esc('<script> & \"quoted\"')",context),'&lt;script&gt; &amp; &quot;quoted&quot;');
+console.log('PASS: 15 notes, 184 unique items, valid choices, 30-question exam, 60/40 scoring, missed-card queue, persistence, HTML escaping.');
