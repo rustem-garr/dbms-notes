@@ -2,14 +2,22 @@
 
 [Open the notebook](https://rustem-garr.github.io/dbms-notes/)
 
-Each card teaches a concept, asks a related question, and reveals a model response when flipped. Abbreviations are expanded alongside the content and in the terms page.
+15 connected notes, 240 concept cards and **154 independent practice questions**. Concept counts vary from 12–20 per note according to coverage. The concept explanation and its question share one clickable card; the reverse shows only the answer. Each note also has 10–12 independent tasks: 6 multiple-choice questions, 2–4 SQL-writing tasks and 2 written responses. The practice prompts differ from the cards.
 
-Practice includes 90 multiple-choice questions, 32 SQL-writing tasks and 32 written responses. Each note revisits its card questions in practice mode. Mixed practice selects 12 multiple-choice, 4 SQL and 4 written tasks. SQL and written work use model responses and specific self-assessment checklists; SQL is not executed by the website.
+Nine worked guides explain report construction, normalization, procedural code, design validation, schedules and recovery. Abbreviations are expanded alongside content and on the terms page.
 
-Drafts, card ratings and practice progress are stored in your browser. Version 2 uses separate storage from the earlier notebook.
+Two timed sets each contain 30 choices and two integrated written cases. Their multiple-choice items are disjoint between sets but drawn from independent practice; the UI reports previously checked items. Four integrated cases are reserved for timed mode. Answers stay hidden until submission or expiry. The default 90-minute duration is configurable and is not an official time limit. Automatic marks out of 60 and written self-assessment out of 40 remain separate. Timed submissions are retained, not overwritten by restarts.
+
+The dashboard tracks first multiple-choice attempts separately from retries, written drafts, model views and a personal error log. Progress uses browser-local storage (`dbms-notebook-v2`); existing card ratings and drafts are preserved. Clearing site data removes progress.
+
+SQL is a writing workspace, not an execution engine. Equivalent valid answers may differ. Vendor-specific models name their database dialect. Run SQL in the matching database to verify executable behavior.
 
 ## Development
 
-Static HTML, CSS and JavaScript. No build dependencies. GitHub Pages serves the main branch root.
+Static HTML, CSS and JavaScript served by GitHub Pages from the main branch root. No build dependencies.
 
-Run `node tests.cjs` and `python3 tests_sql.py` to validate content, state transitions and selected portable SQL models. Vendor-specific procedural models require their named database engines and are not executed by these checks.
+- `node --check app.js`
+- `node tests.cjs`
+- `python3 tests_sql.py`
+
+Checks cover content integrity, independent prompts, progress, timed-mode state and selected portable SQL models with boundary-case data. They do not execute SQL Server or PostgreSQL procedural code.
