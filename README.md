@@ -1,7 +1,5 @@
 # DBMS Notes
 
-An interactive CS422 study notebook built from supplied course notes, labs, assignments and exam-review materials.
-
 **Website:** https://rustem-garr.github.io/dbms-notes/
 
 ## Study features
