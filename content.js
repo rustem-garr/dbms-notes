@@ -1,5 +1,5 @@
 window.DBMS_DATA = {
-  "version": 4,
+  "version": 5,
   "notes": [
     {
       "id": 1,
@@ -14,7 +14,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c1",
           "title": "Data and its manager",
-          "concept": "A database is an organized collection of related facts. A database management system (DBMS) provides software services for defining, accessing and protecting those facts.",
+          "concept": "A database stores related information, such as customers and orders. A database management system (DBMS) is the software that lets you create, search, change and protect that information.",
           "question": "A repair shop stores jobs in tables and uses PostgreSQL to manage them. Which part is the DBMS?",
           "answer": "PostgreSQL; the job tables and their contents form the database.",
           "kind": "choice",
@@ -29,8 +29,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c2",
           "title": "Describing the data",
-          "concept": "Metadata is data about structure and meaning: column types, constraints, object names and privileges. Business records are the data described by that metadata.",
-          "question": "Which item describes the structure rather than a particular repair?",
+          "concept": "Metadata describes your data. For example, it says that a price column stores numbers and that a customer ID must be unique. The actual prices and customers are the data.",
+          "question": "Which choice is a rule about how repair data is stored, rather than information about one repair?",
           "answer": "The rule that completedOn has the DATE type.",
           "kind": "choice",
           "choices": [
@@ -44,8 +44,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c3",
           "title": "Independent files",
-          "concept": "When separate applications keep separate copies of the same fact, updates can disagree. Shared management can reduce this problem, but business rules still need implementation.",
-          "question": "Billing and scheduling contain different addresses for the same customer. What is the immediate design concern?",
+          "concept": "Imagine two spreadsheets with the same customer's address. If you update only one, they disagree. A shared database can reduce this problem by keeping one agreed place for that fact.",
+          "question": "Billing and scheduling contain different addresses for the same customer. What problem does this show?",
           "answer": "Uncontrolled duplication has allowed inconsistent copies.",
           "kind": "choice",
           "choices": [
@@ -59,7 +59,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c4",
           "title": "Five components",
-          "concept": "A DBMS environment includes hardware, software, data, procedures and people. Procedures here means operating instructions, not only stored SQL routines.",
+          "concept": "A database system needs five things: computers, software, data, instructions and people. Here, procedures means instructions for using and maintaining the system, such as how to restore a backup.",
           "question": "A written restoration checklist belongs to which component?",
           "answer": "Procedures: instructions for operating the system.",
           "kind": "choice",
@@ -74,8 +74,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c5",
           "title": "Changing the storage",
-          "concept": "Physical data independence aims to shield applications from changes in storage structures. It does not mean every possible schema change is harmless.",
-          "question": "Adding an index without changing a billing screen illustrates which goal?",
+          "concept": "You should be able to change how data is stored without rewriting every application. This is called physical data independence. Adding an index can change storage while leaving the application's queries unchanged.",
+          "question": "Adding an index without changing a billing screen shows which goal?",
           "answer": "Physical data independence.",
           "kind": "choice",
           "choices": [
@@ -89,8 +89,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c6",
           "title": "Controlled access",
-          "concept": "Authorization decides which operations a user may perform. Integrity rules decide which states and values are valid. These solve different problems.",
-          "question": "Reception may view fees but may not change them. Which mechanism addresses that requirement?",
+          "concept": "Access rules decide who may do what. Data rules decide what values are allowed. For example, a receptionist may read prices, while a separate rule rejects negative prices.",
+          "question": "Reception may view fees but may not change them. Which feature addresses that requirement?",
           "answer": "Authorization privileges.",
           "kind": "choice",
           "choices": [
@@ -104,7 +104,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c7",
           "title": "Reading selected facts",
-          "concept": "Structured Query Language (SQL) expresses requests for relational data. SELECT chooses output columns; WHERE states a row condition.",
+          "concept": "SQL means Structured Query Language. You use it to ask a database for information. SELECT chooses the columns to show. WHERE chooses which rows to include.",
           "question": "Using Repair(repairId, status, fee), write SQL returning repairId and fee for repairs with status Closed.",
           "answer": "SELECT repairId, fee\nFROM Repair\nWHERE status = 'Closed';",
           "kind": "sql",
@@ -118,21 +118,21 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c8",
           "title": "Structure versus contents",
-          "concept": "Data Definition Language (DDL) defines database objects; Data Manipulation Language (DML) reads or changes their contents. SQL includes both categories.",
-          "question": "Write a table named Tag with an integer identifier and a required label of up to 40 characters. Identify the statement category.",
+          "concept": "DDL means Data Definition Language: it creates or changes tables and other database objects. DML means Data Manipulation Language: it reads or changes the rows inside those objects.",
+          "question": "Write a table named Tag with an integer identifier and a required label of up to 40 characters. Find the statement category.",
           "answer": "CREATE TABLE Tag (\n tagId INTEGER PRIMARY KEY,\n label VARCHAR(40) NOT NULL\n);\n-- CREATE TABLE is DDL (Data Definition Language).",
           "kind": "sql",
           "choices": [],
           "checks": [
             "Define Tag with an integer primary key.",
             "Use VARCHAR(40) and NOT NULL for label.",
-            "Identify CREATE TABLE as Data Definition Language."
+            "Find CREATE TABLE as Data Definition Language."
           ]
         },
         {
           "id": "v2n1c9",
           "title": "Shared responsibility",
-          "concept": "A data administrator (DA) focuses on data policies and organizational meaning. A database administrator (DBA) focuses on technical operation. Roles may overlap in small organizations.",
+          "concept": "The data administrator decides policies, such as who owns data and what names mean. The database administrator keeps the system running, secure and backed up. One person may do both jobs.",
           "question": "A charity is moving from spreadsheets to a shared system. Explain two policy decisions and two technical operating tasks it must assign.",
           "answer": "Policy decisions include defining the authoritative donor identifier and retention/access rules. Technical tasks include configuring privileges and testing backup restoration. Assign owners to both: shared software does not decide the meaning of data or verify recoverability on its own.",
           "kind": "essay",
@@ -146,7 +146,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n1c10",
           "title": "Benefits have costs",
-          "concept": "Central management can improve sharing and consistency while introducing cost, complexity and a larger impact when the shared service is unavailable.",
+          "concept": "A shared database makes it easier for people to use the same information. But it costs money and needs maintenance. If it stops working, several applications may be affected at once.",
           "question": "Compare a shared DBMS with independent files for a three-branch repair business. Give benefits, costs and one failure-preparation measure.",
           "answer": "A shared DBMS lets branches use one customer identity and consistent repair history, and supports controlled concurrent updates. It requires administration, training and infrastructure. An outage can affect every branch. Maintain tested backups and a restoration plan; availability design should reflect how much downtime the business can tolerate.",
           "kind": "essay",
@@ -154,15 +154,15 @@ window.DBMS_DATA = {
           "checks": [
             "Explain sharing and consistency benefits.",
             "Name at least two costs or operational tradeoffs.",
-            "Propose a concrete recovery or availability measure."
+            "Suggest a concrete recovery or availability measure."
           ]
         },
         {
           "id": "v4n1c11",
           "title": "Logical independence",
-          "concept": "Logical data independence separates application views from changes to the logical schema. It is harder to preserve than independence from storage details.",
+          "concept": "An application should ideally keep working when you reorganize its tables. A view can sometimes show the old table layout while the real tables change. This is called logical data independence.",
           "question": "A customer table is split into Customer and CustomerAddress. How could an older read-only application keep its old interface?",
-          "answer": "Expose a view that joins the new relations into the old column layout, preserving the original meaning and row cardinality.",
+          "answer": "Expose a view that joins the new relations into the old column layout, preserving the original meaning and number of rows.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -170,7 +170,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n1c12",
           "title": "Schema versus current contents",
-          "concept": "A schema defines structure and constraints. A database instance is the data present at a particular moment.",
+          "concept": "The schema is the database's blueprint: its tables, columns and rules. The instance is the information stored right now. Adding a customer changes the instance; adding a column changes the schema.",
           "question": "Adding a new delivery row and adding a new delivery column change which things?",
           "answer": "Adding a row changes the database instance. Adding a column changes the schema.",
           "kind": "concept",
@@ -192,7 +192,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n2c1",
           "title": "Entity versus occurrence",
-          "concept": "An entity type describes a class of things; an occurrence is one identifiable member. An Entity–Relationship (ER) model captures entity types, properties and associations.",
+          "concept": "An entity type is a kind of thing, such as Customer. An occurrence is one particular customer. An Entity–Relationship (ER) model shows these things, their properties and how they connect.",
           "question": "In a tool-rental model, how should Tool and the drill with asset number D72 be distinguished?",
           "answer": "Tool is an entity type; D72 identifies one occurrence.",
           "kind": "choice",
@@ -207,7 +207,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n2c2",
           "title": "Read multiplicities carefully",
-          "concept": "A minimum of zero permits no participation. A maximum of one prohibits several related occurrences. Minimum and maximum answer different questions.",
+          "concept": "For each relationship, ask two questions: must there be a match, and how many matches are allowed? Zero means optional. One means at most one when it is the maximum.",
           "question": "Each locker may be assigned to zero or one member; each member may use zero or one locker. Which description fits?",
           "answer": "An optional one-to-one association on both sides.",
           "kind": "choice",
@@ -222,7 +222,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n2c3",
           "title": "Attributes of associations",
-          "concept": "A fact may depend on a particular association rather than either participant alone. A quoted rental rate can belong to a specific rental event.",
+          "concept": "Some facts describe a connection between two things. For example, the price agreed for one rental belongs to that rental, not just to the customer or the item.",
           "question": "The same tool is rented at different agreed rates on different dates. Where does the agreed rate belong?",
           "answer": "On the rental event.",
           "kind": "choice",
@@ -237,7 +237,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n2c4",
           "title": "Composite versus multivalued",
-          "concept": "A composite attribute has components, such as street and city. A multivalued attribute can have several values for one occurrence, such as contact numbers.",
+          "concept": "A composite property has parts: an address has a street and city. A multivalued property has several values: one person may have three phone numbers. These are different ideas.",
           "question": "A supplier has an address with street and city and three phone numbers. Which classification is correct?",
           "answer": "Address is composite; phone number is multivalued.",
           "kind": "choice",
@@ -252,8 +252,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n2c5",
           "title": "False associations",
-          "concept": "A fan trap is an ambiguous path through branching relationships. Sharing a department does not establish a specific association between every pair of its resources.",
-          "question": "A depot employs technicians and owns vehicles. Can those two links identify which technician inspected a vehicle?",
+          "concept": "Suppose a branch has several workers and several projects. That does not mean every worker works on every project. Assuming those links exist is a modeling mistake called a fan trap.",
+          "question": "A depot employs technicians and owns vehicles. Can those two links find which technician inspected a vehicle?",
           "answer": "No; an inspection association or event is required.",
           "kind": "choice",
           "choices": [
@@ -267,7 +267,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n2c6",
           "title": "Broken paths",
-          "concept": "A chasm trap occurs when optional participation breaks a path needed to recover a fact. Adding the actual missing association can repair the model.",
+          "concept": "Suppose a parcel belongs to a branch but has no courier yet. If your model can reach its branch only through a courier, that link is missing. This is called a chasm trap.",
           "question": "A room belongs to a building but may have no caretaker. A model links Building → Caretaker → Room only. What fact can become unreachable?",
           "answer": "The building of an unassigned room.",
           "kind": "choice",
@@ -275,14 +275,14 @@ window.DBMS_DATA = {
             "The building of an unassigned room.",
             "The name of every assigned caretaker.",
             "The type of the building identifier.",
-            "The number of attributes in Room."
+            "The number of columns in Room."
           ],
           "checks": []
         },
         {
           "id": "v2n2c7",
           "title": "Recursive roles",
-          "concept": "A recursive relationship uses one entity type in multiple roles. Distinct aliases give those roles names in SQL.",
+          "concept": "A relationship can connect two rows from the same table. For example, one worker mentors another worker. Give each side a clear role, such as mentor and learner.",
           "question": "Using Worker(workerId, name, mentorId), list each worker name and mentor name, including workers with no mentor.",
           "answer": "SELECT w.name AS workerName, m.name AS mentorName\nFROM Worker w\nLEFT JOIN Worker m ON m.workerId = w.mentorId;",
           "kind": "sql",
@@ -296,7 +296,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n2c8",
           "title": "Optional unique links",
-          "concept": "A foreign key (FK) checks that a referenced row exists. A UNIQUE constraint can enforce a maximum of one relationship occurrence; optional participation allows NULL.",
+          "concept": "A foreign key checks that a linked row exists. UNIQUE stops the same value from appearing twice. NULL can mean there is no link yet, if the relationship is optional.",
           "question": "Assume Member(memberId) exists. Create Locker(lockerId, memberId) so a locker may be unassigned and no member is assigned two lockers. Use PostgreSQL.",
           "answer": "CREATE TABLE Locker (\n lockerId INTEGER PRIMARY KEY,\n memberId INTEGER UNIQUE REFERENCES Member(memberId)\n);",
           "kind": "sql",
@@ -304,14 +304,14 @@ window.DBMS_DATA = {
           "checks": [
             "Define a primary key for Locker.",
             "Reference Member from memberId.",
-            "Allow NULL while enforcing UNIQUE non-NULL assignments."
+            "Allow NULL while enforcing UNIQUE known (not NULL) assignments."
           ]
         },
         {
           "id": "v2n2c9",
           "title": "Weak identification",
-          "concept": "A weak entity needs an owner to establish its identity. Being on the many side of a relationship alone does not make an entity weak.",
-          "question": "Compare Parcel identified globally by trackingCode with Seat numbered only within an auditorium. Explain identification and propose keys.",
+          "concept": "A weak entity needs its owner's ID to be identified. Seat 12 is not unique across all theaters, but theater ID plus seat number is. Being on the many side alone does not make an entity weak.",
+          "question": "Compare Parcel identified globally by trackingCode with Seat numbered only within an auditorium. Explain identification and suggest keys.",
           "answer": "Parcel can use trackingCode independently. Seat requires the auditorium identifier together with seatNumber because number 12 can occur in several auditoriums. Use Seat(auditoriumId, seatNumber) as a composite primary key and auditoriumId as a foreign key. A large number of parcels per customer does not make Parcel weak.",
           "kind": "essay",
           "choices": [],
@@ -324,13 +324,13 @@ window.DBMS_DATA = {
         {
           "id": "v2n2c10",
           "title": "Subtype constraints",
-          "concept": "Specialization separates a general type into subtypes. Total/partial describes coverage; disjoint/overlapping describes whether membership can overlap.",
+          "concept": "A subtype is a special kind of a general thing, such as Instructor within Staff. Ask whether everyone must have a subtype, and whether someone may belong to more than one subtype.",
           "question": "An employee can be a driver, a trainer, both, or neither. Describe the specialization constraints and how they change if every employee must have at least one role.",
           "answer": "The initial specialization is partial because some employees have neither role, and overlapping because one employee may have both. Requiring at least one role makes it total while it remains overlapping. Coverage and overlap are independent restrictions.",
           "kind": "essay",
           "choices": [],
           "checks": [
-            "Identify partial and overlapping initially.",
+            "Find partial and overlapping at first.",
             "Change coverage to total under the new rule.",
             "Keep overlap separate from coverage."
           ]
@@ -338,7 +338,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n2c11",
           "title": "Participation and cardinality",
-          "concept": "Minimum participation says whether a relationship is required; maximum cardinality limits how many related occurrences are permitted.",
+          "concept": "A relationship's minimum tells you how many matches are required. Its maximum tells you how many are allowed. For example, each team may need at least two players but allow no more than ten.",
           "question": "Each collection must have 2–5 items, and each item belongs to exactly one collection. State the multiplicities in both directions.",
           "answer": "Per collection: 2..5 items. Per item: exactly 1 collection.",
           "kind": "concept",
@@ -348,7 +348,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n2c12",
           "title": "Facts belonging to a relationship",
-          "concept": "An attribute belongs on an association when its value depends on the combination of participants, rather than either participant alone.",
+          "concept": "Put a fact where it belongs. Hours volunteered depend on both the person and the event. They belong in the record linking that person to that event.",
           "question": "Where should hours volunteered by a person at a particular event be stored?",
           "answer": "In Participation(personId, eventId, hours), with (personId,eventId) as the key if there is one recorded total per person-event pair.",
           "kind": "concept",
@@ -358,8 +358,8 @@ window.DBMS_DATA = {
         {
           "id": "v4n2c13",
           "title": "Derived attributes",
-          "concept": "A derived attribute is calculated from other facts. Persisting it can create extra update responsibilities when those facts or time change.",
-          "question": "Why usually derive a person’s current age from dateOfBirth instead of storing age as the authoritative fact?",
+          "concept": "A derived value is calculated from other information. For example, age can be calculated from birth date. Storing age separately means you must keep updating it as time passes.",
+          "question": "Why usually work out a person’s current age from dateOfBirth instead of storing age as the authoritative fact?",
           "answer": "Age changes with time even without a new person record. Deriving it from dateOfBirth avoids a stored age becoming stale.",
           "kind": "concept",
           "choices": [],
@@ -368,7 +368,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n2c14",
           "title": "Identifying a weak occurrence",
-          "concept": "A partial key distinguishes a weak entity only within its owner. Combining it with the owner key creates a complete identifier.",
+          "concept": "A number may identify something only within its owner. Floor 2 is unique within one building, but not across all buildings. Combine building ID and floor number to identify the floor.",
           "question": "A building has floors numbered 1,2,3, while other buildings reuse those numbers. What identifies a floor?",
           "answer": "The pair (buildingId,floorNumber), with buildingId also referencing Building.",
           "kind": "concept",
@@ -378,7 +378,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n2c15",
           "title": "Recursive relationships need roles",
-          "concept": "A recursive relationship links occurrences of the same entity type. Distinct role names tell you which occurrence plays which part.",
+          "concept": "When one kind of thing connects to itself, name the two roles. In Person mentors Person, one person is the mentor and the other is the learner. The role names show the direction.",
           "question": "In Person mentors Person, what two role names and foreign-key mapping make the direction clear?",
           "answer": "Use mentor and mentee roles. Store mentorId in the mentee’s Person row, referencing Person.personId; allow NULL if a mentor is optional.",
           "kind": "concept",
@@ -388,7 +388,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n2c16",
           "title": "Type versus physical copy",
-          "concept": "A description of a product type and a particular physical item have different identities and lifecycles. Mixing them duplicates descriptions and obscures inventory.",
+          "concept": "A product type and a physical copy are different things. A book title describes the book; a copy ID identifies the particular copy someone borrows. Several copies can share one title.",
           "question": "A library owns four copies of one title. What separate entity types should be modeled?",
           "answer": "Title(titleId,titleName,...) and Copy(copyId,titleId,...). Each physical copy has its own identifier and references one title.",
           "kind": "concept",
@@ -398,9 +398,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n2c17",
           "title": "Repeated associations over time",
-          "concept": "A pair of entity identifiers does not uniquely identify an event when the same participants can interact more than once.",
+          "concept": "The same two people or things can be involved in several events. A customer may rent the same bicycle twice. The rental needs its own ID, or another way to distinguish those two events.",
           "question": "A member can rent the same bicycle many times. Why is (memberId,bicycleId) an insufficient Rental primary key?",
-          "answer": "It would allow only one rental for that pair. Use rentalId, or a suitably unique event key that also distinguishes rental occurrences.",
+          "answer": "It would allow only one rental for that pair. Use rentalId, or a suitably unique event key that also distinguishes rental items.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -408,7 +408,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n2c18",
           "title": "Overlapping subtypes",
-          "concept": "Subtype constraints answer two separate questions: whether every supertype occurrence has a subtype, and whether more than one subtype may apply.",
+          "concept": "Two subtype rules are separate. Partial means some people have no subtype; total means everyone has one. Overlapping means someone can belong to several subtypes; disjoint means only one.",
           "question": "A staff member may be a manager, an instructor, both or neither. Is this specialization total or partial, and disjoint or overlapping?",
           "answer": "Partial and overlapping.",
           "kind": "concept",
@@ -423,14 +423,14 @@ window.DBMS_DATA = {
       "description": "Reason about rows, identities and query operations.",
       "summary": [
         "A key follows a business rule, not just the current sample.",
-        "Relational algebra uses set semantics; SQL often preserves duplicates.",
+        "Relational algebra uses set semantics; SQL often keeps duplicates.",
         "A semijoin tests matching existence without returning the other side’s attributes."
       ],
       "cards": [
         {
           "id": "v2n3c1",
           "title": "Degree and cardinality",
-          "concept": "A relation’s degree is its number of attributes; its cardinality is its number of tuples. A tuple is a row and an attribute is a column.",
+          "concept": "A table is also called a relation. A row is a tuple, and a column is an attribute. Degree means the number of columns. Cardinality means the number of rows.",
           "question": "Shipment has 7 attributes and currently 48 tuples. After inserting 2 rows, what are degree and cardinality?",
           "answer": "Degree 7; cardinality 50.",
           "kind": "choice",
@@ -445,7 +445,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c2",
           "title": "Minimal identifiers",
-          "concept": "A superkey uniquely identifies a row. A candidate key is a superkey with no unnecessary attribute. A primary key is one candidate key selected for use.",
+          "concept": "A key identifies a row. A superkey may contain extra columns. A candidate key has no unnecessary columns. Choose one candidate key as the table's primary key.",
           "question": "Asset(assetId, serialNo, color) has independently unique assetId and serialNo. What is (assetId, color)?",
           "answer": "A superkey, but not a candidate key because color is unnecessary.",
           "kind": "choice",
@@ -460,7 +460,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c3",
           "title": "Keys are rules",
-          "concept": "A sample with distinct names does not prove names always identify people. Valid keys must hold across all allowed states of the database.",
+          "concept": "A key must work for all valid future rows, not just today's sample. Two people may eventually share the same name, so currently different names do not prove that names are a good key.",
           "question": "All six current volunteers have different names. What can you conclude about name as a candidate key?",
           "answer": "Nothing definitive without a business rule guaranteeing uniqueness and minimality.",
           "kind": "choice",
@@ -475,7 +475,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c4",
           "title": "Unknown is not a value",
-          "concept": "NULL marks missing, unknown or inapplicable information. Comparisons with NULL normally produce UNKNOWN, which WHERE does not retain.",
+          "concept": "NULL means information is missing, unknown or not applicable. It is not the same as zero or an empty string. Ordinary comparisons with NULL give UNKNOWN, which WHERE does not keep.",
           "question": "A row has returnDate NULL. What happens with WHERE returnDate = NULL?",
           "answer": "The row is not selected; use IS NULL.",
           "kind": "choice",
@@ -490,7 +490,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c5",
           "title": "Selection and projection",
-          "concept": "Selection filters tuples by a condition. Projection keeps chosen attributes and, in pure relational algebra, removes duplicate resulting tuples.",
+          "concept": "Selection chooses rows, such as workers in one branch. Projection chooses columns, such as worker names. In relational algebra, projection also removes duplicate result rows.",
           "question": "Projecting depotId from three rows containing 4, 4 and 9 gives what under relational set semantics?",
           "answer": "Two tuples: 4 and 9.",
           "kind": "choice",
@@ -505,7 +505,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c6",
           "title": "Join variants",
-          "concept": "A theta join accepts comparison predicates; an equijoin uses equality. A natural join equates same-named attributes, which can be risky when names coincide accidentally.",
+          "concept": "A join connects matching rows. An equijoin uses equals, such as matching branch IDs. A theta join can use other comparisons, such as less than. A natural join matches all shared column names.",
           "question": "Two tables share depotId and an unrelated status column. What can a natural join accidentally require?",
           "answer": "Equality of both depotId and status.",
           "kind": "choice",
@@ -520,7 +520,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c7",
           "title": "Existence without duplication",
-          "concept": "A semijoin returns the chosen side’s rows that have a match. SQL EXISTS can express this without multiplying a row by its number of matches.",
+          "concept": "Sometimes you only need to know whether a match exists. EXISTS can return each supplier once even if the supplier has many matching deliveries. This matches the idea of a semijoin.",
           "question": "Using Supplier(supplierId, name) and Delivery(deliveryId, supplierId, damaged), return each supplier with at least one damaged delivery. damaged is 1 for damaged and 0 otherwise.",
           "answer": "SELECT s.supplierId, s.name\nFROM Supplier s\nWHERE EXISTS (\n SELECT 1 FROM Delivery d\n WHERE d.supplierId = s.supplierId AND d.damaged = 1\n);",
           "kind": "sql",
@@ -534,7 +534,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c8",
           "title": "Set difference",
-          "concept": "Set difference returns tuples in the first relation but not the second. NOT EXISTS is useful for expressing absence, including when the other table contains NULL values.",
+          "concept": "Sometimes you want things with no match, such as tools that were never rented. NOT EXISTS asks whether there is no matching row. It avoids the NULL surprise that can occur with NOT IN.",
           "question": "Using Asset(assetId, name) and Reservation(reservationId, assetId), write SQL listing assets that have never been reserved.",
           "answer": "SELECT a.assetId, a.name\nFROM Asset a\nWHERE NOT EXISTS (\n SELECT 1 FROM Reservation r WHERE r.assetId = a.assetId\n);",
           "kind": "sql",
@@ -548,7 +548,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c9",
           "title": "Union compatibility",
-          "concept": "Union combines relations vertically and requires compatible corresponding attributes. A Cartesian product combines every tuple pair horizontally.",
+          "concept": "UNION stacks compatible results on top of each other. Corresponding columns need compatible types. A Cartesian product is different: it pairs every row from one table with every row from the other.",
           "question": "R contains 3 distinct one-column values and S contains 4, with exactly 2 shared values. Find the union size and Cartesian-product size, and explain why the operations differ.",
           "answer": "The union has 3 + 4 - 2 = 5 distinct one-column tuples. The Cartesian product has 3 × 4 = 12 two-column tuples. Union combines compatible sets of values; the product constructs pairs and therefore has a different schema.",
           "kind": "essay",
@@ -562,7 +562,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n3c10",
           "title": "Algebra in plain language",
-          "concept": "Relational algebra composes operations: filter a relation, combine related rows, then project the required attributes.",
+          "concept": "Relational algebra is a small set of table operations. You can combine them: first choose rows, then join tables, then keep the columns you want. Each step produces another table-like result.",
           "question": "Carrier(carrierId, name), Route(carrierId, townId, fare), Town(townId, name, distance). Describe algebra steps returning carrier names serving towns within 35 miles for a fare below 12.",
           "answer": "Select Town rows with distance <= 35 and Route rows with fare < 12. Join the filtered relations on townId, then join Carrier on carrierId. Project Carrier.name. Under set semantics, repeated carrier names collapse; include carrierId if distinct carriers with equal names must stay distinguishable.",
           "kind": "essay",
@@ -576,7 +576,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n3c11",
           "title": "A relation’s attribute domain",
-          "concept": "A domain is the set of permitted values for an attribute. The declared data type can be supplemented with constraints reflecting business rules.",
+          "concept": "A domain is the set of allowed values for a column. For example, a rating might allow only whole numbers from 1 to 5. A data type and a CHECK rule can express this.",
           "question": "How would you constrain a required rating to the integers 1 through 5?",
           "answer": "Declare an integer column with NOT NULL and CHECK (rating BETWEEN 1 AND 5).",
           "kind": "concept",
@@ -586,8 +586,8 @@ window.DBMS_DATA = {
         {
           "id": "v4n3c12",
           "title": "Candidate versus superkey",
-          "concept": "A superkey uniquely identifies tuples. A candidate key is a minimal superkey: removing any attribute destroys that identifying property.",
-          "question": "If serialNumber alone is unique and required, is (serialNumber,color) a candidate key?",
+          "concept": "A candidate key identifies a row without extra columns. If serialNumber alone identifies a device, adding color still identifies it, but the pair is no longer a minimal key.",
+          "question": "serialNumber alone identifies each device. If we add color to it, is (serialNumber,color) still a candidate key? Why?",
           "answer": "No. It is a superkey but is not minimal, because serialNumber alone identifies the row.",
           "kind": "concept",
           "choices": [],
@@ -596,7 +596,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n3c13",
           "title": "Cartesian product",
-          "concept": "The Cartesian product combines every tuple of one relation with every tuple of the other, before any join condition restricts the pairs.",
+          "concept": "A Cartesian product tries every possible pair of rows. If one table has 4 rows and another has 3, the result has 4 × 3 = 12 row pairs before filtering.",
           "question": "Relation A has 5 rows and B has 3 rows. How many row pairs are in A × B?",
           "answer": "15 row pairs.",
           "kind": "concept",
@@ -606,7 +606,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n3c14",
           "title": "Natural joins can surprise",
-          "concept": "A natural join uses all same-named attributes as matching columns. A newly shared column name can therefore change which rows match.",
+          "concept": "A natural join matches every column name shared by two tables. If both tables gain a status column, the join may start matching status too. An explicit ON condition avoids this surprise.",
           "question": "Two tables share id and status, but the intended link is only id. Why prefer an explicit ON condition?",
           "answer": "ON a.id=b.id expresses the intended relationship without accidentally also requiring a.status=b.status.",
           "kind": "concept",
@@ -616,7 +616,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n3c15",
           "title": "Set projection versus SQL bags",
-          "concept": "Classical relational algebra removes duplicate tuples. SQL SELECT normally retains duplicate result rows unless DISTINCT or another duplicate-removing operation is used.",
+          "concept": "In relational algebra, results are sets, so duplicate rows disappear. SQL normally keeps duplicates. Add DISTINCT when you want SQL to return each result row only once.",
           "question": "A column contains X,X,Y. Compare algebraic projection, SELECT column, and SELECT DISTINCT column.",
           "answer": "Algebraic projection returns X,Y. SELECT returns X,X,Y. SELECT DISTINCT returns X,Y.",
           "kind": "concept",
@@ -626,7 +626,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n3c16",
           "title": "Relational division",
-          "concept": "An “all required items” query can be expressed as the absence of a missing requirement. This handles a variable number of requirements.",
+          "concept": "To find people who have every required skill, look for people with no missing required skill. This is the idea behind relational division. If no skills are required, everyone meets the requirement.",
           "question": "If no skills are required, which candidates satisfy “has every required skill”?",
           "answer": "Every candidate: there is no required skill that any candidate is missing.",
           "kind": "concept",
@@ -648,7 +648,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c1",
           "title": "Aggregate inputs",
-          "concept": "COUNT(*) counts rows, COUNT(x) counts non-NULL x values, and AVG(x) uses only non-NULL values. SQL means Structured Query Language.",
+          "concept": "COUNT(*) counts all rows. COUNT(price) counts only rows with a known price. SUM and AVG also ignore NULL values. For prices 10,20,NULL, the average is 15, not 10.",
           "question": "Measurements are 6, NULL, 12 and 12. What are COUNT(*), COUNT(value) and AVG(value)?",
           "answer": "4, 3 and 10.",
           "kind": "choice",
@@ -663,7 +663,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c2",
           "title": "Group filters",
-          "concept": "WHERE removes individual rows before grouping. HAVING removes groups after aggregate values have been calculated.",
+          "concept": "WHERE filters individual rows before totals are calculated. GROUP BY makes groups. HAVING filters those groups after the totals are calculated. Use each one at the right stage.",
           "question": "A report totals completed repairs per technician, keeping totals above 900. Where do the two filters belong?",
           "answer": "status = Closed in WHERE; SUM(fee) > 900 in HAVING.",
           "kind": "choice",
@@ -678,7 +678,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c3",
           "title": "More than one subquery result",
-          "concept": "A scalar subquery supplies one value. If a condition can match several rows, use a suitable set comparison such as IN or a correlated EXISTS.",
+          "concept": "A scalar subquery must return at most one value. If several values are valid, use IN to accept any value in that list, or use EXISTS to check for a match.",
           "question": "WHERE depotId = (SELECT depotId FROM Depot WHERE city = Lyon) fails when two depots match. Which change expresses membership?",
           "answer": "Use IN instead of = for that subquery.",
           "kind": "choice",
@@ -693,12 +693,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c4",
           "title": "Outer-join counting",
-          "concept": "A left outer join preserves a left row even when there is no right match. The right-side columns are NULL in the preserved placeholder row.",
+          "concept": "A LEFT JOIN keeps every row from the left table. When nothing matches on the right, the right-side columns become NULL. This lets you show customers who have no orders.",
           "question": "After an unmatched depot is preserved by LEFT JOIN Staff, which count reports zero staff?",
-          "answer": "COUNT(Staff.staffId), assuming staffId is non-NULL for real staff.",
+          "answer": "COUNT(Staff.staffId), assuming staffId is known (not NULL) for real staff.",
           "kind": "choice",
           "choices": [
-            "COUNT(Staff.staffId), assuming staffId is non-NULL for real staff.",
+            "COUNT(Staff.staffId), assuming staffId is known (not NULL) for real staff.",
             "COUNT(*).",
             "COUNT(Depot.depotId).",
             "COUNT(1)."
@@ -708,7 +708,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c5",
           "title": "Patterns and bounds",
-          "concept": "In LIKE, % matches any-length character sequence and _ matches one character. BETWEEN includes both endpoints.",
+          "concept": "LIKE searches text patterns: % means any number of characters, and _ means one character. BETWEEN includes both ends, so BETWEEN 10 AND 20 includes 10 and 20.",
           "question": "Which expression matches codes starting AB followed by exactly two characters?",
           "answer": "code LIKE AB__ with the pattern enclosed in single quotes.",
           "kind": "choice",
@@ -723,8 +723,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c6",
           "title": "Quantified comparisons",
-          "concept": "ANY needs at least one successful comparison; ALL needs every comparison to succeed. With no rows, ALL is true and ANY is false. NULLs introduce three-valued logic.",
-          "question": "For non-NULL values 10 and 20, what does 15 > ANY mean, and what does 15 > ALL mean?",
+          "concept": "ANY means a comparison must succeed for at least one returned value. ALL means it must hold for all of them. Empty results and NULL values need special care.",
+          "question": "For known (not NULL) values 10 and 20, what does 15 > ANY mean, and what does 15 > ALL mean?",
           "answer": "ANY is true; ALL is false.",
           "kind": "choice",
           "choices": [
@@ -738,21 +738,21 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c7",
           "title": "A zero-inclusive report",
-          "concept": "To retain entities with no activity, start from the complete entity table and left-join its activity. COALESCE supplies a replacement when SUM returns NULL.",
+          "concept": "To show workers with no work yet, start with all workers and LEFT JOIN their work records. SUM may then be NULL. COALESCE(total,0) replaces that missing total with zero.",
           "question": "Technician(techId, name, depotId), WorkLog(techId, jobId, hours). Write total hours per technician, including zero hours. Sort by depotId, then name.",
           "answer": "SELECT t.depotId, t.techId, t.name,\n COALESCE(SUM(w.hours), 0) AS totalHours\nFROM Technician t\nLEFT JOIN WorkLog w ON w.techId = t.techId\nGROUP BY t.depotId, t.techId, t.name\nORDER BY t.depotId, t.name;",
           "kind": "sql",
           "choices": [],
           "checks": [
             "Use Technician as the preserved left side.",
-            "Group by technician identity and selected descriptive columns.",
+            "Group by technician identity and other columns shown in SELECT.",
             "Use COALESCE on SUM and the requested sort order."
           ]
         },
         {
           "id": "v2n4c8",
           "title": "Count people, not activity rows",
-          "concept": "Several work records may belong to one person. COUNT(DISTINCT personId) counts distinct participants rather than all activity.",
+          "concept": "One person can have several work records. COUNT(*) counts those records. COUNT(DISTINCT personId) counts each different person once, which is useful when you want a headcount.",
           "question": "Job(jobId, title), WorkLog(techId, jobId, hours). A technician may have multiple logs for one job. Return jobs with at least four different technicians and show their participant count.",
           "answer": "SELECT j.jobId, j.title, COUNT(DISTINCT w.techId) AS technicians\nFROM Job j JOIN WorkLog w ON w.jobId = j.jobId\nGROUP BY j.jobId, j.title\nHAVING COUNT(DISTINCT w.techId) >= 4;",
           "kind": "sql",
@@ -766,9 +766,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c9",
           "title": "Explain the result",
-          "concept": "Query reasoning requires tracing the data through joins before aggregating. A join can duplicate parent facts when several children match.",
+          "concept": "A join can repeat a row once for each match. Before counting or adding numbers, check what one joined row represents. Otherwise a total may count the same fact several times.",
           "question": "Depot 1 has two technicians and Depot 2 has none. Compare counts from Depot LEFT JOIN Technician grouped by depot: COUNT(*), COUNT(techId), and SUM(1). Explain all values.",
-          "answer": "For Depot 1, all three expressions return 2. For Depot 2, COUNT(*) and SUM(1) return 1 because the outer join creates one placeholder row. COUNT(techId) returns 0 because the right-side identifier is NULL. Choose a non-NULL child key to count actual matches.",
+          "answer": "For Depot 1, all three expressions return 2. For Depot 2, COUNT(*) and SUM(1) return 1 because the outer join creates one placeholder row. COUNT(techId) returns 0 because the right-side identifier is NULL. Choose a known (not NULL) child key to count actual matches.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -780,21 +780,21 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c10",
           "title": "Safer data changes",
-          "concept": "An UPDATE changes every qualifying row. A SELECT using the same predicate helps inspect the target set, but concurrent changes may still require transaction controls.",
-          "question": "A technician writes UPDATE Product SET price = price * 1.08 to adjust only category Tools. Diagnose the mistake and outline a safer change-and-check workflow.",
+          "concept": "UPDATE changes every row that meets its WHERE condition. Without WHERE, it can change the whole table. Preview the condition and use a transaction when related changes must stay together.",
+          "question": "A technician writes UPDATE Product SET price = price * 1.08 to adjust only category Tools. Explain the mistake and describe the steps for a safer change-and-check workflow.",
           "answer": "The missing WHERE updates every product. Use WHERE category = Tools with Tools quoted as a string. Inspect matching identifiers and prices, perform the change inside an appropriate transaction, validate affected rows and totals, then commit or roll back. A repeated run applies the increase again, so guard against accidental reruns.",
           "kind": "essay",
           "choices": [],
           "checks": [
-            "Identify the missing category predicate.",
-            "Propose preview, transaction and affected-row verification.",
+            "Find the missing category condition.",
+            "Suggest preview, transaction and affected-row verification.",
             "Explain that repeated percentage updates compound."
           ]
         },
         {
           "id": "v2n4c11",
           "title": "Dates and half-open ranges",
-          "concept": "A half-open interval includes its start and excludes its end. It works with dates and timestamps without guessing the last instant of a month.",
+          "concept": "For a date range, include the start and exclude the start of the next period. This includes every time on the final day without guessing its last second.",
           "question": "Booking(bookingId, startsAt). Write a filter for all bookings beginning in March 2027, including any time on March 31. Use standard SQL date literals.",
           "answer": "SELECT bookingId, startsAt\nFROM Booking\nWHERE startsAt >= DATE '2027-03-01'\n AND startsAt < DATE '2027-04-01';",
           "kind": "sql",
@@ -808,7 +808,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n4c12",
           "title": "Above a group average",
-          "concept": "A correlated subquery can compute a reference value for each outer row’s group. Correlation must use the intended grouping attribute.",
+          "concept": "A correlated subquery uses a value from the row being checked. For example, it can compare each worker's pay with the average pay in that worker's own branch.",
           "question": "Technician(techId, name, depotId, salary). Return technicians paid above the average salary in their own depot. depotId is required.",
           "answer": "SELECT t.techId, t.name\nFROM Technician t\nWHERE t.salary > (\n SELECT AVG(t2.salary) FROM Technician t2\n WHERE t2.depotId = t.depotId\n);",
           "kind": "sql",
@@ -822,7 +822,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n4c13",
           "title": "SQL evaluation order",
-          "concept": "Conceptually, FROM/JOIN establishes rows, WHERE filters them, GROUP BY forms groups, HAVING filters groups, SELECT produces expressions and ORDER BY sorts the result.",
+          "concept": "A useful reading order is: find and join rows, filter rows, group them, filter groups, choose output columns, then sort. This explains why a group-total condition belongs in HAVING.",
           "question": "Can a group total condition replace a row-level completed=1 condition when totaling completed work?",
           "answer": "No. Filter completed rows with WHERE before grouping; use HAVING only for conditions on the resulting groups.",
           "kind": "concept",
@@ -832,7 +832,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n4c14",
           "title": "Empty aggregates",
-          "concept": "Without GROUP BY, aggregation over empty input still produces a result row. COUNT returns zero; SUM and AVG normally return NULL. With GROUP BY, empty input produces no groups.",
+          "concept": "If an ungrouped query finds no rows, COUNT returns 0 and SUM usually returns NULL. With GROUP BY, no input rows means no groups, so there are no result rows.",
           "question": "What does SELECT COUNT(*), SUM(fee) FROM Repair WHERE 1=0 return?",
           "answer": "One row containing 0 and NULL.",
           "kind": "concept",
@@ -842,7 +842,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n4c15",
           "title": "NULL and NOT IN",
-          "concept": "SQL comparisons with NULL normally produce UNKNOWN. WHERE retains only TRUE, so an unexpected NULL inside NOT IN can remove rows you expected to retain.",
+          "concept": "NOT IN can be surprising when its list contains NULL. The database cannot know whether a value differs from an unknown value. The result can be UNKNOWN instead of TRUE.",
           "question": "Does 7 NOT IN (3,NULL) evaluate to TRUE?",
           "answer": "No. It evaluates to UNKNOWN, so it does not pass a WHERE filter.",
           "kind": "concept",
@@ -852,7 +852,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n4c16",
           "title": "Safe multirow membership",
-          "concept": "A scalar subquery represents one value. Membership queries should use IN or an appropriate EXISTS expression when multiple matches are valid.",
+          "concept": "If several branch IDs are valid, compare a worker's branchId with IN, not with a single-value equals test. IN asks whether the value appears anywhere in the returned list.",
           "question": "Write a condition selecting staff from any branch located in Oslo, using Staff.branchId and Branch(branchId,city).",
           "answer": "WHERE branchId IN (SELECT branchId FROM Branch WHERE city='Oslo')",
           "kind": "sql",
@@ -862,7 +862,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n4c17",
           "title": "Sorting ties deliberately",
-          "concept": "ORDER BY can use multiple attributes to make ordering within tied groups explicit. Without a specified order, SQL does not guarantee presentation order.",
+          "concept": "ORDER BY controls the result's order. Add a second column to sort ties in the first, and a third if needed. Without ORDER BY, do not rely on rows appearing in a particular order.",
           "question": "Write the ordering clause for workers by surname, then given name, then workerId to break remaining ties.",
           "answer": "ORDER BY lastName, firstName, workerId;",
           "kind": "sql",
@@ -872,8 +872,8 @@ window.DBMS_DATA = {
         {
           "id": "v4n4c18",
           "title": "Date windows",
-          "concept": "A half-open interval includes the first boundary and excludes the next period’s first boundary. It handles timestamp values throughout the final day.",
-          "question": "Write a standard SQL predicate for timestamps in December 2027.",
+          "concept": "A timestamp includes a date and time. To include a whole month, use at least its first day and less than the next month's first day. A last-day midnight cutoff would miss most of that day.",
+          "question": "Write a standard SQL condition for timestamps in December 2027.",
           "answer": "WHERE happenedAt >= DATE '2027-12-01'\n  AND happenedAt < DATE '2028-01-01'",
           "kind": "sql",
           "choices": [],
@@ -882,7 +882,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n4c19",
           "title": "Quantifiers and empty sets",
-          "concept": "ANY requires at least one successful comparison; ALL requires no comparison to fail. With an empty subquery, ANY is false and ALL is true.",
+          "concept": "ANY needs a matching value. With no values, it is false. ALL looks for no failed comparison; with no values to compare, it is true. These empty-set rules can affect a query's result.",
           "question": "For an empty subquery, what do x > ANY(subquery) and x > ALL(subquery) evaluate to?",
           "answer": "x > ANY(empty set) is FALSE. x > ALL(empty set) is TRUE.",
           "kind": "concept",
@@ -892,7 +892,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n4c20",
           "title": "Delete only intended rows",
-          "concept": "DELETE removes rows, not the table definition. Its WHERE clause determines which rows are removed; without WHERE, all rows are candidates.",
+          "concept": "DELETE removes rows while leaving the table itself. WHERE chooses the rows to remove. Without WHERE, DELETE targets every row, so check the condition carefully.",
           "question": "Write SQL deleting only cancelled reservations from Reservation(reservationId,status).",
           "answer": "DELETE FROM Reservation WHERE status='Cancelled';",
           "kind": "sql",
@@ -906,7 +906,7 @@ window.DBMS_DATA = {
       "title": "Define tables, constraints and views",
       "description": "Make invalid states harder to store.",
       "summary": [
-        "Each constraint enforces a different rule.",
+        "Each constraint checks a different rule.",
         "Use composite references for identities scoped within a parent.",
         "Views expose a useful interface; ordinary views do not store a second result copy."
       ],
@@ -914,7 +914,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n5c1",
           "title": "Required and valid",
-          "concept": "NOT NULL rejects missing values. CHECK rejects FALSE; a condition evaluating to UNKNOWN can still pass. Combine the two when both rules matter.",
+          "concept": "NOT NULL means a value is required. CHECK tests whether a value follows a rule, such as price being positive. CHECK alone does not usually reject NULL, so you may need both rules.",
           "question": "Does CHECK (quantity > 0) alone reject quantity NULL?",
           "answer": "No; also use NOT NULL when quantity must be present.",
           "kind": "choice",
@@ -929,7 +929,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n5c2",
           "title": "Identity within a parent",
-          "concept": "A composite primary key combines attributes to distinguish an occurrence. A foreign key referring to it must match the entire referenced identity.",
+          "concept": "Sometimes one column is not enough to identify a row. Room number 5 can exist in several buildings. Building ID plus room number forms a composite key: a key made of several columns.",
           "question": "Shelf numbers repeat in different stores. Which reference identifies shelf 4 in store 9 without ambiguity?",
           "answer": "The pair (storeId, shelfNo).",
           "kind": "choice",
@@ -944,7 +944,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n5c3",
           "title": "Changing objects versus rows",
-          "concept": "DDL means Data Definition Language; DML means Data Manipulation Language. ALTER changes a definition; UPDATE changes row values.",
+          "concept": "ALTER changes the table's design, such as adding a column. UPDATE changes values in existing rows. Changing the container and changing its contents are different operations.",
           "question": "A database needs a new inspectedOn column, while one existing inspection date needs correction. Which statement pair fits?",
           "answer": "ALTER TABLE to add the column; UPDATE to correct the row.",
           "kind": "choice",
@@ -959,7 +959,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n5c4",
           "title": "Referential actions",
-          "concept": "A foreign key’s delete action determines what happens to dependent rows when a parent is removed. Cascading is a business choice, not a universal default.",
+          "concept": "When you delete a parent row, its foreign-key rules decide what happens to linked rows. The system might reject the deletion, delete the linked rows too, or clear an optional link.",
           "question": "Repair records must remain when a technician leaves. Which design is better than deleting the technician with cascading repair deletion?",
           "answer": "Retain the technician identity and mark it inactive.",
           "kind": "choice",
@@ -974,7 +974,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n5c5",
           "title": "A virtual interface",
-          "concept": "An ordinary view stores a query definition. A materialized view stores a result that needs refresh or maintenance.",
+          "concept": "A normal view is a saved query that you can use much like a table. A materialized view also stores the query's result, so that stored result needs to be kept up to date.",
           "question": "A user changes a base-table price. Which statement best describes an ordinary view of that column?",
           "answer": "Later queries through the view use the underlying data, subject to transaction visibility.",
           "kind": "choice",
@@ -989,7 +989,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n5c6",
           "title": "Updates through a filtered view",
-          "concept": "WITH CHECK OPTION prevents changes through a qualifying view from moving a row outside the view’s condition. It does not constrain every possible direct base-table update.",
+          "concept": "A filtered view shows only some rows. WITH CHECK OPTION can stop changes made through that view from producing a row that no longer matches its filter. Direct table changes are a separate matter.",
           "question": "A view exposes only active assets and uses WITH CHECK OPTION. What happens when an update through it sets an exposed asset inactive?",
           "answer": "The update is rejected because the resulting row fails the view condition.",
           "kind": "choice",
@@ -1004,7 +1004,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n5c7",
           "title": "Composite constraints",
-          "concept": "PRIMARY KEY identifies rows; FOREIGN KEY preserves valid references. Required components need NOT NULL where not implied by the key.",
+          "concept": "A primary key identifies a row. A foreign key links it to an existing row in another table. A composite key uses more than one column, and every part of the link must match.",
           "question": "Store(storeId) exists. Create Shelf(storeId, shelfNo, capacity), identified by store and shelf number, with a required positive capacity.",
           "answer": "CREATE TABLE Shelf (\n storeId INTEGER NOT NULL REFERENCES Store(storeId),\n shelfNo INTEGER NOT NULL,\n capacity INTEGER NOT NULL CHECK (capacity > 0),\n PRIMARY KEY (storeId, shelfNo)\n);",
           "kind": "sql",
@@ -1012,13 +1012,13 @@ window.DBMS_DATA = {
           "checks": [
             "Define the composite primary key.",
             "Reference Store from storeId.",
-            "Require a positive, non-NULL capacity."
+            "Require a positive, known (not NULL) capacity."
           ]
         },
         {
           "id": "v2n5c8",
           "title": "Views that preserve empty groups",
-          "concept": "A view can encapsulate a report. Filter qualifying child rows in ON when unmatched parents must remain in the result.",
+          "concept": "You can save a useful report as a view. If you want to keep branches with no matching workers, use LEFT JOIN and put the worker filter in the join's ON condition.",
           "question": "Depot(depotId, name), Technician(techId, depotId, role). Create a view counting technicians with role Inspector per depot, including depots with zero inspectors.",
           "answer": "CREATE VIEW InspectorCounts AS\nSELECT d.depotId, d.name, COUNT(t.techId) AS inspectorCount\nFROM Depot d LEFT JOIN Technician t\n ON t.depotId = d.depotId AND t.role = 'Inspector'\nGROUP BY d.depotId, d.name;",
           "kind": "sql",
@@ -1026,27 +1026,27 @@ window.DBMS_DATA = {
           "checks": [
             "Create a named view with a SELECT definition.",
             "Preserve depots and put the role condition in ON.",
-            "Count a non-NULL technician key and group by depot."
+            "Count a known (not NULL) technician key and group by depot."
           ]
         },
         {
           "id": "v2n5c9",
           "title": "Why some views resist updates",
-          "concept": "A view is directly updatable only when the system can map the requested change to valid base-table modifications. Aggregation often loses row-level identity.",
+          "concept": "Some view rows combine many table rows, such as one total for a whole branch. Changing that total does not tell the database which original row to change. Such views are usually not directly updatable.",
           "question": "A view exposes depotId and AVG(salary). Explain why setting the average to 50000 does not specify a unique base-table update. Suggest a clearer operation.",
-          "answer": "Many different salary changes can produce an average of 50000, so the requested view update does not identify which employees or amounts should change. Define the policy explicitly, such as increasing each selected salary by a fixed amount, then update identified base rows and verify the resulting average.",
+          "answer": "Many different salary changes can produce an average of 50000, so the requested view update does not find which employees or amounts should change. Define the policy explicitly, such as increasing each selected salary by a fixed amount, then update identified base rows and verify the resulting average.",
           "kind": "essay",
           "choices": [],
           "checks": [
             "Explain loss of row-level update meaning.",
             "Show that several base-table changes can produce the same average.",
-            "Propose an explicit update policy on identified base rows."
+            "Suggest an explicit update policy on identified base rows."
           ]
         },
         {
           "id": "v2n5c10",
           "title": "Least privilege",
-          "concept": "Granting only required operations reduces accidental and unauthorized changes. A restricted view can also hide columns if users lack direct access to the base table.",
+          "concept": "Give users only the permissions they need. Someone who only reads a report should not automatically be allowed to delete its data. A limited view helps only if users cannot bypass it.",
           "question": "A reporting user needs technician names and depots but must not read salaries or change data. Describe the view and privilege arrangement.",
           "answer": "Expose a view selecting technician identity, name and depot only. Grant SELECT on that view and do not grant direct base-table SELECT or write privileges. Check inherited roles and other access paths. A view alone does not protect salary if the user can still query the base table.",
           "kind": "essay",
@@ -1060,7 +1060,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n5c11",
           "title": "Required alternate identifiers",
-          "concept": "A chosen primary key is not the only identifier a table may have. An alternate candidate key should retain its uniqueness and required-value constraint.",
+          "concept": "A table may have several valid unique identifiers. You choose one as the primary key. Other required identifiers still need UNIQUE and NOT NULL so duplicates and missing values are rejected.",
           "question": "A member uses memberId as the primary key but also has a unique required membershipCode. Which constraints belong on membershipCode?",
           "answer": "UNIQUE and NOT NULL.",
           "kind": "concept",
@@ -1070,7 +1070,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n5c12",
           "title": "CHECK and UNKNOWN",
-          "concept": "A CHECK constraint rejects FALSE. An expression that becomes UNKNOWN because of NULL does not itself make the value required.",
+          "concept": "CHECK rejects a condition that is FALSE. A test involving NULL may be UNKNOWN instead. Add NOT NULL when you need to reject missing values, rather than relying on CHECK alone.",
           "question": "Does CHECK (amount >= 0) alone prevent an unknown amount? What is needed if an amount is mandatory?",
           "answer": "No. Add NOT NULL to require a value, alongside CHECK (amount >= 0).",
           "kind": "concept",
@@ -1080,7 +1080,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n5c13",
           "title": "Changing a schema",
-          "concept": "ALTER TABLE changes an existing table’s definition. Existing data may need repair before a newly added constraint can be validated.",
+          "concept": "ALTER TABLE changes an existing table. A new rule must also make sense for rows already stored. For example, a no-negative-prices rule may fail until old negative prices are fixed.",
           "question": "What must be checked before adding CHECK (quantity >= 0) to an existing required quantity column?",
           "answer": "Verify that no existing quantity is negative; correct or otherwise resolve violating rows before validating the constraint.",
           "kind": "concept",
@@ -1090,7 +1090,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n5c14",
           "title": "Keys across several columns",
-          "concept": "A composite foreign key references a whole key combination. Checking the individual components separately does not establish that the combination exists.",
+          "concept": "A composite foreign key checks a combination of values. Linking to an order and a product separately does not prove that this product appears on this order. The whole order-line pair must match.",
           "question": "Shipment(orderId,itemId) must reference OrderLine whose key is (orderId,itemId). What reference is needed?",
           "answer": "FOREIGN KEY (orderId,itemId) REFERENCES OrderLine(orderId,itemId).",
           "kind": "sql",
@@ -1100,7 +1100,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n5c15",
           "title": "Views do not automatically secure tables",
-          "concept": "Restricting a view can hide sensitive columns only if users cannot bypass it through broader privileges on the underlying relations.",
+          "concept": "A view can leave private columns out of a report. But if the user can also read the full original table, those columns are not protected. Permissions must match the intended access.",
           "question": "A user has SELECT on both a limited view and its full base table. Does the view alone prevent access to hidden columns?",
           "answer": "No. Remove inappropriate direct base-table privileges and grant only the intended interface access.",
           "kind": "concept",
@@ -1110,7 +1110,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n5c16",
           "title": "Copying data with explicit columns",
-          "concept": "INSERT…SELECT copies rows returned by a query. Explicit target and source columns reduce reliance on table column order.",
+          "concept": "INSERT…SELECT copies the rows found by a query into another table. List the target and source columns explicitly, so it is clear which value goes into which column.",
           "question": "Copy id and closedOn from Ticket into TicketArchive for rows with a known closing date, without deleting originals.",
           "answer": "INSERT INTO TicketArchive(id,closedOn)\nSELECT id,closedOn FROM Ticket WHERE closedOn IS NOT NULL;",
           "kind": "sql",
@@ -1125,14 +1125,14 @@ window.DBMS_DATA = {
       "description": "Find what each fact actually depends on.",
       "summary": [
         "Derive functional dependencies from stated rules.",
-        "Find every candidate key before deciding which attributes are prime.",
-        "Decompose with lossless reconstruction and local constraint checks in mind."
+        "Find every candidate key before deciding which columns are prime.",
+        "Decompose with lossless putting the pieces back together and local constraint checks in mind."
       ],
       "cards": [
         {
           "id": "v2n6c1",
           "title": "Functional dependency",
-          "concept": "A functional dependency (FD) X → Y means each X value determines exactly one Y value in every valid state. The dependency need not hold in the reverse direction.",
+          "concept": "A functional dependency is a rule linking values. X → Y means knowing X tells you exactly one Y. For example, a department ID tells you its name; the name may not uniquely identify the department.",
           "question": "Each badge belongs to one technician, but a technician can have several badges. Which dependency follows?",
           "answer": "badgeNo → technicianId.",
           "kind": "choice",
@@ -1147,7 +1147,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n6c2",
           "title": "First normal form",
-          "concept": "First Normal Form (1NF) requires atomic values in the intended domains and no repeating groups. Lists of separate identifiers in one field usually hide relationships.",
+          "concept": "First Normal Form (1NF) means each cell holds one value of the intended kind, with no repeating lists hidden inside it. Store a person's different phone numbers in separate rows, not one comma-separated cell.",
           "question": "A Rental row stores toolIds as 3,8,11 in one text cell. What is the useful redesign?",
           "answer": "Store one rental-tool association per row in a related table.",
           "kind": "choice",
@@ -1162,7 +1162,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n6c3",
           "title": "Second normal form",
-          "concept": "Second Normal Form (2NF) requires 1NF and full dependence of every non-prime attribute on every candidate key. Partial dependence uses only part of a key.",
+          "concept": "Second Normal Form (2NF) builds on 1NF. Every non-key fact must depend on the whole of each possible key, not just part of it. A student's name depends on studentId, not on a student-course pair.",
           "question": "Usage(memberId, toolId, memberName, hours) has sole candidate key (memberId, toolId). memberId determines memberName. What fails?",
           "answer": "2NF, because memberName depends on only part of the key.",
           "kind": "choice",
@@ -1177,7 +1177,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n6c4",
           "title": "Transitive redundancy",
-          "concept": "A non-key determinant may carry facts that should live in its own relation. Separating those facts removes repeated descriptions and associated anomalies.",
+          "concept": "A fact may depend on another non-key fact. If workerId tells you grade, and grade tells you pay rate, store each grade's rate once in a Grade table instead of repeating it for every worker.",
           "question": "Tool(toolId, categoryId, categoryName) has toolId → categoryId and categoryId → categoryName, with categoryId not unique. What should be split off?",
           "answer": "Category(categoryId, categoryName).",
           "kind": "choice",
@@ -1192,7 +1192,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n6c5",
           "title": "Closure and minimality",
-          "concept": "The closure X+ is the set of attributes derivable from X using the FDs. A candidate key determines every attribute and has no smaller subset that does so.",
+          "concept": "A closure answers: what can I work out from these columns? Keep applying the dependency rules. A candidate key must reach every column, and it must not contain any unnecessary columns.",
           "question": "R(P,Q,R,S) has P → Q and QR → S. Which set is the only candidate key?",
           "answer": "PR.",
           "kind": "choice",
@@ -1207,7 +1207,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n6c6",
           "title": "3NF versus BCNF",
-          "concept": "Third Normal Form (3NF) allows X → A when X is a superkey or A is prime. Boyce–Codd Normal Form (BCNF) requires a superkey determinant for every nontrivial FD.",
+          "concept": "Third Normal Form (3NF) allows a dependency if its left side identifies the whole row, or its right-side column belongs to a possible key. Boyce–Codd Normal Form (BCNF) is stricter: the left side must identify the row. Ignore trivial rules like AB → A.",
           "question": "R(A,B,C) has AB → C and C → B. Candidate keys are AB and AC. Which statement is correct?",
           "answer": "It is in 3NF but not BCNF: C is not a superkey and B is prime.",
           "kind": "choice",
@@ -1222,8 +1222,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n6c7",
           "title": "Expose inconsistent copies",
-          "concept": "A query can reveal violations in existing data, but a clean sample does not prove a dependency will always hold. COUNT(DISTINCT ...) helps detect conflicting non-NULL values.",
-          "question": "ImportedTool(toolId, categoryId, categoryName) has all columns non-NULL. Write a query identifying category IDs stored with more than one distinct category name.",
+          "concept": "If the same category ID has two different category names, the data breaks the rule that the ID determines the name. COUNT(DISTINCT name) can find this. A clean sample alone does not prove the rule always holds.",
+          "question": "ImportedTool(toolId, categoryId, categoryName) has all columns known (not NULL). Write a query identifying category IDs stored with more than one distinct category name.",
           "answer": "SELECT categoryId\nFROM ImportedTool\nGROUP BY categoryId\nHAVING COUNT(DISTINCT categoryName) > 1;",
           "kind": "sql",
           "choices": [],
@@ -1236,7 +1236,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n6c8",
           "title": "Represent a decomposed design",
-          "concept": "Once determinants are separated, foreign keys connect the remaining facts. Primary keys and unique constraints express alternative identifiers.",
+          "concept": "After you split a large table into smaller ones, foreign keys connect them again. Keep the rules for all valid identifiers, including an alternate identifier such as a unique required email address.",
           "question": "Grade(gradeCode, hourlyRate) exists. Create Technician with techId as primary key, unique required email, required name and required gradeCode referring to Grade.",
           "answer": "CREATE TABLE Technician (\n techId INTEGER PRIMARY KEY,\n email VARCHAR(120) NOT NULL UNIQUE,\n name VARCHAR(80) NOT NULL,\n gradeCode VARCHAR(10) NOT NULL REFERENCES Grade(gradeCode)\n);",
           "kind": "sql",
@@ -1250,35 +1250,35 @@ window.DBMS_DATA = {
         {
           "id": "v2n6c9",
           "title": "Normalize a work ledger",
-          "concept": "A repeating work ledger can mix worker facts, job facts, grade rates and hours. Each belongs with the determinant that identifies it.",
+          "concept": "A work record can mix several facts: who a worker is, what a job is, what a grade pays, and how many hours were worked. Put each fact in the table for the thing it describes.",
           "question": "Ledger(workerId, email, workerName, grade, rate, jobId, jobTitle, hours). email is unique; each grade has one rate; one row exists per worker-job pair. Give FDs, candidate keys and a 3NF design.",
           "answer": "FDs: workerId → email, workerName, grade; email → workerId; grade → rate; jobId → jobTitle; (workerId, jobId) → hours. Candidate keys are (workerId, jobId) and (email, jobId). Use Worker(workerId primary key, email unique, workerName, grade foreign key), GradeRate(grade primary key, rate), Job(jobId primary key, jobTitle), and Work(workerId foreign key, jobId foreign key, hours) with composite primary key (workerId, jobId). Worker and job descriptions have partial dependencies in the original ledger; rate also depends transitively through grade.",
           "kind": "essay",
           "choices": [],
           "checks": [
             "Give the dependencies and both candidate keys.",
-            "Identify partial and grade-rate transitive redundancy.",
+            "Find partial and grade-rate transitive redundancy.",
             "Provide four relations with appropriate primary and foreign keys."
           ]
         },
         {
           "id": "v2n6c10",
           "title": "Lossless is not the same as preserved",
-          "concept": "A lossless decomposition reconstructs exactly the original valid relation. Dependency preservation lets dependencies be checked without recombining the decomposed relations.",
+          "concept": "Two checks matter when splitting a table. Lossless means joining the pieces gives back exactly the original rows. Dependency preservation means you can check the original rules within the smaller tables, without joining them.",
           "question": "R(A,B,C) has A → B and B → C. Compare decompositions AB/BC and AB/AC for losslessness and dependency preservation.",
-          "answer": "Both are lossless: AB/BC shares B, which determines BC; AB/AC shares A, which determines AB and, by transitivity, AC. AB/BC preserves A → B and B → C directly. AB/AC retains A → B and A → C, but B → C cannot generally be enforced by checking either component alone. A lossless split can therefore lose local dependency enforceability.",
+          "answer": "Both are lossless: AB/BC shares B, which determines BC; AB/AC shares A, which determines AB and, by transitivity, AC. AB/BC keeps A → B and B → C directly. AB/AC keeps A → B and A → C, but B → C cannot generally be enforced by checking either component alone. A lossless split can therefore lose local dependency enforceability.",
           "kind": "essay",
           "choices": [],
           "checks": [
             "Show the shared-attribute determinant for each lossless split.",
-            "Identify the dependencies preserved by AB/BC.",
+            "Find the dependencies preserved by AB/BC.",
             "Explain why B → C is not locally preserved in AB/AC."
           ]
         },
         {
           "id": "v4n6c11",
           "title": "Anomalies have three forms",
-          "concept": "Redundant mixed facts can make insertion require unrelated data, deletion erase a different fact, and updates require several copies to change together.",
+          "concept": "Repeating facts causes three common problems. You may be unable to add one fact without another, lose a fact when deleting a row, or need to update the same fact in many places. These are anomalies.",
           "question": "A supplier’s details exist only in shipment rows. What anomaly occurs when deleting its last shipment removes all knowledge of the supplier?",
           "answer": "A deletion anomaly.",
           "kind": "concept",
@@ -1288,7 +1288,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c12",
           "title": "Observed rows are not the rule",
-          "concept": "A small dataset may happen to satisfy a dependency that the business rules do not guarantee. A counterexample can disprove a claimed dependency.",
+          "concept": "Today's rows may look unique by chance. That does not prove the same rule will hold tomorrow. Use the stated business rules to find dependencies, and use sample rows to look for violations.",
           "question": "Every current employee has a different city. Is city therefore a valid candidate key for future employee data?",
           "answer": "No. Accidental uniqueness in current rows does not establish an identifying business rule.",
           "kind": "concept",
@@ -1298,7 +1298,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c13",
           "title": "Attribute closure",
-          "concept": "The closure X+ is the set of attributes implied by X using the functional dependencies repeatedly until no more attributes can be added.",
+          "concept": "To find a set of columns' closure, start with those columns. Use each dependency whose left side you already know to add more columns. Repeat until nothing new can be added.",
           "question": "For A→B, B→C, and CD→E, compute (AD)+.",
           "answer": "Start with A,D; add B using A→B, then C using B→C, then E using CD→E. Thus (AD)+={A,B,C,D,E}.",
           "kind": "concept",
@@ -1308,7 +1308,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c14",
           "title": "Finding necessary key attributes",
-          "concept": "An attribute absent from every right-hand side cannot be derived from other attributes using the listed dependencies, so it must occur in every key.",
+          "concept": "A column that never appears on the right side of any dependency cannot be worked out from the other columns using those rules. You must include it in every key.",
           "question": "R(A,B,C,D) has A→B and B→C. Which attributes must every candidate key contain, and what is the key?",
           "answer": "A and D must be included. AD determines all four attributes and is minimal, so AD is the sole candidate key.",
           "kind": "concept",
@@ -1318,9 +1318,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c15",
           "title": "Check every candidate key",
-          "concept": "Second normal form is about full dependence of non-prime attributes on every candidate key, not merely the key selected as primary.",
-          "question": "Why is inspecting only the declared primary key insufficient to establish 2NF when alternate composite candidate keys exist?",
-          "answer": "A non-prime attribute could depend on a proper subset of another candidate key even when no partial dependency appears against the selected primary key.",
+          "concept": "A table may have several possible keys. When checking Second Normal Form, check all of them. Choosing a convenient primary key does not make a problem with another key disappear.",
+          "question": "A table has more than one possible key. Why must you check all of them before saying the table is in Second Normal Form (2NF)?",
+          "answer": "A column that is not part of any candidate key could depend on a proper subset of another candidate key even when no partial dependency appears against the selected primary key.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1328,9 +1328,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c16",
           "title": "Prime attributes",
-          "concept": "A prime attribute belongs to at least one candidate key. This classification matters in the precise definition of third normal form.",
-          "question": "If candidate keys are AB and AC, which attributes are prime?",
-          "answer": "A, B and C are all prime.",
+          "concept": "A prime column is a column that appears in at least one candidate key. A non-prime column appears in none. This distinction is used in the precise rule for Third Normal Form.",
+          "question": "If candidate keys are AB and AC, which columns are prime?",
+          "answer": "A, B and C are all prime. A prime column is any column that belongs to at least one candidate key: A and B appear in AB, and A and C appear in AC.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1338,9 +1338,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c17",
           "title": "A 3NF exception",
-          "concept": "For each nontrivial dependency X→A, 3NF permits X to be a superkey or A to be prime. BCNF requires X to be a superkey.",
+          "concept": "A table can meet Third Normal Form without meeting Boyce–Codd Normal Form. 3NF allows a right-side column that belongs to a candidate key, even if the dependency's left side is not a key.",
           "question": "R(A,B,C) has AB→C and C→B. Its keys are AB and AC. Why can it satisfy 3NF but fail BCNF?",
-          "answer": "C→B has a non-superkey determinant C, violating BCNF. B is prime, so this dependency is permitted by 3NF.",
+          "answer": "C alone does not identify a whole row, so C → B breaks BCNF. But B belongs to the candidate key AB, so it is a prime column. That exception lets the table meet 3NF.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1348,9 +1348,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c18",
           "title": "Lossless reconstruction",
-          "concept": "A decomposition is lossless if joining its projections recovers exactly the original valid relation, without introducing spurious tuples.",
-          "question": "For R(A,B,C) with A→B and B→C, why is decomposition AB,BC lossless?",
-          "answer": "The common attribute B determines the entire BC component. The shared attributes therefore determine one component, satisfying the binary lossless-join condition.",
+          "concept": "Splitting a table is lossless when joining the pieces gives exactly the original valid rows. You must not lose rows or create new combinations that were never present.",
+          "question": "R(A,B,C) follows A → B and B → C. We split it into AB and BC. Why can we join these tables back together without creating incorrect rows?",
+          "answer": "The two tables share B. The rule B → C means B identifies a row in BC. Joining AB to BC on B therefore adds the correct C value without inventing extra combinations.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1358,9 +1358,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c19",
           "title": "Dependency preservation",
-          "concept": "A dependency-preserving decomposition permits the original constraints to be enforced through constraints on individual component relations, without joining them.",
-          "question": "Under A→B and B→C, what original dependency becomes difficult to enforce locally after splitting R into AB and AC?",
-          "answer": "B→C. No component contains both B and C, and the projected dependencies do not imply it without checking across the components.",
+          "concept": "After splitting a table, ask whether each original dependency can still be checked using rules inside the smaller tables. If checking a rule needs a join, that dependency may not be preserved.",
+          "question": "R(A,B,C) follows A → B and B → C. We split it into AB and AC. Which original rule can no longer be checked using only the separate tables?",
+          "answer": "The rule B → C. AB does not contain C, and AC does not contain B. Their separate rules cannot check that each B always has the same C; you would need to look across the two tables.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1368,9 +1368,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n6c20",
           "title": "Staged normalization",
-          "concept": "Moving to 2NF separates facts that depend on parts of composite keys. Moving to 3NF then separates non-key determinants that create transitive dependencies.",
+          "concept": "Normalize in steps. First remove facts that depend on only part of a combined key to reach 2NF. Then separate facts such as grade → rate that belong to their own thing to reach 3NF.",
           "question": "Work(personId,taskId,personName,band,rate,hours) has personId→personName,band and band→rate. After separating person facts at 2NF, what further split is needed?",
-          "answer": "Split Person2(personId,personName,band,rate) into Person(personId,personName,band) and Band(band,rate), with Person.band referencing Band.",
+          "answer": "Create Person(personId,personName,band) and Band(band,rate). Store each band’s rate once in Band. Keep band in Person as a foreign key, so you can look up the person’s rate when needed.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1390,12 +1390,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c1",
           "title": "Procedures and parameters",
-          "concept": "Transact-SQL (T-SQL) is SQL Server’s procedural extension to Structured Query Language (SQL). Parameters pass values to a named routine.",
+          "concept": "A stored procedure is a saved set of SQL instructions you can run by name. A parameter is an input, such as a worker ID. Transact-SQL (T-SQL) adds variables, loops and other programming features to SQL Server.",
           "question": "A routine lists repairs for whichever technician the caller chooses. What should vary as a parameter?",
-          "answer": "The technician identifier used by the query predicate.",
+          "answer": "The technician ID. The procedure uses that input to decide which technician’s repair rows to return.",
           "kind": "choice",
           "choices": [
-            "The technician identifier used by the query predicate.",
+            "The technician ID. The procedure uses that input to decide which technician’s repair rows to return.",
             "The name of every database table.",
             "The SQL Server installation directory.",
             "The number of columns in the schema."
@@ -1405,7 +1405,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c2",
           "title": "Triggers respond to events",
-          "concept": "A trigger runs for a configured data event. SQL Server triggers are statement-level and must handle sets of affected rows; PostgreSQL also supports row-level triggers.",
+          "concept": "A trigger runs automatically when a chosen event happens, such as an insert. In SQL Server, one trigger call may need to handle many changed rows. Do not assume every call means just one row.",
           "question": "Why is assuming a trigger receives exactly one inserted customer unsafe in SQL Server?",
           "answer": "One INSERT statement can insert many rows.",
           "kind": "choice",
@@ -1420,12 +1420,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c3",
           "title": "Cursor lifecycle",
-          "concept": "A cursor processes a result one row at a time. Its lifecycle includes declaration, opening, fetching, processing and closing; dialects differ in cleanup syntax.",
+          "concept": "A cursor lets you work through query results one row at a time. You open it, fetch a row, process that row, and repeat until there are no more rows. Then close it.",
           "question": "When a cursor fetch reports that no row remains, what should the loop do?",
-          "answer": "Exit rather than reusing the previous row’s values.",
+          "answer": "Stop the loop. There is no new row to process, so do not process the previous row again.",
           "kind": "choice",
           "choices": [
-            "Exit rather than reusing the previous row’s values.",
+            "Stop the loop. There is no new row to process, so do not process the previous row again.",
             "Update the previous row again forever.",
             "Recreate every table.",
             "Commit a separate unrelated transaction automatically."
@@ -1435,7 +1435,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c4",
           "title": "Order conditional branches",
-          "concept": "A searched CASE selects the first matching WHEN. When thresholds overlap, place the most restrictive/highest threshold first.",
+          "concept": "CASE picks the first matching rule. If both more than 20 and more than 40 could match, check more than 40 first. Otherwise the lower rule can hide the higher one.",
           "question": "A distance of 42 meets >15, >25 and >40. Which CASE order applies only the highest intended surcharge?",
           "answer": "Check >40, then >25, then >15.",
           "kind": "choice",
@@ -1450,12 +1450,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c5",
           "title": "Validate the boundary",
-          "concept": "Procedural validation must cover invalid inputs and boundary values, not only ordinary positive values. Initialization affects zero-iteration cases.",
-          "question": "A factorial routine initializes result to 1 and loops from 2 through n. What result should n = 0 produce?",
-          "answer": "1, provided the input is accepted as a valid nonnegative integer.",
+          "concept": "Check unusual inputs as well as normal ones. For factorial, zero is valid and gives 1, but negative input is invalid. Starting the answer at 1 also handles a loop that runs zero times.",
+          "question": "A factorial routine starts result to 1 and loops from 2 through n. What result should n = 0 produce?",
+          "answer": "1. By definition, 0! = 1. Starting result at 1 gives the right answer even though the loop does not run.",
           "kind": "choice",
           "choices": [
-            "1, provided the input is accepted as a valid nonnegative integer.",
+            "1. By definition, 0! = 1. Starting result at 1 gives the right answer even though the loop does not run.",
             "0 because no multiplication occurred.",
             "2 because the loop starts at 2.",
             "A negative number."
@@ -1465,8 +1465,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c6",
           "title": "Statement success versus business success",
-          "concept": "An UPDATE affecting zero rows often completes without a database error. A transaction groups changes; it does not automatically know expected row counts.",
-          "question": "A routine marks repair 404 paid, but repair 404 does not exist. What additional check is needed?",
+          "concept": "An UPDATE can finish without error even when it changes no rows. If your task requires changing one specific row, check the affected-row count. No error does not always mean the task succeeded.",
+          "question": "A routine marks repair 404 paid, but repair 404 does not exist. What else should the procedure check?",
           "answer": "Verify that the expected row was affected and raise an error otherwise.",
           "kind": "choice",
           "choices": [
@@ -1480,7 +1480,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c7",
           "title": "Parameterized retrieval",
-          "concept": "A stored procedure can encapsulate a query with explicit input parameters. Use a clear output order if callers need stable results.",
+          "concept": "A procedure can reuse one query with different inputs. For example, pass in a technician ID and return only that technician's repairs. Sort the output explicitly when its order matters.",
           "question": "SQL Server: Repair(repairId, techId, startedAt, fee). Write a procedure ListRepairs taking @techId and returning that technician’s repairs ordered by startedAt then repairId.",
           "answer": "CREATE PROCEDURE ListRepairs @techId INTEGER\nAS\nBEGIN\n SET NOCOUNT ON;\n SELECT repairId, techId, startedAt, fee\n FROM Repair\n WHERE techId = @techId\n ORDER BY startedAt, repairId;\nEND;",
           "kind": "sql",
@@ -1494,7 +1494,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c8",
           "title": "Set-based conditional change",
-          "concept": "A set-based UPDATE can apply different values to many rows using CASE. This often avoids a cursor when each calculation depends only on that row.",
+          "concept": "One UPDATE can change many rows using different rules. CASE chooses the amount for each row. This is often simpler than using a cursor when each calculation depends only on that row.",
           "question": "Trip(tripId, distance, fee). Add 12 to fee above 40 miles, 7 above 25, 3 above 15, otherwise zero. Write one UPDATE; strict greater-than thresholds apply.",
           "answer": "UPDATE Trip\nSET fee = fee + CASE\n WHEN distance > 40 THEN 12\n WHEN distance > 25 THEN 7\n WHEN distance > 15 THEN 3\n ELSE 0 END;",
           "kind": "sql",
@@ -1508,9 +1508,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c9",
           "title": "Capacity needs concurrency control",
-          "concept": "Checking a count and then inserting is vulnerable when two transactions both see spare capacity. Maintain the rule while coordinating simultaneous changes.",
-          "question": "Each coach may have at most 12 active trainees. Two concurrent requests both see 11 and insert one. Explain a safe approach that also handles reassignment and deletion.",
-          "answer": "A check-then-insert without coordination can admit 13. Serialize changes on a coach row, or use a correctly synchronized counter/constraint design, and perform the check plus assignment in one transaction. Reassignment must update the old and new coach consistently; acquire multiple coach locks in a consistent order. Deletion must reduce the count. The same rule must apply to every write path, including multi-row changes.",
+          "concept": "Two people may try to claim the last available place at the same time. Checking the count separately is not enough. The check and change must be coordinated so both cannot take that last place.",
+          "question": "Each coach may have at most 12 active trainees. Two requests made at the same time both see 11 and insert one. Explain a safe approach that also handles reassignment and deletion.",
+          "answer": "Both requests could see 11 trainees and add one, leaving 13 instead of the allowed 12. Make the check and change one protected transaction, using a lock on the coach row or another correctly synchronized limit. When a trainee changes coaches, update both coaches’ counts together. Deleting a trainee must reduce the old coach’s count. Handle all changed rows, and take multiple coach locks in a consistent order to reduce deadlocks.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -1522,9 +1522,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n7c10",
           "title": "Atomic archive movement",
-          "concept": "Moving records into an archive needs an all-or-nothing boundary around copying and removing them. Error handling must undo incomplete movement.",
-          "question": "Completed repairs before a cutoff must move from Repair to RepairArchive. Outline the transaction and T-SQL error-handling design, including protection against copying one set and deleting another.",
-          "answer": "Begin a transaction inside TRY. Establish the intended repair identifiers under suitable locking or isolation, copy those identified rows with explicit columns, validate the copy, then delete that same identified set and commit. CATCH rolls back an active transaction and rethrows the error. Use a unique archive key to prevent duplicate archival and handle conflicts deliberately. Do not select a moving set twice without coordinating concurrent changes.",
+          "concept": "Moving rows to an archive has two linked steps: copy them, then delete the originals. Use one transaction and the same chosen row IDs for both steps. A failure should undo the whole move.",
+          "question": "Completed repairs before a cutoff must move from Repair to RepairArchive. Describe the steps for the transaction and T-SQL error-handling design, including protection against copying one set and deleting another.",
+          "answer": "1. Start one transaction inside TRY.\n2. Choose and protect the exact repair IDs to move.\n3. Copy those rows to RepairArchive, naming the columns explicitly.\n4. Check that the copy succeeded, then delete only those same IDs from Repair.\n5. COMMIT when both steps succeed.\nIf something fails, CATCH should roll back the active transaction and report the error again. A unique archive key stops duplicate archived rows. Do not run two separate searches that could select different rows while other users make changes.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -1536,7 +1536,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c11",
           "title": "Local versus global temporary tables",
-          "concept": "In SQL Server, a # prefix names a local temporary table; ## names a global temporary table. Scope affects whether other sessions can interfere with temporary work.",
+          "concept": "SQL Server uses # for a temporary table local to a session and ## for a global temporary table. Use a local table when other users should not share your temporary working data.",
           "question": "Which prefix is normally appropriate for an intermediate table intended only for the current session?",
           "answer": "A single # prefix, such as #PendingRows.",
           "kind": "concept",
@@ -1546,7 +1546,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c12",
           "title": "Variables and loop progress",
-          "concept": "A loop must both maintain its result and advance toward its exit condition. Failure to advance can create an infinite loop.",
+          "concept": "A loop needs a way to move toward its stopping point. If a counter never changes, the loop may run forever. Update both the result you are building and the loop counter.",
           "question": "A WHILE @i <= @n loop multiplies @result by @i. What other update is needed each iteration?",
           "answer": "SET @i = @i + 1;",
           "kind": "sql",
@@ -1556,7 +1556,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c13",
           "title": "Factorial boundaries and overflow",
-          "concept": "A factorial starts with a multiplicative identity of one. Numeric types have finite ranges, so valid input includes both mathematical and representation checks.",
+          "concept": "Factorial multiplies whole numbers: 4! = 4 × 3 × 2 × 1. Also, 0! = 1. SQL Server's BIGINT can store 20!, but 21! is too large, so validate the input.",
           "question": "For a SQL Server BIGINT factorial procedure, why allow 0 through 20 and reject 21?",
           "answer": "0! is 1, and 20! fits BIGINT. 21! exceeds BIGINT’s maximum value and would overflow.",
           "kind": "concept",
@@ -1566,7 +1566,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c14",
           "title": "Progressive bands",
-          "concept": "A marginal calculation applies each rate only to the amount in its band. Selecting one rate for the whole amount overcharges lower bands.",
+          "concept": "In a banded fee, each rate applies only to its own part of the amount. Reaching a higher band does not mean applying the highest rate to the entire amount.",
           "question": "A fictional fee is 5% of the first 100 units, 10% of the next 100, and 20% above 200. What is the fee for 250 units?",
           "answer": "5 + 10 + 10 = 25 units.",
           "kind": "concept",
@@ -1576,7 +1576,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c15",
           "title": "Cursor exhaustion",
-          "concept": "Fetching beyond the last row changes fetch status. Check that status before using fetched values and fetch again after processing each row.",
+          "concept": "A cursor fetch can succeed or reach the end. Check that result before using the fetched values. In SQL Server, @@FETCH_STATUS = 0 means the most recent fetch succeeded.",
           "question": "In SQL Server, what condition commonly controls a cursor loop after FETCH NEXT?",
           "answer": "WHILE @@FETCH_STATUS = 0",
           "kind": "sql",
@@ -1586,7 +1586,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c16",
           "title": "Cursor cleanup",
-          "concept": "An open cursor uses resources. SQL Server distinguishes closing the active result from removing the cursor reference.",
+          "concept": "A cursor uses database resources. In SQL Server, CLOSE ends access to its current result. DEALLOCATE removes the cursor reference. Use both when you finish with it.",
           "question": "Which two statements normally finish a SQL Server cursor named trips?",
           "answer": "CLOSE trips;\nDEALLOCATE trips;",
           "kind": "sql",
@@ -1596,7 +1596,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c17",
           "title": "Triggers may see many rows",
-          "concept": "SQL Server DML triggers execute per statement. Their inserted and deleted tables can contain many affected rows, so single-row assumptions are unsafe.",
+          "concept": "One SQL Server UPDATE can change dozens of rows. Its trigger gets sets of old and new rows in deleted and inserted. The trigger must handle every changed row, not just one.",
           "question": "An UPDATE changes 25 employees’ departments. What must a department-count trigger calculate?",
           "answer": "Set-based count changes for every affected department using all rows in inserted and deleted, rather than assuming one changed employee.",
           "kind": "concept",
@@ -1606,9 +1606,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c18",
           "title": "Reassignment affects two totals",
-          "concept": "A maintained child count must follow insertions, deletions and relationship changes. Reassignment transfers one child between owners.",
+          "concept": "Moving a child from one parent to another changes two counts. Reduce the old parent's count and increase the new parent's count together. If either change fails, undo the whole move.",
           "question": "A person moves from mentor A to mentor B. Which counts must change, and what if B is already full?",
-          "answer": "Decrement A and increment B atomically. If B cannot accept another person, reject and roll back the whole reassignment, including the decrement of A.",
+          "answer": "Decrement A and increase B as one all-or-nothing operation. If B cannot accept another person, reject and roll back the whole reassignment, including the decrease of A.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1616,7 +1616,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c19",
           "title": "Repeated calls can repeat effects",
-          "concept": "A procedure that adds a surcharge is not idempotent unless it records or otherwise prevents repeated application. Testing must account for its side effects.",
+          "concept": "Some procedures add a charge every time you run them. Calling one twice may charge twice. Test inside a transaction that you roll back, or build an explicit rule to apply the charge only once.",
           "question": "A fee adjustment adds 5 on each call. Starting at 40, what happens after two committed calls, and how could you test without keeping the change?",
           "answer": "The fee becomes 50. Test inside a transaction and roll it back, or design an explicit once-only adjustment rule.",
           "kind": "concept",
@@ -1626,9 +1626,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n7c20",
           "title": "Error reporting is not rollback",
-          "concept": "Catching an error and printing a message does not itself undo a partly completed logical operation or tell callers that it failed.",
+          "concept": "Printing an error message does not undo earlier changes. A transaction you started may still need ROLLBACK. After handling the failure, THROW can tell the caller that the operation failed.",
           "question": "What should a SQL Server CATCH block do for a failed multi-statement transaction it owns?",
-          "answer": "Roll back if a transaction remains active, then propagate the failure with THROW; do not report success after only printing an error.",
+          "answer": "Roll back if a transaction remains active, then report the failure to the caller with THROW; do not report success after only printing an error.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1648,7 +1648,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c1",
           "title": "Design stages",
-          "concept": "Conceptual design captures business meaning. Logical design chooses relations and constraints. Physical design chooses implementation and access structures.",
+          "concept": "Design has three levels. Conceptual design identifies the things and relationships. Logical design turns them into tables and keys. Physical design chooses storage and indexes to make the system work efficiently.",
           "question": "Which decision belongs primarily to physical design?",
           "answer": "Choosing an index to speed up a frequent reservation lookup.",
           "kind": "choice",
@@ -1663,7 +1663,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c2",
           "title": "Current versus historical facts",
-          "concept": "A current assignment answers who is responsible now. An event reference records who actually participated at that time. One cannot always reconstruct the other.",
+          "concept": "A current link tells you what is true now. A historical event tells you what happened then. Keep the actual coach on an old session, even if the trainee later changes coaches.",
           "question": "A trainee changes coaches. Where should the coach who conducted an earlier session be stored?",
           "answer": "On that session event.",
           "kind": "choice",
@@ -1678,14 +1678,14 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c3",
           "title": "One-to-one maximums",
-          "concept": "A UNIQUE foreign key enforces at most one child per referenced parent. It does not alone force every parent to have a child.",
+          "concept": "UNIQUE on an invoice's order ID stops two invoices from referring to the same order. It does not force every order to have an invoice. At most one and exactly one are different rules.",
           "question": "Invoice.orderId is UNIQUE NOT NULL and references PurchaseOrder. Which rule is still not guaranteed?",
           "answer": "Every purchase order has an invoice.",
           "kind": "choice",
           "choices": [
             "Every purchase order has an invoice.",
             "Each invoice references an existing order.",
-            "An invoice has a non-NULL order reference.",
+            "An invoice has a known (not NULL) order reference.",
             "No two invoices reference the same order."
           ],
           "checks": []
@@ -1693,23 +1693,23 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c4",
           "title": "Repeated events",
-          "concept": "A key must distinguish every permitted occurrence. Participant pairs often identify relationships, but repeated events need time or an event identifier.",
-          "question": "A member can rent the same tool on several dates. Is (memberId, toolId) sufficient as the Rental primary key?",
+          "concept": "A person can repeat the same activity with the same item. Their IDs alone will not distinguish those events. Give each event its own ID, or another key that separates the occurrences.",
+          "question": "A member can rent the same tool on several dates. Is (memberId, toolId) enough as the Rental primary key?",
           "answer": "No; repeated rentals need an additional distinguishing attribute or rentalId.",
           "kind": "choice",
           "choices": [
             "No; repeated rentals need an additional distinguishing attribute or rentalId.",
             "Yes, because both columns are foreign keys.",
             "Yes, because dates never affect business rules.",
-            "No primary key can identify rentals."
+            "No primary key can find rentals."
           ],
           "checks": []
         },
         {
           "id": "v2n8c5",
           "title": "Subtype mapping",
-          "concept": "A separate subtype table can share the parent’s primary key, with that key also a foreign key to the parent. This guarantees every subtype row has a parent.",
-          "question": "Coach(staffId, qualification) references Staff(staffId). What should identify Coach rows?",
+          "concept": "A subtype adds details about a more general thing. For example, Coach adds qualifications to Staff. Reusing the staff ID links the coach record to the same person.",
+          "question": "Coach(staffId, qualification) references Staff(staffId). What should find Coach rows?",
           "answer": "staffId as both primary key and foreign key.",
           "kind": "choice",
           "choices": [
@@ -1723,12 +1723,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c6",
           "title": "Validation by use",
-          "concept": "A schema may satisfy normal forms yet omit a required fact. Walking through user operations tests whether needed data and paths exist.",
+          "concept": "A tidy set of tables is not enough. Check whether it can handle every required action and report. For example, a booking system must be able to record a cancellation, not just a booking.",
           "question": "A normalized scheduling design cannot record cancellations. What does that reveal?",
-          "answer": "An incomplete requirement model, even though its existing relations may be normalized.",
+          "answer": "The design is missing a required action. Its tables may be well organized, but it still needs a way to record cancellations.",
           "kind": "choice",
           "choices": [
-            "An incomplete requirement model, even though its existing relations may be normalized.",
+            "The design is missing a required action. Its tables may be well organized, but it still needs a way to record cancellations.",
             "That normalization always fails.",
             "That every relation must be merged.",
             "That more indexes will create the missing fact."
@@ -1738,7 +1738,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c7",
           "title": "Map a multivalued attribute",
-          "concept": "A separate relation holds repeated attribute values with an owner reference. A composite key prevents duplicate owner-value pairs.",
+          "concept": "One supplier can have several phone numbers. A separate SupplierPhone table stores one number per row, linked to the supplier. A combined key prevents repeating the same number for that supplier.",
           "question": "Supplier(supplierId) exists. Create SupplierPhone for multiple phone numbers per supplier, disallowing the same number twice for that supplier.",
           "answer": "CREATE TABLE SupplierPhone (\n supplierId INTEGER NOT NULL REFERENCES Supplier(supplierId),\n phone VARCHAR(30) NOT NULL,\n PRIMARY KEY (supplierId, phone)\n);",
           "kind": "sql",
@@ -1752,7 +1752,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c8",
           "title": "Query historical events",
-          "concept": "A report about what happened should join through the event’s historical references rather than current assignments.",
+          "concept": "To report who handled an old session, use the coach recorded on that session. Looking up the trainee's current coach could give the wrong person for a past event.",
           "question": "Session(sessionId, traineeId, coachId, heldOn), Coach(coachId, name). List each session ID, date and actual coach name for trainee 27.",
           "answer": "SELECT s.sessionId, s.heldOn, c.name\nFROM Session s JOIN Coach c ON c.coachId = s.coachId\nWHERE s.traineeId = 27\nORDER BY s.heldOn, s.sessionId;",
           "kind": "sql",
@@ -1766,9 +1766,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c9",
           "title": "Design a rental service",
-          "concept": "Separate a product description from a physical copy and from each rental event. Keys should follow stable identities and repeated-event rules.",
+          "concept": "For a rental business, separate the branch, product model, physical item, member and rental. The rental records what happened: who rented which item, when, and at what agreed price.",
           "question": "Design a tool-rental service with branches, tool models, physical tools, members and repeated rentals. Each rental records its agreed price and dates. List relations, keys and business constraints.",
-          "answer": "Branch(branchId primary key, name); ToolModel(modelId primary key, description); Tool(assetId primary key, modelId foreign key, branchId foreign key); Member(memberId primary key, name); Rental(rentalId primary key, assetId foreign key, memberId foreign key, startsAt, endsAt, agreedPrice). Keep price on Rental to preserve the agreement. Enforce valid date order and nonnegative prices; prevent overlapping active rentals of the same asset with an appropriate transactional or database-specific constraint. A tool’s current branch alone does not preserve past pickup location if that is required.",
+          "answer": "Branch(branchId primary key, name); ToolModel(modelId primary key, description); Tool(assetId primary key, modelId foreign key, branchId foreign key); Member(memberId primary key, name); Rental(rentalId primary key, assetId foreign key, memberId foreign key, startsAt, endsAt, agreedPrice). Keep price on Rental to keep the agreement. Enforce valid date order and zero or greater prices; prevent overlapping active rentals of the same asset with an appropriate transactional or database-specific constraint. A tool’s current branch alone does not keep past pickup location if that is required.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -1780,9 +1780,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n8c10",
           "title": "Validate a coaching model",
-          "concept": "Logical validation checks normal forms, required transactions and constraints. Some cross-row and temporal rules require more than simple foreign keys.",
-          "question": "Propose a validation checklist for a coaching center storing coaches, trainees, rooms and sessions. Include history, scheduling and minimum participation.",
-          "answer": "Check keys and functional dependencies for each relation; verify required reports can follow the correct joins. Sessions must retain their actual coach and room, not infer them from current assignments. Prevent overlapping sessions for a coach, trainee or room. Ensure referenced rows exist and times are valid. If each active coach must have at least one trainee, an ordinary foreign key from trainee to coach does not enforce that minimum; use a controlled workflow or suitable additional constraint.",
+          "concept": "Check both stored facts and real actions. A scheduling design needs valid links, correct times, preserved history and rules preventing double-booking. Some of these rules need more than a foreign key.",
+          "question": "Suggest a validation checklist for a coaching center storing coaches, trainees, rooms and sessions. Include history, scheduling and minimum participation.",
+          "answer": "Check keys and functional dependencies for each relation; verify required reports can follow the correct joins. Sessions must keep their actual coach and room, not work out them from current assignments. Prevent overlapping sessions for a coach, trainee or room. Ensure referenced rows exist and times are valid. If each active coach must have at least one trainee, an ordinary foreign key from trainee to coach does not apply that minimum; use a controlled workflow or suitable additional constraint.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -1794,7 +1794,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n8c11",
           "title": "Mapping a strong entity",
-          "concept": "A strong entity maps to a relation with a chosen candidate key and simple attributes. Composite descriptive attributes are represented by their useful components.",
+          "concept": "A strong entity has its own identifier. Give it a table, choose its key, and store its simple properties as columns. Split a structured name into first and last names when you need those parts separately.",
           "question": "Map Member(memberNumber, Name(first,last), birthDate) to a relational schema.",
           "answer": "Member(memberNumber PRIMARY KEY, firstName, lastName, birthDate).",
           "kind": "concept",
@@ -1804,7 +1804,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n8c12",
           "title": "Mapping an optional one-to-one",
-          "concept": "A unique foreign key limits references to at most one per parent. Nullability determines whether the referencing occurrence must participate.",
+          "concept": "If every badge belongs to one person but a person may have no badge, put personId in Badge. Make it required and unique so a badge has an owner and a person cannot have two badges.",
           "question": "Every badge has an owner; a person may have no badge and may own at most one. Where should the required unique foreign key go?",
           "answer": "Badge.personId should be a UNIQUE NOT NULL foreign key to Person.personId.",
           "kind": "concept",
@@ -1814,7 +1814,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n8c13",
           "title": "At least one child is a separate rule",
-          "concept": "A foreign key validates a child’s parent reference. It does not ensure that every parent has any children.",
+          "concept": "A foreign key can require each coach to belong to a club. It cannot, by itself, require every club to have a coach. That rule must be checked separately.",
           "question": "If each active club must have at least one coach, is Coach.clubId NOT NULL REFERENCES Club enough?",
           "answer": "No. It ensures every coach has a club, not that every active club has a coach. Enforce the minimum through an additional constraint mechanism or controlled workflow.",
           "kind": "concept",
@@ -1824,9 +1824,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n8c14",
           "title": "Transaction prices are historical facts",
-          "concept": "A price agreed for a past event is a different fact from a product’s current list price. Preserving both is not automatically inappropriate redundancy.",
+          "concept": "A product's current price and the price charged last month are different facts. Store the agreed price with each sale so changing the current price does not rewrite history.",
           "question": "Should updating Product.currentPrice also update the price charged on old SaleLine rows?",
-          "answer": "No. Old SaleLine rows should retain the price agreed for those sales.",
+          "answer": "No. Old SaleLine rows should keep the price agreed for those sales.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1834,7 +1834,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n8c15",
           "title": "Bookings and scheduled events",
-          "concept": "A purchase of several sessions can exist before individual dates are scheduled. Booking terms and scheduled occurrences have different lifecycles.",
+          "concept": "A customer can buy a package before choosing dates. Store the package count and price in Booking. Store each actual date, teacher and room in Session.",
           "question": "What belongs in Booking, and what belongs in its individual Session rows?",
           "answer": "Booking stores the purchaser, purchased session count and agreed price. Session stores the actual scheduled time, tutor, room and status for each occurrence.",
           "kind": "concept",
@@ -1844,7 +1844,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n8c16",
           "title": "Resource overlap",
-          "concept": "For half-open time intervals, sharing only an endpoint is allowed. A true overlap occurs when each start precedes the other interval’s end.",
+          "concept": "Two appointments overlap if each starts before the other ends. With half-open intervals, one may start exactly when the other ends. Check the room or other resource as well as the times.",
           "question": "Give the condition for appointments a and b in the same room to overlap.",
           "answer": "a.roomId=b.roomId AND a.startsAt<b.endsAt AND b.startsAt<a.endsAt",
           "kind": "sql",
@@ -1854,9 +1854,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n8c17",
           "title": "Required one-to-one lifecycle",
-          "concept": "Separate relations in a mandatory one-to-one relationship can be temporarily incomplete during creation. Key constraints enforce only part of the lifecycle.",
-          "question": "An Order and its Invoice must always exist together. Name two approaches to enforcing this requirement.",
-          "answer": "Merge them while retaining both identifiers as candidate keys, or create and validate both in one controlled transaction using appropriate deferred or additional consistency checks.",
+          "concept": "If an order and invoice must always exist together, think about how both are created. You can combine their tables or use a controlled transaction with rules that check the completed pair.",
+          "question": "Every order must have one invoice, and every invoice must have one order. Give two ways to make sure the pair stays complete.",
+          "answer": "Merge them while keeping both identifiers as candidate keys, or create and validate both in one controlled transaction using appropriate deferred or additional consistency checks.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -1864,7 +1864,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n8c18",
           "title": "Composite relationships must stay intact",
-          "concept": "A shipment of an order line refers to a particular order-product combination. Separate references to Order and Product do not prove that the product is on that order.",
+          "concept": "An order line is a specific product on a specific order. A shipment must link to that exact pair. Separate links to an order and a product do not prove that the product was ordered.",
           "question": "What key should Shipment reference if OrderLine has primary key (orderId,productId)?",
           "answer": "Shipment must have a composite foreign key (orderId,productId) referencing OrderLine(orderId,productId).",
           "kind": "concept",
@@ -1886,22 +1886,22 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c1",
           "title": "Selective access",
-          "concept": "Selectivity describes how much of a relation satisfies a condition. A filter returning very few rows often benefits more from an index than one returning almost everything.",
-          "question": "A million-row table has 15 urgent rows. Which predicate is the more promising selective lookup?",
+          "concept": "An index is like a book's index: it helps find a small set of matching rows. If you need almost every row, reading the whole table may be faster than making many separate lookups.",
+          "question": "A million-row table has 15 urgent rows. Which condition is the more promising selective lookup?",
           "answer": "status = Urgent, if an appropriate index and workload justify it.",
           "kind": "choice",
           "choices": [
             "status = Urgent, if an appropriate index and workload justify it.",
-            "A predicate returning all million rows.",
-            "A predicate with no WHERE clause.",
-            "Any predicate merely because it has a longer name."
+            "A condition returning all million rows.",
+            "A condition with no WHERE clause.",
+            "Any condition merely because it has a longer name."
           ],
           "checks": []
         },
         {
           "id": "v2n9c2",
           "title": "Index write cost",
-          "concept": "An index is an additional maintained access structure. Changes to indexed keys or covered data can require extra work during inserts, updates and deletes.",
+          "concept": "Indexes speed up some searches, but they are extra structures to maintain. Adding, changing or deleting data can also require index updates. More indexes are not always better.",
           "question": "A write-heavy service becomes slower after adding twelve indexes. What plausible cost should be investigated?",
           "answer": "The added index maintenance and storage overhead.",
           "kind": "choice",
@@ -1916,12 +1916,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c3",
           "title": "Storage organization",
-          "concept": "Heap organization leaves rows without an ordering key. Hash organization targets equality access; ordered structures can support useful range access.",
-          "question": "A workload frequently asks for values between two dates. Why is pure hashing a poor default access method for that predicate?",
-          "answer": "Hash placement does not preserve the date ordering needed for a range.",
+          "concept": "A heap stores rows without a chosen key order. Hashing helps look up an exact value. Ordered structures can help find a range, such as all dates in one month.",
+          "question": "A workload frequently asks for values between two dates. Why is pure hashing a poor default access method for that condition?",
+          "answer": "Hash placement does not keep the date ordering needed for a range.",
           "kind": "choice",
           "choices": [
-            "Hash placement does not preserve the date ordering needed for a range.",
+            "Hash placement does not keep the date ordering needed for a range.",
             "Hashing automatically sorts dates.",
             "Dates cannot be indexed.",
             "Range predicates only work on text."
@@ -1931,7 +1931,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c4",
           "title": "Measure two outcomes",
-          "concept": "Response time measures duration per request. Throughput measures completed work per time unit. Improving one does not automatically improve the other.",
+          "concept": "Response time is how long one request takes. Throughput is how many requests finish in a period. A change that makes one request faster may not help the whole system finish more work.",
           "question": "A batch handles 600 requests in one minute while one request waits 20 seconds. Which statement follows?",
           "answer": "Throughput is 10 requests per second; that one response time is 20 seconds.",
           "kind": "choice",
@@ -1946,7 +1946,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c5",
           "title": "Controlled redundancy",
-          "concept": "Denormalization deliberately stores redundant facts to reduce selected read costs. It must include a way to keep copies consistent or an explicit staleness policy.",
+          "concept": "Denormalization means deliberately keeping an extra copy or summary of a fact to speed up reads. You also need a reliable way to update it, or a clear rule about how old it may be.",
           "question": "A dashboard stores a daily revenue total beside detailed sales. What extra responsibility appears?",
           "answer": "Refresh or maintain the total and define its freshness.",
           "kind": "choice",
@@ -1961,12 +1961,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c6",
           "title": "Horizontal and vertical splits",
-          "concept": "Horizontal partitioning separates row subsets; vertical splitting separates attribute subsets while preserving a reconstruction identifier.",
+          "concept": "Horizontal splitting puts different rows in different pieces, such as orders by region. Vertical splitting puts different columns in different pieces. Keep an ID so you can join vertical pieces back together.",
           "question": "Moving large technician biographies into TechnicianBiography(techId, text) is which kind of split?",
-          "answer": "Vertical: separating columns while retaining the identifier.",
+          "answer": "Vertical: separating columns while keeping the identifier.",
           "kind": "choice",
           "choices": [
-            "Vertical: separating columns while retaining the identifier.",
+            "Vertical: separating columns while keeping the identifier.",
             "Horizontal: splitting technicians by city.",
             "Replication: keeping all identical columns twice.",
             "A Cartesian product."
@@ -1976,7 +1976,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c7",
           "title": "Composite access paths",
-          "concept": "Column order in a composite index matters for common access patterns. Equality on a leading column followed by a range on the next is often useful.",
+          "concept": "The order of columns in a combined index matters. For searches by one customer and then a date range, an index starting with customer ID and then date is often worth testing.",
           "question": "Reservation(reservationId, assetId, startsAt). Frequent queries filter assetId to one value and startsAt to a range. Write a candidate index and state what to verify.",
           "answer": "CREATE INDEX idx_reservation_asset_start\nON Reservation(assetId, startsAt);\n-- Compare plans, elapsed time and write overhead on representative data.",
           "kind": "sql",
@@ -1990,8 +1990,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c8",
           "title": "Detect drift in a stored total",
-          "concept": "A reconciliation query compares a stored summary with the current detail. LEFT JOIN and COALESCE preserve summaries with no detail rows.",
-          "question": "Job(jobId, storedHours), WorkLog(logId, jobId, hours). All numeric values are non-NULL. Return jobs whose storedHours differs from the sum of their logged hours.",
+          "concept": "A stored total can become wrong if detail rows change without updating it. Compare the stored total with a freshly calculated total. Include items with no details, whose total should often be zero.",
+          "question": "Job(jobId, storedHours), WorkLog(logId, jobId, hours). All numeric values are known (not NULL). Return jobs whose storedHours differs from the sum of their logged hours.",
           "answer": "SELECT j.jobId, j.storedHours, COALESCE(SUM(w.hours), 0) AS actualHours\nFROM Job j LEFT JOIN WorkLog w ON w.jobId = j.jobId\nGROUP BY j.jobId, j.storedHours\nHAVING j.storedHours <> COALESCE(SUM(w.hours), 0);",
           "kind": "sql",
           "choices": [],
@@ -2004,7 +2004,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c9",
           "title": "Design a fair measurement",
-          "concept": "Tuning decisions should use a representative workload and repeatable conditions. A single fast query after warming the cache is weak evidence.",
+          "concept": "Test performance using realistic queries and similar conditions. One fast run may simply mean the data was already in memory. Measure several runs and check the cost of updates too.",
           "question": "Explain how you would evaluate an index for a booking service with frequent inserts and a daily availability report.",
           "answer": "Measure baseline query plans, timings and insert throughput with representative data volumes and parameters. Add the proposed index and repeat under comparable conditions, considering warm and cold caches and concurrency. Compare report improvements against storage and write costs. Keep the index only when the overall tradeoff supports the workload.",
           "kind": "essay",
@@ -2018,9 +2018,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n9c10",
           "title": "Redundancy tradeoffs",
-          "concept": "Precomputed results can reduce repeated aggregation, but updates and refresh policy determine whether readers see current or stale values.",
+          "concept": "Saving a precomputed total can make reports faster. But new data can make that total out of date. Decide how and when it will be recalculated, and whether users can tolerate a delay.",
           "question": "A manager proposes storing currentRentalCount on every member. Compare computing it on demand with storing it. Explain a safe maintenance plan if stored.",
-          "answer": "Computing from rentals avoids a redundant counter but requires query work. Storing the count speeds reads but every rental start, return, cancellation and member reassignment can change it. Maintain the counter in the same transaction as the detail change, coordinate concurrent updates and periodically reconcile against detail. If refreshed periodically instead, label its freshness and do not use a stale count to enforce a hard rental limit.",
+          "answer": "Computing from rentals avoids a redundant counter but requires query work. Storing the count speeds reads but every rental start, return, cancellation and member reassignment can change it. Maintain the counter in the same transaction as the detail change, coordinate concurrent updates and periodically reconcile against detail. If refreshed periodically instead, label its freshness and do not use a stale count to apply a hard rental limit.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -2032,7 +2032,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n9c11",
           "title": "Partition pruning",
-          "concept": "Partitioning may let the engine skip irrelevant data ranges. Its benefit depends on partition rules and whether the query exposes a usable restriction.",
+          "concept": "Partition pruning means skipping pieces of a table that cannot match the query. If orders are stored by month, a one-month query may be able to avoid reading the other months.",
           "question": "Monthly partitions hold orders. What can a query restricted to one month avoid when pruning is supported?",
           "answer": "Reading partitions that cannot contain dates in the requested month.",
           "kind": "concept",
@@ -2042,7 +2042,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n9c12",
           "title": "Covering access",
-          "concept": "An index that contains the needed search and output attributes can sometimes answer a query without fetching extra base-table columns, at a space and update cost.",
+          "concept": "A covering index contains everything a query needs, so it may avoid extra table lookups. Adding those columns still costs space and update work, so test whether the benefit is worthwhile.",
           "question": "Why might a covering index speed a frequent narrow report while still being a poor choice for every report?",
           "answer": "It can reduce base-row lookups for that report, but extra indexed columns increase storage and write maintenance; broad or infrequent reports may not justify that cost.",
           "kind": "concept",
@@ -2064,7 +2064,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c1",
           "title": "Atomicity and durability",
-          "concept": "Atomicity groups changes into all-or-nothing work. Durability protects committed effects after a failure. A transaction can require both for different reasons.",
+          "concept": "A transaction groups related work. Atomicity means all its changes happen or none do. Durability means a successful commit survives a later failure. One protects incomplete work; the other protects completed work.",
           "question": "A rental operation reserves a tool and creates an invoice. Why should both changes share a transaction?",
           "answer": "An incomplete operation should not leave only one of the two related changes.",
           "kind": "choice",
@@ -2079,7 +2079,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c2",
           "title": "Lost updates",
-          "concept": "A stale read followed by a replacement write can erase another transaction’s committed change. Atomic arithmetic or correctly coordinated read-modify-write logic can prevent this.",
+          "concept": "A lost update happens when one writer overwrites another writer's change using an old value. Coordinate updates, or use a safe arithmetic UPDATE, so both changes are taken into account.",
           "question": "Stock begins at 30. Two sessions both read 30; one writes 27 and the other writes 26. Both withdrawals should apply. What is wrong?",
           "answer": "The correct result is 23, but one update has been lost.",
           "kind": "choice",
@@ -2094,7 +2094,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c3",
           "title": "Reading uncommitted work",
-          "concept": "A dirty read observes a value another transaction has not committed. If the writer aborts, the reader relied on a value that never became valid committed data.",
+          "concept": "A dirty read means reading another transaction's change before it commits. If that transaction later rolls back, you used a value that was never successfully saved.",
           "question": "One session changes a fee to 90, another reads 90, then the first rolls back to 70. Which anomaly occurred?",
           "answer": "A dirty read, also called an uncommitted dependency.",
           "kind": "choice",
@@ -2109,7 +2109,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c4",
           "title": "Conflict edges",
-          "concept": "Operations conflict when they belong to different transactions, access the same item and at least one writes. Read-read pairs do not create conflict edges.",
+          "concept": "Two operations conflict if they come from different transactions, use the same item, and at least one writes. Their order matters. Two reads alone do not conflict.",
           "question": "For R1(a), W1(a), R2(a), W2(b), which precedence edge is required?",
           "answer": "T1 → T2 from W1(a) before R2(a).",
           "kind": "choice",
@@ -2124,7 +2124,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c5",
           "title": "Two-phase locking",
-          "concept": "Two-Phase Locking (2PL) has a growing phase and a shrinking phase. After a lock is released, no new lock may be acquired. It can still deadlock.",
+          "concept": "Two-Phase Locking (2PL) has two parts: first acquire locks, then release them. Once you release a lock, you cannot acquire a new one. This controls operation order, but deadlocks are still possible.",
           "question": "A transaction obtains a lock on x, releases it, then first requests a lock on y. Does it obey basic 2PL?",
           "answer": "No; it acquires a new lock after entering the shrinking phase.",
           "kind": "choice",
@@ -2139,7 +2139,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c6",
           "title": "Phantoms require range protection",
-          "concept": "A repeated predicate query can see newly inserted matching rows even if previously read rows are locked. Protecting a predicate or key range addresses that gap.",
+          "concept": "Locking the rows you found does not always stop someone inserting another matching row. That new match is called a phantom. Protect the searched range or condition when you need to prevent it.",
           "question": "A transaction locks five current rentals matching a member, but another inserts a sixth. What extra protection may be needed?",
           "answer": "Predicate or key-range protection, or an equivalent serializable mechanism.",
           "kind": "choice",
@@ -2154,13 +2154,13 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c7",
           "title": "Guard an inventory change",
-          "concept": "A conditional atomic UPDATE can combine checking and decrementing a value. A zero-row result must be interpreted as a failed business operation.",
+          "concept": "Reserve stock with an UPDATE that also checks there is enough. If it changes zero rows, the item was missing or there was not enough stock. Treat that as a failed reservation.",
           "question": "SQL Server: Stock(itemId, available). Write a transaction to reserve 3 units of item 8 only if enough stock exists. Reject a missing or insufficient row and roll back on error.",
           "answer": "BEGIN TRY\n BEGIN TRANSACTION;\n UPDATE Stock SET available = available - 3\n WHERE itemId = 8 AND available >= 3;\n IF @@ROWCOUNT <> 1 THROW 50001, 'Item unavailable or insufficient stock', 1;\n COMMIT;\nEND TRY\nBEGIN CATCH\n IF XACT_STATE() <> 0 ROLLBACK;\n THROW;\nEND CATCH;",
           "kind": "sql",
           "choices": [],
           "checks": [
-            "Combine the availability predicate and decrement.",
+            "Combine the availability condition and decrease.",
             "Check exactly one affected row immediately after UPDATE.",
             "Commit success; roll back an active failed transaction and propagate the error."
           ]
@@ -2168,7 +2168,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c8",
           "title": "A safe archive pattern",
-          "concept": "A transaction must use one stable set when copying and deleting records. Capturing identifiers can prevent accidental mismatch between the two operations.",
+          "concept": "When archiving, decide exactly which rows to move. Copy and delete that same set inside one transaction. Otherwise another user's changes could make you copy one set and delete a different set.",
           "question": "SQL Server: Repair(repairId, status), RepairArchive(repairId, status) with matching types and primary keys. Archive rows whose status is Closed using a captured identifier set. Roll back if any copy fails.",
           "answer": "BEGIN TRY\n BEGIN TRANSACTION;\n SELECT repairId INTO #Move\n FROM Repair WITH (UPDLOCK, HOLDLOCK) WHERE status = 'Closed';\n INSERT INTO RepairArchive(repairId, status)\n SELECT r.repairId, r.status FROM Repair r JOIN #Move m ON m.repairId = r.repairId;\n DELETE r FROM Repair r JOIN #Move m ON m.repairId = r.repairId;\n DROP TABLE #Move;\n COMMIT;\nEND TRY\nBEGIN CATCH\n IF XACT_STATE() <> 0 ROLLBACK;\n THROW;\nEND CATCH;\n-- UPDLOCK: update locks. HOLDLOCK: serializable semantics for this reference.\n-- Run in a session without an existing #Move temporary table.",
           "kind": "sql",
@@ -2182,27 +2182,27 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c9",
           "title": "Construct a precedence graph",
-          "concept": "A schedule is conflict serializable if and only if its precedence graph is acyclic. An equivalent serial order follows a topological ordering of that graph.",
+          "concept": "Draw an arrow when one transaction's operation must come before another's conflicting operation. A loop of arrows means there is no equivalent one-at-a-time order. No loop means you can find such an order.",
           "question": "Analyze R1(x), W1(x), R2(x), W2(y), R3(y), W3(z). Give all conflict edges and one equivalent serial order. Then explain the effect of appending R1(z).",
-          "answer": "Initially W1(x) before R2(x) creates T1 → T2, and W2(y) before R3(y) creates T2 → T3. There is no direct T1–T3 conflict initially. The graph is acyclic with serial order T1, T2, T3. Appending R1(z) after W3(z) adds T3 → T1, making a cycle and destroying conflict serializability.",
+          "answer": "Initially W1(x) before R2(x) creates T1 → T2, and W2(y) before R3(y) creates T2 → T3. There is no direct T1–T3 conflict at first. The graph is acyclic with serial order T1, T2, T3. Appending R1(z) after W3(z) adds T3 → T1, making a cycle and destroying conflict serializability.",
           "kind": "essay",
           "choices": [],
           "checks": [
             "Give the two initial edges with their operations.",
             "Give serial order T1, T2, T3.",
-            "Identify the new edge and cycle after R1(z)."
+            "Find the new edge and cycle after R1(z)."
           ]
         },
         {
           "id": "v2n10c10",
           "title": "Waiting is not ordering",
-          "concept": "A wait-for graph (WFG) uses an edge from a blocked transaction to the transaction holding its needed lock. A cycle indicates deadlock in the usual lock model.",
-          "question": "T1 waits for T2; T2 waits for T3; T3 waits for T2; T4 waits for T1. Identify the deadlocked transactions, blocked outsiders and a recovery choice.",
+          "concept": "A wait-for graph shows who is waiting for whose lock. If the arrows form a loop, each transaction in that loop is waiting for another to let go. That is a deadlock.",
+          "question": "T1 waits for T2; T2 waits for T3; T3 waits for T2; T4 waits for T1. Find the deadlocked transactions, blocked outsiders and a recovery choice.",
           "answer": "T2 and T3 form the cycle and are deadlocked. T1 and T4 are blocked behind that cycle but are not themselves in it. Rolling back T2 or T3 breaks the cycle; rolling back only T4 does not. Choose a victim using rollback cost and fairness, undo its changes, release its locks and allow retry.",
           "kind": "essay",
           "choices": [],
           "checks": [
-            "Identify the T2–T3 cycle.",
+            "Find the T2–T3 cycle.",
             "Distinguish blocked T1/T4 from cycle participants.",
             "Choose a useful victim and describe undo, release and retry."
           ]
@@ -2210,9 +2210,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c11",
           "title": "Recoverability matters separately",
-          "concept": "A recoverable schedule does not let a reader commit before the transaction whose value it read commits. Avoiding dirty reads is stronger and avoids cascading rollback.",
+          "concept": "If you use data written by another transaction, do not commit before that writer commits. Otherwise the writer could roll back after you have saved work based on its cancelled value.",
           "question": "T1 writes x; T2 reads that uncommitted x and commits; T1 then aborts. Explain why conflict serializability alone would not make this safe.",
-          "answer": "The operation graph can be acyclic with T1 before T2, yet T2 committed a result based on a value that T1 later removed. The schedule is not recoverable because T2 committed before its source transaction. Prevent T2 from reading uncommitted x, for example by retaining T1’s exclusive lock until completion, rather than relying only on an acyclic graph.",
+          "answer": "The operation graph can be acyclic with T1 before T2, yet T2 committed a result based on a value that T1 later removed. The schedule is not recoverable because T2 committed before its source transaction. Prevent T2 from reading uncommitted x, for example by keeping T1’s exclusive lock until completion, rather than relying only on an acyclic graph.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -2224,7 +2224,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n10c12",
           "title": "Alternative concurrency controls",
-          "concept": "Timestamp ordering fixes a transaction order using unique ordered identifiers. Optimistic control performs work, validates it and then writes if validation succeeds.",
+          "concept": "Timestamp ordering gives transactions an order and rejects operations that break it. Optimistic control lets work proceed, then checks for conflicts before saving. Both are alternatives to simply waiting for locks.",
           "question": "Compare basic timestamp ordering with lock-based control for a low-contention workload. Include waiting, restarts, deadlocks and recoverability.",
           "answer": "Basic timestamp ordering rejects operations that violate timestamp order and restarts the transaction, avoiding lock-wait deadlocks but risking repeated restarts or starvation. Locking waits for incompatible locks and may deadlock; 2PL can ensure conflict serializability. Optimistic validation may suit low contention but must restart conflicting work. Recovery safety is a separate requirement: basic timestamp ordering alone does not guarantee recoverability.",
           "kind": "essay",
@@ -2238,9 +2238,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n10c13",
           "title": "Four transaction properties",
-          "concept": "ACID stands for Atomicity, Consistency, Isolation and Durability. The properties address different failure and concurrency concerns.",
-          "question": "Which property prevents a half-completed reservation, and which preserves its committed result after a crash?",
-          "answer": "Atomicity prevents the half-completed reservation. Durability preserves its committed result.",
+          "concept": "ACID means Atomicity, Consistency, Isolation and Durability. Think: all-or-nothing work, valid rules, controlled interference between users, and committed changes that survive failures.",
+          "question": "Which property stops a half-completed reservation, and which keeps its committed result after a crash?",
+          "answer": "Atomicity stops the half-completed reservation. Durability keeps its committed result.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -2248,8 +2248,8 @@ window.DBMS_DATA = {
         {
           "id": "v4n10c14",
           "title": "Nonrepeatable reads",
-          "concept": "A transaction may read one row twice and see a different committed value if another transaction updates it between reads.",
-          "question": "T1 reads price 30, T2 changes it to 35 and commits, then T1 reads 35. What phenomenon occurred?",
+          "concept": "A nonrepeatable read happens when you read the same row twice and get different values because another transaction changed and committed it between your reads.",
+          "question": "T1 reads price 30, T2 changes it to 35 and commits, then T1 reads 35. What is this problem called?",
           "answer": "A nonrepeatable read.",
           "kind": "concept",
           "choices": [],
@@ -2258,7 +2258,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n10c15",
           "title": "Inconsistent analysis",
-          "concept": "An aggregate can mix old and new values from a multi-row change when it does not observe a consistent state.",
+          "concept": "A report can be wrong even when each number it reads was once correct. It may combine an old value from one row with a new value from another, showing a total that never really existed.",
           "question": "Stock is moved between two bins with an unchanged total. A reader totals one bin before the move and the other afterward. What can go wrong?",
           "answer": "It may report a total that never existed as a committed consistent state, because it combined values from different moments.",
           "kind": "concept",
@@ -2268,9 +2268,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n10c16",
           "title": "Serial versus serializable",
-          "concept": "A serial schedule has no interleaving between transactions. A serializable schedule may interleave operations while preserving equivalence to a valid serial execution.",
+          "concept": "Serial means one transaction finishes before the next starts. Serializable means mixed-together work still gives an equivalent valid one-at-a-time result. Interleaving is not automatically a problem.",
           "question": "Can an interleaved schedule still be conflict serializable?",
-          "answer": "Yes. If its precedence graph is acyclic, a topological ordering gives an equivalent serial order.",
+          "answer": "Yes. Mixed-together operations can still have the same effect as a valid one-at-a-time order. For conflict serializability, draw the required order arrows: if there is no cycle, such an order exists.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -2278,7 +2278,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n10c17",
           "title": "Read-read pairs do not conflict",
-          "concept": "Conflict analysis only compares operations from different transactions on the same item when at least one is a write.",
+          "concept": "Two people can read the same value without changing it. Those reads do not conflict. To add a conflict arrow, at least one operation must write the shared item.",
           "question": "Do R1(x) followed by R2(x) create a precedence edge?",
           "answer": "No. Two reads do not conflict.",
           "kind": "concept",
@@ -2288,8 +2288,8 @@ window.DBMS_DATA = {
         {
           "id": "v4n10c18",
           "title": "Strict versus rigorous locking",
-          "concept": "Strict two-phase locking retains exclusive locks until commit or abort. Rigorous two-phase locking retains both shared and exclusive locks until transaction end.",
-          "question": "Which of these two disciplines also keeps read locks until the transaction finishes?",
+          "concept": "Strict two-phase locking keeps write locks until the transaction ends. Rigorous two-phase locking keeps both read and write locks until the end. The extra read-lock rule is the difference.",
+          "question": "Which keeps read locks until the transaction ends: strict two-phase locking or rigorous two-phase locking?",
           "answer": "Rigorous two-phase locking.",
           "kind": "concept",
           "choices": [],
@@ -2298,7 +2298,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n10c19",
           "title": "Lock upgrades can deadlock",
-          "concept": "Two readers can each hold a shared lock and then both request an exclusive upgrade, with each waiting for the other’s shared lock.",
+          "concept": "Two transactions may both hold permission to read a row, then both ask to change it. Each can wait for the other to release its read lock. This lock upgrade can cause a deadlock.",
           "question": "Why does two-phase locking not eliminate the need for deadlock handling?",
           "answer": "It can still permit cycles of incompatible lock requests, including upgrades. A lock manager must prevent or detect such cycles and resolve them, often by rolling back a victim.",
           "kind": "concept",
@@ -2308,7 +2308,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n10c20",
           "title": "Commit order and recoverability",
-          "concept": "If a transaction reads another transaction’s uncommitted value, it must not commit before that writer commits. Avoiding dirty reads is stronger and simplifies recovery.",
+          "concept": "If T2 reads a value written by T1 before T1 commits, T2 must wait for T1's successful commit before committing itself. If T1 rolls back, T2 must not save work based on that cancelled value.",
           "question": "T2 reads a value written by T1. What commit order is required for recoverability if the read was allowed before T1 completed?",
           "answer": "T1 must commit before T2 commits. If T1 aborts, T2 must not commit its dependent work.",
           "kind": "concept",
@@ -2330,7 +2330,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c1",
           "title": "Declarative requests",
-          "concept": "SQL states the desired result. The optimizer translates a query into an efficient physical plan among alternatives with equivalent meaning.",
+          "concept": "SQL tells the database what result you want. The optimizer chooses how to get it, such as which index and join method to use. Different plans can produce the same correct result.",
           "question": "Two plans use different join orders but return the same required tuples. What is the optimizer comparing?",
           "answer": "Execution costs of equivalent strategies.",
           "kind": "choice",
@@ -2345,7 +2345,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c2",
           "title": "Early restriction",
-          "concept": "Pushing a safe selection down reduces tuples before expensive operations. It is not always safe to move predicates across outer joins without checking semantics.",
+          "concept": "Filtering early can mean fewer rows to join or sort later. But moving a filter can change the result of an outer join, so check that the meaning stays the same.",
           "question": "An inner join has one depot in Oslo among 200 depots. Why filter depots before joining their repairs?",
           "answer": "The join may process fewer candidate rows.",
           "kind": "choice",
@@ -2360,7 +2360,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c3",
           "title": "Keep needed columns",
-          "concept": "Projection can reduce row width, but it must retain attributes used by later filters, joins, grouping or output.",
+          "concept": "Keeping only needed columns can reduce the amount of data passed between steps. Do not remove a column too early if a later join, filter, group or result still needs it.",
           "question": "A plan needs to join WorkLog to Job on jobId. Can it discard jobId from WorkLog before that join?",
           "answer": "No; the join still needs jobId.",
           "kind": "choice",
@@ -2375,7 +2375,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c4",
           "title": "Uniformity estimates",
-          "concept": "Under a uniform-distribution assumption, an equality predicate is often estimated as row count divided by distinct-value count. This is an estimate, not a guarantee.",
+          "concept": "An optimizer sometimes assumes values are spread evenly. With 1,000 rows and 10 equally common categories, it estimates about 100 rows per category. Real data may be uneven, so this is only an estimate.",
           "question": "A table has 24000 rows and 120 equally frequent depot IDs. Estimate rows for one depot ID.",
           "answer": "200.",
           "kind": "choice",
@@ -2390,13 +2390,13 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c5",
           "title": "Join algorithms",
-          "concept": "A hash join is suited to equality matching; sort-merge can exploit ordered inputs; indexed nested loops can suit a small outer side with selective inner lookups.",
+          "concept": "There are several ways to join tables. A hash join groups matching keys. A merge join uses ordered inputs. An indexed nested loop looks up matches for each row from a smaller input.",
           "question": "Which case makes indexed nested loops a plausible candidate?",
           "answer": "A few outer rows and a useful inner join-key index.",
           "kind": "choice",
           "choices": [
             "A few outer rows and a useful inner join-key index.",
-            "A mandatory Cartesian product of huge tables with no predicate.",
+            "A mandatory Cartesian product of huge tables with no condition.",
             "A guarantee that no indexes exist.",
             "A query that returns no columns by definition."
           ],
@@ -2405,7 +2405,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c6",
           "title": "Streaming versus storing",
-          "concept": "Pipelining passes produced tuples to the next operation. Materialization stores an intermediate result. Some operations, such as a full sort, are blocking.",
+          "concept": "Pipelining sends each produced row straight to the next step. Materialization saves an intermediate result first. Some tasks, such as fully sorting a result, need to collect data before producing the final output.",
           "question": "Why may ORDER BY delay the first output row even when earlier operators stream?",
           "answer": "The sort may need to collect input before producing ordered output.",
           "kind": "choice",
@@ -2420,7 +2420,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c7",
           "title": "Equivalent filtering",
-          "concept": "For inner joins, a predicate depending on one input can often be applied before the join. Required join columns must remain available.",
+          "concept": "For an inner join, you can often filter one table before joining it. This can reduce work without changing the answer. Keep the columns needed to connect the tables.",
           "question": "Repair(repairId, depotId, fee), Depot(depotId, city). Write a query returning repair IDs and fees from depots in Oslo, then an equivalent version with the depot filter in a derived table.",
           "answer": "SELECT r.repairId, r.fee\nFROM Repair r JOIN Depot d ON d.depotId = r.depotId\nWHERE d.city = 'Oslo';\n\nSELECT r.repairId, r.fee\nFROM Repair r\nJOIN (SELECT depotId FROM Depot WHERE city = 'Oslo') d\n ON d.depotId = r.depotId;",
           "kind": "sql",
@@ -2434,7 +2434,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c8",
           "title": "Avoid needless row multiplication",
-          "concept": "If only existence is needed, EXISTS expresses that requirement directly and avoids returning one parent row per matching child.",
+          "concept": "If you only need to know whether a match exists, use EXISTS. You do not need to return every matching child row, which could repeat the same parent many times.",
           "question": "Asset(assetId, name), Inspection(inspectionId, assetId, passed). Replace a join-plus-DISTINCT query with EXISTS to return assets having at least one passed inspection (passed = 1).",
           "answer": "SELECT a.assetId, a.name\nFROM Asset a\nWHERE EXISTS (\n SELECT 1 FROM Inspection i\n WHERE i.assetId = a.assetId AND i.passed = 1\n);",
           "kind": "sql",
@@ -2448,8 +2448,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c9",
           "title": "Estimate intermediate work",
-          "concept": "Cartesian products can create large intermediates. Applying valid selections early can reduce the work even when the final result is unchanged.",
-          "question": "R has 800 rows and S has 50. Filters retain 80 R rows and 5 S rows. Compare raw Cartesian-product sizes before and after filtering. Explain what this does not prove about actual execution time.",
+          "concept": "Pairing every row with every other row can create a huge temporary result. Apply valid filters early so later steps have less data to process, while keeping the answer unchanged.",
+          "question": "R has 800 rows and S has 50. Filters keep 80 R rows and 5 S rows. Compare raw Cartesian-product sizes before and after filtering. Explain what this does not prove about actual execution time.",
           "answer": "Before filtering, the product has 800 × 50 = 40000 pairs. After filtering, it has 80 × 5 = 400 pairs. This is a 100-fold reduction in candidate pairs, not necessarily a 100-fold time improvement: filtering costs, indexes, join algorithms, memory, parallelism and output work affect runtime.",
           "kind": "essay",
           "choices": [],
@@ -2462,7 +2462,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n11c10",
           "title": "Why estimates can be wrong",
-          "concept": "An optimizer’s cardinality estimates depend on statistics and assumptions about distributions and correlations. Stale or simplistic statistics can favor the wrong plan.",
+          "concept": "A plan is based on estimates about how many rows will match. Old statistics or uneven data can make those estimates wrong. The optimizer may then choose a poor strategy.",
           "question": "A status column has 990000 Closed rows and 10000 Open rows. Explain why treating its two values as equally frequent can mislead plan selection.",
           "answer": "A uniform estimate predicts 500000 rows for either value. That greatly overestimates Open and underestimates Closed. The resulting access-path and join choices may be inappropriate, especially for an Open-only lookup. Current statistics that capture skew can help, but representative plan and runtime checks are still needed.",
           "kind": "essay",
@@ -2476,7 +2476,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n11c11",
           "title": "Stages of query processing",
-          "concept": "A query passes through parsing and validation, logical transformation, plan selection and physical execution. A syntactically correct query can still reference invalid objects.",
+          "concept": "The database first checks the query's spelling, structure and references. It then considers equivalent ways to run it, picks a plan and executes it. A nonexistent column should be caught before execution.",
           "question": "At what stage should a query referring to a nonexistent column be rejected?",
           "answer": "During semantic validation of the parsed query, before executing a physical plan.",
           "kind": "concept",
@@ -2486,9 +2486,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n11c12",
           "title": "Outer joins constrain rewrites",
-          "concept": "A filter on the nullable side of an outer join can change whether unmatched rows survive. Equivalent-looking predicate movements are not always valid.",
-          "question": "Does moving child.active=1 from WHERE to ON in a LEFT JOIN necessarily preserve the result?",
-          "answer": "No. Putting it in ON can retain parents with no qualifying child, while WHERE usually rejects their NULL-extended rows.",
+          "concept": "A LEFT JOIN keeps unmatched left-side rows. Moving a right-side filter between ON and WHERE can change whether those rows survive. Do not assume this rewrite is harmless.",
+          "question": "Does moving child.active=1 from WHERE to ON in a LEFT JOIN necessarily keep the result?",
+          "answer": "No. Putting it in ON can keep parents with no qualifying child, while WHERE usually rejects their NULL-extended rows.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -2496,7 +2496,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n11c13",
           "title": "Nested loops versus hashing",
-          "concept": "An indexed nested-loop join can work well with a small selective outer input. A scan and hash join may be preferable when many rows match.",
+          "concept": "For a few selected customers, looking up their orders through an index can work well. For almost all customers, scanning and joining the larger sets may be cheaper.",
           "question": "Why might a plan for 10 selected customers differ from a plan for almost every customer?",
           "answer": "Ten selective customers may need only a few indexed lookups. Most customers may require so many lookups that scanning and joining larger inputs is cheaper.",
           "kind": "concept",
@@ -2506,9 +2506,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n11c14",
           "title": "Statistics are estimates",
-          "concept": "Optimizers use statistics to estimate cardinalities and costs. Skewed values, correlated columns and stale statistics can make simple assumptions inaccurate.",
-          "question": "If a plan estimates 10 matching rows but actually processes 100,000, what should be investigated?",
-          "answer": "The relevant statistics, value distribution, predicate selectivity and column correlations, then whether the resulting plan choice remains suitable.",
+          "concept": "Statistics summarize stored data so the optimizer can estimate work. They are not exact predictions. Uneven values, related columns and outdated statistics can make a plan process far more rows than expected.",
+          "question": "A plan expects 10 rows but actually processes 100,000. What could make the estimate so wrong?",
+          "answer": "The relevant statistics, value distribution, condition selectivity and column correlations, then whether the resulting plan choice remains suitable.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -2528,12 +2528,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c1",
           "title": "Granularity tradeoffs",
-          "concept": "Lock granularity is the size of the protected item: database, table, page, row or field. Small units allow more unrelated work but require more locks.",
+          "concept": "Lock granularity means how much data one lock covers. A row lock blocks less unrelated work but needs more management. A table lock uses fewer locks but can block many other users.",
           "question": "Two users update different rows. What is a likely benefit of row locks over one table lock?",
-          "answer": "They may proceed concurrently, with more lock-management overhead.",
+          "answer": "They may proceed at the same time, with more lock-management overhead.",
           "kind": "choice",
           "choices": [
-            "They may proceed concurrently, with more lock-management overhead.",
+            "They may proceed at the same time, with more lock-management overhead.",
             "They are guaranteed never to deadlock.",
             "No lock manager is needed.",
             "Both updates become read-only."
@@ -2543,7 +2543,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c2",
           "title": "Failure scope",
-          "concept": "A system crash can lose volatile memory while durable storage survives. A media failure damages the stored data itself and may require restoring a backup.",
+          "concept": "A crash may lose work held in memory while leaving disk data intact. A broken disk can destroy the stored data itself. These failures need different recovery steps.",
           "question": "A failed drive destroys database files. Why is simply restarting the process insufficient?",
           "answer": "The durable data may be missing or damaged and must be restored.",
           "kind": "choice",
@@ -2558,7 +2558,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c3",
           "title": "Write ahead",
-          "concept": "Write-Ahead Logging (WAL) requires necessary log records to be durable before their associated modified data pages are persisted. Commit acknowledgment also requires appropriate durable log records.",
+          "concept": "Write-Ahead Logging (WAL) means saving the recovery log before writing the changed data page to disk. Before confirming a commit, the database must also make the required commit information durable.",
           "question": "What is unsafe about persisting an uncommitted changed page before its undo information is durable?",
           "answer": "A crash can leave a change on disk without the information required to undo it.",
           "kind": "choice",
@@ -2573,7 +2573,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c4",
           "title": "Undo and redo images",
-          "concept": "Before-images support reversing changes; after-images support reapplying them. The required operations depend on the update and buffer-management protocol.",
+          "concept": "A before-image is the old value; an after-image is the new value. Recovery can use the old value to undo a change and the new value to redo it.",
           "question": "A value changes from 14 to 19. Which value is used to undo that change?",
           "answer": "14, the before-image.",
           "kind": "choice",
@@ -2588,7 +2588,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c5",
           "title": "Deferred updates",
-          "concept": "In a textbook deferred-update protocol, uncommitted changes do not reach database pages. Committed changes may still require redo after a crash.",
+          "concept": "With deferred update, uncommitted changes are not written to the database pages. Cancelling them needs no page undo. A committed change may still need to be redone after a crash.",
           "question": "Which recovery classification matches that deferred-update model?",
           "answer": "No undo of uncommitted database changes; redo may be needed.",
           "kind": "choice",
@@ -2603,7 +2603,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c6",
           "title": "Checkpoints and active work",
-          "concept": "A checkpoint records useful recovery state and may flush data under the chosen scheme. An active transaction can have earlier log records still needed for rollback.",
+          "concept": "A checkpoint gives recovery a useful starting point. But a transaction may have started earlier and still be unfinished, so its older log records can still be needed.",
           "question": "May recovery always discard every log record before the most recent checkpoint?",
           "answer": "No; active transactions or other recovery requirements may still need earlier records.",
           "kind": "choice",
@@ -2618,7 +2618,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c7",
           "title": "Practice rollback safely",
-          "concept": "ROLLBACK cancels the current transaction’s changes. A savepoint can mark a position inside a transaction, with syntax and error behavior varying by DBMS.",
+          "concept": "ROLLBACK cancels a transaction's changes. A savepoint marks a place inside the transaction, so you may be able to cancel only the work done after that point.",
           "question": "PostgreSQL: Stock(itemId, available). Begin a transaction, set item 4 to 99, inspect it, then undo the entire transaction.",
           "answer": "BEGIN;\nUPDATE Stock SET available = 99 WHERE itemId = 4;\nSELECT itemId, available FROM Stock WHERE itemId = 4;\nROLLBACK;",
           "kind": "sql",
@@ -2632,7 +2632,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c8",
           "title": "Partial rollback with a savepoint",
-          "concept": "A savepoint allows a transaction to discard later work while retaining earlier changes. It is not a separate durable commit.",
+          "concept": "A savepoint is a bookmark inside a transaction. Rolling back to it keeps earlier changes and removes later ones. It does not permanently save the earlier changes; you still need COMMIT.",
           "question": "PostgreSQL: Counter(counterId, value). Increase counter 1 by 2, set a savepoint, increase it by another 100, undo only the second increase and commit.",
           "answer": "BEGIN;\nUPDATE Counter SET value = value + 2 WHERE counterId = 1;\nSAVEPOINT keep_first;\nUPDATE Counter SET value = value + 100 WHERE counterId = 1;\nROLLBACK TO SAVEPOINT keep_first;\nCOMMIT;",
           "kind": "sql",
@@ -2646,9 +2646,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c9",
           "title": "Classify crash recovery work",
-          "concept": "Immediate update may put uncommitted changes on disk, while a no-force policy may leave committed pages only in memory. Recovery must address both cases.",
+          "concept": "After a crash, two things may be wrong: an unfinished change may already be on disk, and a committed change may not be there yet. Recovery may need to undo the first and redo the second.",
           "question": "Under an immediate-update undo/redo protocol, T1 commits but its changed page is not on disk. T2 has not committed but its changed page is on disk. A crash occurs. Explain the recovery actions.",
-          "answer": "Redo T1 as required so its committed effect reaches the database. Undo T2 so its uncommitted effect is removed. T1 needs durability; T2 needs atomicity. Durable log records identify status and supply the necessary change information. Actual algorithms may redo history before undoing incomplete work, so this describes the required final effects.",
+          "answer": "Redo T1 as required so its committed effect reaches the database. Undo T2 so its uncommitted effect is removed. T1 needs durability; T2 needs atomicity. Durable log records find status and supply the needed change information. Actual algorithms may redo history before undoing incomplete work, so this describes the required final effects.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -2660,21 +2660,21 @@ window.DBMS_DATA = {
         {
           "id": "v2n12c10",
           "title": "Restore from surviving copies",
-          "concept": "Backups provide a base state; retained logs can move that base forward. The latest recoverable point depends on what survived, not merely the existence of a backup job.",
+          "concept": "A backup gives you an earlier copy of the database. Surviving logs may let you replay later committed work. You can restore only as far as the available backup and logs allow.",
           "question": "A midnight backup survives a disk failure at noon. Logs are intact only through 11:40. Describe the recovery sequence and what cannot be promised.",
           "answer": "Restore the midnight backup, then apply the surviving log history according to the recovery protocol through the recoverable point around 11:40. Resolve incomplete transactions at that point. Changes after the retained history cannot be guaranteed recovered from these resources. Test restoration and protect backups and logs independently; checkpointing alone does not supply missing media contents.",
           "kind": "essay",
           "choices": [],
           "checks": [
             "Restore the base before applying retained log history.",
-            "Identify the limit imposed by the missing later log history.",
+            "Find the limit imposed by the missing later log history.",
             "Explain testing and independent protection of recovery copies."
           ]
         },
         {
           "id": "v4n12c11",
           "title": "Commit does not require every page to be flushed",
-          "concept": "Durable logging allows committed changes to survive even if some modified data pages have not yet reached disk; recovery can redo them.",
+          "concept": "A commit does not always write every changed data page to disk immediately. Durable log records can protect the change until the page is written. Recovery can replay it if a crash happens first.",
           "question": "What must be durable before a successful commit is acknowledged in a write-ahead logging system?",
           "answer": "The transaction’s required log records, including its commit record, must be durable.",
           "kind": "concept",
@@ -2684,7 +2684,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n12c12",
           "title": "Undo order matters",
-          "concept": "A transaction can change the same item several times. Undo applies inverse changes in reverse order so earlier values are restored correctly.",
+          "concept": "Undo changes in reverse order. If a transaction changes a value twice, undo the second change first, then the first. This takes the value back through its earlier states correctly.",
           "question": "A transaction changes x from 4 to 7, then from 7 to 9, and aborts. In what order should those changes be undone?",
           "answer": "Undo 9→7 first, then 7→4, restoring x to 4.",
           "kind": "concept",
@@ -2694,7 +2694,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n12c13",
           "title": "Redo preserves committed work",
-          "concept": "Redo reapplies changes that must survive, typically using after-images or equivalent logged operations. It does not turn incomplete work into committed work.",
+          "concept": "REDO replays a change that must survive, such as a committed update missing from a data page. It does not make an unfinished transaction committed.",
           "question": "A committed change from 12 to 18 is durable in the log, but the data page still contains 12 after a crash. What recovery action is needed?",
           "answer": "Redo the committed change so the page contains 18.",
           "kind": "concept",
@@ -2704,7 +2704,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n12c14",
           "title": "Checkpoint limits",
-          "concept": "A checkpoint records a recovery boundary and information about active work. It does not automatically commit active transactions or make older log history irrelevant.",
+          "concept": "A checkpoint does not finish active transactions for them. It also does not mean every older log record can be discarded. Some unfinished work may still need those records for undo.",
           "question": "Why might recovery need log records from before the latest checkpoint?",
           "answer": "A transaction still active at the checkpoint may have earlier changes that must be undone if it later fails or remains incomplete at the crash.",
           "kind": "concept",
@@ -2714,7 +2714,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n12c15",
           "title": "Lock hierarchy and intention",
-          "concept": "Intention locks announce planned locking at a finer granularity, allowing a lock manager to coordinate row-level activity with requests for larger units.",
+          "concept": "An intention lock is a warning at a larger level: this transaction plans to lock something inside it. It helps the database coordinate a whole-table lock with locks on individual rows.",
           "question": "Why might a row writer take an intention-exclusive lock on the containing table?",
           "answer": "To signal lower-level exclusive locking so incompatible table-level lock requests can be detected without examining every row lock.",
           "kind": "concept",
@@ -2724,8 +2724,8 @@ window.DBMS_DATA = {
         {
           "id": "v4n12c16",
           "title": "Recovery needs recoverable copies",
-          "concept": "A checkpoint is not an offsite duplicate of the entire database. Recovery from destroyed storage needs a valid backup and any required surviving log records.",
-          "question": "What restores a database when its data disk is destroyed but a recent backup and subsequent logs survive?",
+          "concept": "A checkpoint is not a backup copy of all your data. If the data disk is destroyed, recovery needs a usable backup and any surviving logs needed to bring it up to date.",
+          "question": "What restores a database when its data disk is destroyed but a recent backup and later logs survive?",
           "answer": "Restore the backup, then roll forward the required committed changes using the surviving logs.",
           "kind": "concept",
           "choices": [],
@@ -2746,7 +2746,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c1",
           "title": "Operational versus analytical work",
-          "concept": "Online Transaction Processing (OLTP) supports operational changes. Online Analytical Processing (OLAP) explores data across dimensions for analysis.",
+          "concept": "Online Transaction Processing (OLTP) handles daily work, such as placing an order. Online Analytical Processing (OLAP) explores summaries, such as comparing sales across regions and years.",
           "question": "Which request is analytical rather than a typical operational update?",
           "answer": "Compare quarterly tool-rental revenue by region over three years.",
           "kind": "choice",
@@ -2761,7 +2761,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c2",
           "title": "Warehouse characteristics",
-          "concept": "A data warehouse (DW) integrates subject-oriented historical data for decision support. Nonvolatile means it is not normally updated like an operational transaction store; corrections and managed loads still exist.",
+          "concept": "A data warehouse brings historical information together for analysis. It is usually loaded in planned batches or flows rather than changed like a live order system. Corrections can still be made.",
           "question": "Why keep historical category and location meaning in analytical design?",
           "answer": "Historical reports should not silently reinterpret past events using changed current descriptions.",
           "kind": "choice",
@@ -2776,7 +2776,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c3",
           "title": "Fact grain",
-          "concept": "Grain defines what one fact row represents. Mixing transaction-level and summary rows can double-count measures unless the model separates them explicitly.",
+          "concept": "Grain means what one fact-table row represents: one sale, one sale line, or one daily total. Choose it clearly. Mixing detailed rows and their totals can make you count the same amount twice.",
           "question": "A fact table has one row per daily store-product total. Is adding a monthly total as another ordinary row safe for SUM(revenue)?",
           "answer": "No; the same underlying sales can be counted twice.",
           "kind": "choice",
@@ -2791,7 +2791,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c4",
           "title": "Dimensions and measures",
-          "concept": "Fact measures are interpreted in dimension context. Dimensions commonly describe time, product and location; a measure’s aggregation behavior must be understood.",
+          "concept": "A measure is a number you analyze, such as revenue. Dimensions describe it, such as date, product and branch. Check whether adding the measure makes sense across the dimensions you choose.",
           "question": "Which measure is usually unsafe to SUM across dates for a stock-level snapshot?",
           "answer": "Inventory balance, because successive snapshots repeat stock state.",
           "kind": "choice",
@@ -2806,7 +2806,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c5",
           "title": "Roll up and drill down",
-          "concept": "Roll-up aggregates to a coarser level; drill-down reveals finer detail. Slice and dice select subsets across dimensions.",
+          "concept": "Roll up means combine details into a bigger summary, such as months into years. Drill down means look at finer detail. Slice and dice means select parts of the data to explore.",
           "question": "Moving from national revenue to regions and then stores is which direction?",
           "answer": "Drill-down.",
           "kind": "choice",
@@ -2821,12 +2821,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c6",
           "title": "ETL quality",
-          "concept": "Extract, Transform, Load (ETL) prepares source data for an analytical store. Transformation includes reconciling codes, units and missing values.",
+          "concept": "ETL means Extract, Transform, Load: collect data, clean or convert it, then store it for analysis. For example, convert different date formats and make sure branch codes mean the same thing.",
           "question": "Two systems record weight in kilograms and pounds. What is needed before combining totals?",
-          "answer": "Normalize units during transformation and preserve their meaning.",
+          "answer": "Normalize units during transformation and keep their meaning.",
           "kind": "choice",
           "choices": [
-            "Normalize units during transformation and preserve their meaning.",
+            "Normalize units during transformation and keep their meaning.",
             "Add the numbers directly without conversion.",
             "Replace the weight with an arbitrary key.",
             "Remove every source timestamp."
@@ -2836,7 +2836,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c7",
           "title": "Group a fact table",
-          "concept": "A star schema links a central fact table to dimensions. Joining through dimension keys supplies readable categories for aggregation.",
+          "concept": "A star schema has a fact table in the middle and descriptive dimension tables around it. Join them by their keys to report numbers under useful labels such as region or quarter.",
           "question": "FactRental(dayKey, branchKey, revenue), DimDay(dayKey, year, quarter), DimBranch(branchKey, region). Return revenue by region and quarter for year 2027.",
           "answer": "SELECT b.region, d.quarter, SUM(f.revenue) AS revenue\nFROM FactRental f\nJOIN DimDay d ON d.dayKey = f.dayKey\nJOIN DimBranch b ON b.branchKey = f.branchKey\nWHERE d.year = 2027\nGROUP BY b.region, d.quarter\nORDER BY b.region, d.quarter;",
           "kind": "sql",
@@ -2850,7 +2850,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c8",
           "title": "Rank aggregates",
-          "concept": "Window functions operate over result rows without collapsing them like ordinary grouping. DENSE_RANK assigns equal ranks to ties without gaps.",
+          "concept": "A window function adds calculations while keeping result rows. DENSE_RANK gives tied values the same rank and does not skip the next rank. Totals 100,100,80 receive ranks 1,1,2.",
           "question": "Sales(branchId, amount). Write SQL returning each branch total and a dense rank from highest total to lowest.",
           "answer": "SELECT branchId, SUM(amount) AS total,\n DENSE_RANK() OVER (ORDER BY SUM(amount) DESC) AS revenueRank\nFROM Sales\nGROUP BY branchId;",
           "kind": "sql",
@@ -2864,21 +2864,21 @@ window.DBMS_DATA = {
         {
           "id": "v2n13c9",
           "title": "Design a dimensional model",
-          "concept": "A dimensional model is organized around a business process and its grain. Conformed dimensions support comparison across fact tables that use compatible definitions.",
+          "concept": "Start an analytical design by deciding what one row means. Use consistent definitions for shared details, such as dates and products, so reports from different fact tables can be compared fairly.",
           "question": "Design a daily rental-revenue star schema for branches and tool categories. Define the grain, dimensions and measures; explain why an average price needs care.",
-          "answer": "Define one fact row per day, branch and tool category. Link Date, Branch and ToolCategory dimensions to a fact containing rentalCount and totalRevenue. Average price should be computed as totalRevenue divided by rentalCount at the requested level, guarding zero counts. Averaging stored daily averages can be wrong because days have different rental counts. Historical dimension treatment must preserve the intended category and region at event time.",
+          "answer": "Define one fact row per day, branch and tool category. Link Date, Branch and ToolCategory dimensions to a fact containing rentalCount and totalRevenue. Average price should be computed as totalRevenue divided by rentalCount at the requested level, guarding zero counts. Averaging stored daily averages can be wrong because days have different rental counts. Historical dimension treatment must keep the intended category and region at event time.",
           "kind": "essay",
           "choices": [],
           "checks": [
             "State an unambiguous daily branch-category grain.",
-            "Identify dimensions and additive measures.",
+            "Find dimensions and additive measures.",
             "Explain weighted average calculation and historical meaning."
           ]
         },
         {
           "id": "v2n13c10",
           "title": "Mining versus summarizing",
-          "concept": "Data mining seeks patterns or predictive structure; descriptive analytical queries summarize defined facts. Association does not establish causation.",
+          "concept": "A summary answers a defined question, such as total sales by month. Data mining looks for patterns or useful predictions. Finding two things together does not prove one caused the other.",
           "question": "A report says weekend rentals earn more revenue, and a model predicts which members will stop renting. Compare the tasks and state two cautions about the predictive model.",
           "answer": "The revenue report is descriptive aggregation; the churn model predicts an outcome using learned patterns. Evaluate the model on appropriate held-out later data and prevent target leakage. Check data quality, imbalance and whether behavior changes over time. A correlation between a feature and churn does not establish that changing the feature will cause retention.",
           "kind": "essay",
@@ -2892,7 +2892,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n13c11",
           "title": "Semi-additive measures",
-          "concept": "Some measures can be summed across entities but not across time. A balance describes a state rather than new activity during a period.",
+          "concept": "Some numbers describe a state, such as stock at the end of a day. You may add stock across branches on that day, but adding snapshots from many days does not give month-end stock.",
           "question": "Why is summing daily ending inventory across a month usually not the month-end stock?",
           "answer": "It adds repeated snapshots from different days. Month-end stock is the ending snapshot at the required date, not the sum of all daily balances.",
           "kind": "concept",
@@ -2902,7 +2902,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n13c12",
           "title": "Weighted ratios",
-          "concept": "Combining group averages without weights can distort a result. Ratios such as revenue per unit should be recomputed from their additive components.",
+          "concept": "To combine rates fairly, add their original totals first. For revenue per unit, divide total revenue by total units. Simply averaging two averages can give the wrong result when their group sizes differ.",
           "question": "One sale has 1 unit for 20 and another has 9 units for 90. What is the combined revenue per unit?",
           "answer": "(20+90)/(1+9) = 11 per unit.",
           "kind": "concept",
@@ -2917,14 +2917,14 @@ window.DBMS_DATA = {
       "description": "Reason about fragments, copies and network work.",
       "summary": [
         "Fragmentation divides data; replication copies it; allocation chooses locations.",
-        "Check completeness, reconstruction and intended disjointness.",
+        "Check completeness, putting the pieces back together and intended disjointness.",
         "Local speed does not remove cross-site consistency and failure problems."
       ],
       "cards": [
         {
           "id": "v2n14c1",
           "title": "Distribution versus remote access",
-          "concept": "A Distributed Database Management System (DDBMS) manages logically related data across sites. A remote application accessing one central database is not by itself distributed data storage.",
+          "concept": "A distributed database stores related data at several sites and manages it as one logical system. A website calling one central database from far away is not, by itself, distributed storage.",
           "question": "Ten branch applications connect to a single database server holding all data. What does that alone establish?",
           "answer": "Remote/distributed processing, not necessarily a distributed database.",
           "kind": "choice",
@@ -2939,7 +2939,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c2",
           "title": "Different placement decisions",
-          "concept": "Fragmentation chooses subsets; allocation places them; replication stores copies. A design may combine all three.",
+          "concept": "Three decisions are different: fragmentation divides data into pieces, allocation chooses where each piece lives, and replication keeps extra copies. One design can use all three.",
           "question": "A North rental fragment is stored at two sites for availability. Which two ideas are present?",
           "answer": "Horizontal fragmentation and replication.",
           "kind": "choice",
@@ -2954,8 +2954,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c3",
           "title": "Completeness",
-          "concept": "Horizontal fragmentation must account for all original rows. Predicates that fail to handle boundary or NULL values can leave gaps.",
-          "question": "One fragment uses age < 18 and another age > 18. What is missing for non-NULL ages?",
+          "concept": "When splitting a table into row groups, include every valid row somewhere. Check boundaries and NULL values. Otherwise some rows may fit none of the groups and disappear from the combined result.",
+          "question": "One fragment uses age < 18 and another age > 18. What is missing for known (not NULL) ages?",
           "answer": "Rows where age = 18.",
           "kind": "choice",
           "choices": [
@@ -2969,13 +2969,13 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c4",
           "title": "Vertical reconstruction",
-          "concept": "Vertical fragments split columns while keeping an identifier that permits lossless reconstruction. Repeating that identifier is intentional.",
+          "concept": "Vertical splitting puts different columns in different tables. Keep a shared identifier in each piece, so you can match the right rows and put the original information back together.",
           "question": "PersonContact(personId, email) and PersonProfile(personId, preference) share a unique personId. How are complete rows reconstructed?",
           "answer": "Join the fragments on personId.",
           "kind": "choice",
           "choices": [
             "Join the fragments on personId.",
-            "Take a Cartesian product without a predicate.",
+            "Take a Cartesian product without a condition.",
             "Union unrelated columns by their positions.",
             "Drop personId before joining."
           ],
@@ -2984,7 +2984,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c5",
           "title": "Location transparency",
-          "concept": "Location transparency lets users address logical data without embedding its physical site in every request. Moving data should not require rewriting all business queries.",
+          "concept": "Location transparency means users can ask for logical data without knowing which site stores it. Moving the data to another site should not force every business query to change.",
           "question": "What breaks location transparency most directly?",
           "answer": "Every application hard-codes which site stores each customer.",
           "kind": "choice",
@@ -2999,7 +2999,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c6",
           "title": "Heterogeneous sites",
-          "concept": "Homogeneous systems use the same DBMS product across sites. Heterogeneous systems may use different products or models and require interoperability work.",
+          "concept": "Homogeneous sites use the same database product. Heterogeneous sites may use different products or models. Connecting different systems requires extra work to translate formats, queries and meanings.",
           "question": "One site uses PostgreSQL and another an object-oriented database. Which integration challenge is especially relevant?",
           "answer": "Translating differing models, types and query capabilities.",
           "kind": "choice",
@@ -3014,8 +3014,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c7",
           "title": "Reconstruct horizontal fragments",
-          "concept": "UNION ALL preserves every row. It is suitable for reconstructing disjoint horizontal fragments with identical schemas; overlapping copies require a deliberate policy.",
-          "question": "RentalNorth(rentalId, region, fee) and RentalSouth(rentalId, region, fee) are complete, disjoint fragments. Create a logical view combining them.",
+          "concept": "UNION ALL stacks rows without removing duplicates. It can rebuild a table split into non-overlapping row groups. If the pieces overlap or contain replicas, decide how to handle repeated rows.",
+          "question": "RentalNorth(rentalId, region, fee) and RentalSouth(rentalId, region, fee) are complete, fragments with no overlapping rows. Create a logical view combining them.",
           "answer": "CREATE VIEW RentalAll AS\nSELECT rentalId, region, fee FROM RentalNorth\nUNION ALL\nSELECT rentalId, region, fee FROM RentalSouth;",
           "kind": "sql",
           "choices": [],
@@ -3028,13 +3028,13 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c8",
           "title": "Reduce transferred results",
-          "concept": "Filtering and aggregation near the stored data can reduce network traffic. The remote result must retain enough information for the final calculation.",
+          "concept": "Send less data over the network when possible. A remote site can filter rows or calculate totals before sending the result, as long as the receiver still gets everything it needs.",
           "question": "RemoteRental(branchId, amount) is at one remote site. Write the query to execute there when the coordinator needs only total revenue by branch for positive amounts.",
           "answer": "SELECT branchId, SUM(amount) AS totalRevenue\nFROM RemoteRental\nWHERE amount > 0\nGROUP BY branchId;",
           "kind": "sql",
           "choices": [],
           "checks": [
-            "Apply the positive-amount predicate at the remote site.",
+            "Apply the positive-amount condition at the remote site.",
             "Aggregate by the required branch key.",
             "Return branch totals instead of all detail rows."
           ]
@@ -3042,7 +3042,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c9",
           "title": "Compare allocation strategies",
-          "concept": "Replication can improve read locality and availability, while updates must keep copies consistent according to the chosen guarantees. Partitioning may localize work but complicate cross-partition queries.",
+          "concept": "Copies can make local reads faster and help when a site is unavailable. But updates must keep copies consistent enough for the business. Splitting data can also make queries across sites more complicated.",
           "question": "Compare storing every rental at every branch with storing each region’s rentals only in that region. Discuss reads, writes, failure and company-wide reports.",
           "answer": "Full replication can make many reads local and survive a site failure if another usable copy exists, but every change needs a propagation and conflict policy. Regional partitioning reduces redundant storage and can localize regional operations; losing the only copy of a region is a serious availability risk without replication/backups. Company-wide reports need cross-region work or an analytical consolidation strategy. Neither placement alone guarantees atomic cross-site updates.",
           "kind": "essay",
@@ -3056,9 +3056,9 @@ window.DBMS_DATA = {
         {
           "id": "v2n14c10",
           "title": "Network cost changes plans",
-          "concept": "Distributed query plans should account for data transferred, not only local computation. A semijoin can transmit keys first to restrict remote matches.",
+          "concept": "A remote query pays for network transfer as well as calculation. Sometimes you can send just the needed IDs first, ask the other site to find matches, and transfer fewer full rows.",
           "question": "Site A has 100 relevant customer IDs. Site B has one million purchases. Explain how sending IDs to B can reduce traffic when A needs only those customers’ purchase totals.",
-          "answer": "Send the distinct relevant customer IDs to B, match purchases there and aggregate totals by customerId, then return at most one total per matching customer. This can avoid transferring a million detail rows. Compare the ID-transfer and processing costs with alternatives, and preserve customers with no purchases if the requested report needs zero totals.",
+          "answer": "Send the distinct relevant customer IDs to B, match purchases there and aggregate totals by customerId, then return at most one total per matching customer. This can avoid transferring a million detail rows. Compare the ID-transfer and processing costs with alternatives, and keep customers with no purchases if the requested report needs zero totals.",
           "kind": "essay",
           "choices": [],
           "checks": [
@@ -3070,7 +3070,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n14c11",
           "title": "Disjointness and completeness differ",
-          "concept": "Fragments can avoid overlap yet still omit valid rows. Reconstruction requires coverage of all valid data, not just mutually exclusive predicates.",
+          "concept": "Non-overlapping pieces are not necessarily complete. East and West rows do not overlap, but they leave out Central rows. Check both duplicate coverage and missing coverage.",
           "question": "A table allows East, West and Central regions, but fragments contain only East and West rows. Which requirement fails?",
           "answer": "Completeness: Central rows are missing from all fragments.",
           "kind": "concept",
@@ -3080,7 +3080,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n14c12",
           "title": "Replication consistency",
-          "concept": "Multiple copies improve some reads and availability, but updates need a consistency strategy. Asynchronous propagation can expose temporarily different versions.",
+          "concept": "Copies may temporarily disagree when updates arrive at different times. A replicated system needs rules for who may write, how changes spread and how conflicting edits are handled.",
           "question": "Two disconnected sites edit the same row. What must happen when they reconnect?",
           "answer": "Detect conflicting versions and apply an explicit resolution or coordination policy; replication by itself does not determine which edit is correct.",
           "kind": "concept",
@@ -3090,7 +3090,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n14c13",
           "title": "Local work can reduce network cost",
-          "concept": "Moving a small relevant result can be cheaper than shipping a large remote table. Filters, projections and aggregation can reduce transferred data when semantically valid.",
+          "concept": "If you need only totals per branch, ask the remote site to calculate those totals. Sending a small summary can be much cheaper than sending every original row.",
           "question": "A coordinator needs only revenue totals per branch. What should the remote site ideally send?",
           "answer": "The grouped branch totals after applying the required filters, rather than every raw revenue row.",
           "kind": "concept",
@@ -3100,9 +3100,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n14c14",
           "title": "Distributed atomic commitment",
-          "concept": "A transaction spanning sites must coordinate the decision to commit or abort across participants. Two-phase commit is a commitment protocol, distinct from two-phase locking.",
-          "question": "How does two-phase commit differ in purpose from two-phase locking?",
-          "answer": "Two-phase commit coordinates one commit/abort outcome across sites. Two-phase locking controls concurrent access to produce conflict-serializable schedules.",
+          "concept": "Two-phase commit coordinates one commit-or-abort decision across several sites. Two-phase locking controls conflicting work between transactions. Their names sound similar, but they solve different problems.",
+          "question": "Both names start with “two-phase.” What does two-phase commit do, and what does two-phase locking do?",
+          "answer": "Two-phase commit coordinates one commit/abort outcome across sites. Two-phase locking controls access by several users at the same time to produce conflict-serializable schedules.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -3115,14 +3115,14 @@ window.DBMS_DATA = {
       "description": "Match representation to identity and behavior.",
       "summary": [
         "Object identity is distinct from attribute equality.",
-        "Object-relational extensions retain relational ideas while adding richer types.",
+        "Object-relational extensions keep relational ideas while adding richer types.",
         "Persistence still requires transaction, query and recovery services."
       ],
       "cards": [
         {
           "id": "v2n15c1",
           "title": "Object identity",
-          "concept": "An Object Identifier (OID) distinguishes an object independently of its current state. Two objects can contain equal values and still be different objects.",
+          "concept": "An Object Identifier (OID) tells you which object you mean, even when its details change. Two objects can have identical values and still be two different objects.",
           "question": "Two stored shape objects have identical color and dimensions. Must they be the same object?",
           "answer": "No; they can have distinct object identities despite equal state.",
           "kind": "choice",
@@ -3137,12 +3137,12 @@ window.DBMS_DATA = {
         {
           "id": "v2n15c2",
           "title": "Encapsulation",
-          "concept": "Encapsulation groups state with operations and controls access through an interface. It helps preserve invariants rather than exposing every implementation detail.",
+          "concept": "Encapsulation keeps an object's data and the operations that use it together. Users work through allowed operations instead of changing every internal detail directly. This helps protect rules.",
           "question": "A Money type validates currency and amount through defined operations. What benefit does encapsulation offer?",
-          "answer": "It can centralize rules for valid state and operations.",
+          "answer": "It can centralize rules for allowed contents and operations.",
           "kind": "choice",
           "choices": [
-            "It can centralize rules for valid state and operations.",
+            "It can centralize rules for allowed contents and operations.",
             "It removes the need for transactions.",
             "It guarantees no data can ever change.",
             "It makes all values globally unique."
@@ -3152,8 +3152,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n15c3",
           "title": "Inheritance and polymorphism",
-          "concept": "Inheritance reuses and specializes a type’s properties. Polymorphism allows a common operation to have type-specific behavior.",
-          "question": "Circle and Rectangle each implement area(). Which idea lets callers request area without using one universal formula?",
+          "concept": "Inheritance lets a special type reuse a general type's properties. Polymorphism lets the same operation behave differently for different types, such as drawing a circle versus drawing a square.",
+          "question": "Circle and Rectangle each write area(). Which idea lets callers request area without using one universal formula?",
           "answer": "Polymorphism.",
           "kind": "choice",
           "choices": [
@@ -3167,7 +3167,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n15c4",
           "title": "Two object database approaches",
-          "concept": "An Object-Relational Database Management System (ORDBMS) extends relational capabilities. An Object-Oriented Database Management System (OODBMS) manages persistent objects more directly.",
+          "concept": "An object-relational database adds richer types to a relational table system. An object-oriented database stores persistent objects more directly. Both can store complex information, but their main models differ.",
           "question": "Which description fits an ORDBMS?",
           "answer": "Relations and SQL extended with richer types and related features.",
           "kind": "choice",
@@ -3182,8 +3182,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n15c5",
           "title": "Collections have different semantics",
-          "concept": "Arrays and lists are ordered; a set has no duplicates; a multiset may contain duplicates. Choose according to the meaning, not just convenient syntax.",
-          "question": "A collection records the sequence of stops on a delivery route, including repeated visits. What properties must it preserve?",
+          "concept": "Choose a collection that matches the rule. A list or array has an order. A set does not repeat values. A multiset can repeat values. These differences affect what the data means.",
+          "question": "A collection records the sequence of stops on a delivery route, including repeated visits. What properties must it keep?",
           "answer": "Order and duplicates.",
           "kind": "choice",
           "choices": [
@@ -3197,7 +3197,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n15c6",
           "title": "Large values",
-          "concept": "A Binary Large Object (BLOB) stores large binary data; a Character Large Object (CLOB) stores large character data. Type support and names differ across products.",
+          "concept": "A BLOB, or Binary Large Object, stores bytes such as an image. A CLOB, or Character Large Object, stores large text. Database products differ in the exact types they provide.",
           "question": "Which conceptual type is appropriate for arbitrary encoded image bytes rather than a long text description?",
           "answer": "A BLOB (Binary Large Object).",
           "kind": "choice",
@@ -3212,7 +3212,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n15c7",
           "title": "A user-defined structured value",
-          "concept": "A User-Defined Type (UDT) can group named fields into a domain structure. PostgreSQL composite types are one concrete form.",
+          "concept": "A user-defined type lets you create a useful data shape. For example, an address type can contain street and city fields. PostgreSQL calls this kind of grouped value a composite type.",
           "question": "PostgreSQL: define an address_value type containing street and city text fields, then create Branch(branchId, address) using it.",
           "answer": "CREATE TYPE address_value AS (street TEXT, city TEXT);\nCREATE TABLE Branch (\n branchId INTEGER PRIMARY KEY,\n address address_value\n);",
           "kind": "sql",
@@ -3220,19 +3220,19 @@ window.DBMS_DATA = {
           "checks": [
             "Define a composite type with the requested fields.",
             "Use the type in Branch.",
-            "Define branchId as the primary key and identify PostgreSQL syntax."
+            "Define branchId as the primary key and find PostgreSQL syntax."
           ]
         },
         {
           "id": "v2n15c8",
           "title": "Read a structured attribute",
-          "concept": "Structured values can expose components through type-specific SQL syntax. In PostgreSQL, parentheses can disambiguate access to a composite column’s field.",
+          "concept": "A structured column contains named parts. You can ask for one part, such as the city inside an address. Each database has its own syntax for accessing those parts.",
           "question": "For PostgreSQL Branch(branchId, address address_value), where address_value has street and city, return branchId and street for branches in Delft.",
           "answer": "SELECT branchId, (address).street AS street\nFROM Branch\nWHERE (address).city = 'Delft';",
           "kind": "sql",
           "choices": [],
           "checks": [
-            "Access the composite city field in the predicate.",
+            "Access the composite city field in the condition.",
             "Return the composite street field.",
             "Use PostgreSQL composite-field notation."
           ]
@@ -3240,8 +3240,8 @@ window.DBMS_DATA = {
         {
           "id": "v2n15c9",
           "title": "Map an object hierarchy",
-          "concept": "Mapping classes to relations requires choosing how common and subtype attributes are stored. The mapping must preserve identity and subtype constraints.",
-          "question": "Asset has assetId and name; Vehicle adds registration; Machine adds powerRating. An asset may be both. Propose a relational mapping and explain its tradeoffs.",
+          "concept": "When storing object types in tables, decide where shared and special details go. For example, Person stores common details and Mechanic stores extra details, linked by the same person ID.",
+          "question": "Asset has assetId and name; Vehicle adds registration; Machine adds powerRating. An asset may be both. Suggest a relational mapping and explain its tradeoffs.",
           "answer": "Use Asset(assetId primary key, name), Vehicle(assetId primary key and foreign key to Asset, registration), and Machine(assetId primary key and foreign key to Asset, powerRating). A row may appear in both subtype tables, supporting overlap. Common attributes occur once, but retrieving all subtype details requires joins. Additional rules are needed if every asset must belong to at least one subtype.",
           "kind": "essay",
           "choices": [],
@@ -3254,7 +3254,7 @@ window.DBMS_DATA = {
         {
           "id": "v2n15c10",
           "title": "Persistence is more than serialization",
-          "concept": "Saving an object’s bytes is not enough for a database system. Shared durable objects need query, concurrency, integrity and recovery facilities.",
+          "concept": "Saving an object's bytes to a file is not a complete database system. Shared stored objects also need searching, rules, safe concurrent changes and recovery after failures.",
           "question": "A team serializes design objects to individual files and calls the result an object database. Explain what capabilities must be considered before accepting that claim.",
           "answer": "Check stable identity and references, query and indexing support, concurrent updates, transactional atomicity, failure recovery, access control and schema/type evolution. File serialization alone may persist state but does not provide coordinated multi-object changes or safe shared access. An object-oriented DBMS must offer database capabilities in addition to object representation.",
           "kind": "essay",
@@ -3268,9 +3268,9 @@ window.DBMS_DATA = {
         {
           "id": "v4n15c11",
           "title": "Identity is not equal state",
-          "concept": "Two persistent objects can have identical visible attribute values but still be different objects. Updating mutable state need not replace identity.",
+          "concept": "Equal details do not mean the same identity. Two people can share a name and address but still be different people. Changing one person's address should not create a new person.",
           "question": "Two people have the same name and address. Must they share the same object identifier?",
-          "answer": "No. Equal attribute values do not imply identical objects.",
+          "answer": "No. Equal column values do not imply identical objects.",
           "kind": "concept",
           "choices": [],
           "checks": []
@@ -3278,7 +3278,7 @@ window.DBMS_DATA = {
         {
           "id": "v4n15c12",
           "title": "Structured fields remain queryable",
-          "concept": "An object-relational composite type groups named components in one typed value. Its components can still be accessed using the database’s field syntax.",
+          "concept": "A composite value groups fields without making them impossible to query. For example, an address has a city field that PostgreSQL can return separately in a SELECT statement.",
           "question": "PostgreSQL Branch has address with a city component. Write a projection returning branchId and city.",
           "answer": "SELECT branchId, (address).city AS city FROM Branch;",
           "kind": "sql",
@@ -3347,7 +3347,7 @@ window.DBMS_DATA = {
       "answer": "Inconsistency caused by duplicated facts",
       "choices": [
         "Inconsistency caused by duplicated facts",
-        "A foreign-key violation is certain",
+        "A foreign-key broken rule is certain",
         "A deadlock",
         "Physical data independence"
       ],
@@ -3447,7 +3447,7 @@ window.DBMS_DATA = {
         "Both directions are optional",
         "The relationship is many-to-many"
       ],
-      "concept": "Read each multiplicity as the number of opposite-side occurrences allowed for one occurrence.",
+      "concept": "Read each multiplicity as the number of opposite-side items allowed for one occurrence.",
       "checks": []
     },
     {
@@ -3591,7 +3591,7 @@ window.DBMS_DATA = {
         "Only unmatched R tuples",
         "All R tuples regardless of matches"
       ],
-      "concept": "A semijoin tests for matches while retaining only attributes from one operand.",
+      "concept": "A semijoin tests for matches while keeping only attributes from one operand.",
       "checks": []
     },
     {
@@ -3605,9 +3605,9 @@ window.DBMS_DATA = {
         "No; optional participation may allow it",
         "Yes, NULL must match a parent row",
         "Yes, foreign keys must always be primary keys",
-        "No, foreign keys never enforce references"
+        "No, foreign keys never apply references"
       ],
-      "concept": "A permitted NULL denotes no specified reference; a non-NULL value must match the referenced key.",
+      "concept": "A permitted NULL denotes no specified reference; a known (not NULL) value must match the referenced key.",
       "checks": []
     },
     {
@@ -3615,7 +3615,7 @@ window.DBMS_DATA = {
       "note": 3,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "R(A integer,B text) and S(C integer,D date) are to be unioned. What must be addressed?",
+      "question": "R(A integer,B text) and S(C integer,D date) are to be unioned. What must be compatible?",
       "answer": "Corresponding attribute domains must be compatible",
       "choices": [
         "Corresponding attribute domains must be compatible",
@@ -3695,7 +3695,7 @@ window.DBMS_DATA = {
       "note": 4,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "For a nonempty, non-NULL set {4,9}, which x satisfies x > ALL(set)?",
+      "question": "For a nonempty, known (not NULL) set {4,9}, which x satisfies x > ALL(set)?",
       "answer": "10",
       "choices": [
         "10",
@@ -3711,15 +3711,15 @@ window.DBMS_DATA = {
       "note": 4,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "A LEFT JOIN preserves sites without inspectors, but WHERE inspector.role = 'Inspector' follows it. What happens?",
+      "question": "A LEFT JOIN keeps sites without inspectors, but WHERE inspector.role = 'Inspector' follows it. What happens?",
       "answer": "Unmatched sites are removed",
       "choices": [
         "Unmatched sites are removed",
         "Unmatched sites are counted as one inspector",
-        "The predicate creates inspectors",
+        "The condition creates inspectors",
         "The join becomes a Cartesian product"
       ],
-      "concept": "A WHERE predicate rejecting NULL removes null-extended rows; put the child filter in ON when retaining empty parents.",
+      "concept": "A WHERE condition rejecting NULL removes null-extended rows; put the child filter in ON when keeping empty parents.",
       "checks": []
     },
     {
@@ -3727,7 +3727,7 @@ window.DBMS_DATA = {
       "note": 5,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "A table has UNIQUE(email) but email is nullable. What extra constraint is needed for email to be a required candidate identifier?",
+      "question": "A table has UNIQUE(email) but email is nullable. What extra constraint is needed for email to be a required possible identifier?",
       "answer": "NOT NULL",
       "choices": [
         "NOT NULL",
@@ -3735,7 +3735,7 @@ window.DBMS_DATA = {
         "A nonunique index",
         "DEFAULT NULL"
       ],
-      "concept": "A required identifier must be unique and non-NULL. Nullable UNIQUE behavior also varies by database.",
+      "concept": "A required identifier must be unique and known (not NULL). Nullable UNIQUE behavior also varies by database.",
       "checks": []
     },
     {
@@ -3759,7 +3759,7 @@ window.DBMS_DATA = {
       "note": 5,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "Which operation changes a column definition rather than stored values?",
+      "question": "Which action changes a column definition rather than stored values?",
       "answer": "ALTER TABLE",
       "choices": [
         "ALTER TABLE",
@@ -3776,9 +3776,9 @@ window.DBMS_DATA = {
       "title": "Reason it through",
       "kind": "choice",
       "question": "Why might a grouped view with SUM(total) not be directly updatable?",
-      "answer": "A result row does not identify one underlying row to change",
+      "answer": "A result row does not find one underlying row to change",
       "choices": [
-        "A result row does not identify one underlying row to change",
+        "A result row does not find one underlying row to change",
         "Views cannot contain numbers",
         "SUM requires a foreign key",
         "All views are always read-only"
@@ -3807,7 +3807,7 @@ window.DBMS_DATA = {
       "note": 5,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "Which constraint prevents two invoice rows referring to the same shipment?",
+      "question": "Which constraint stops two invoice rows referring to the same shipment?",
       "answer": "UNIQUE on invoice.shipmentId",
       "choices": [
         "UNIQUE on invoice.shipmentId",
@@ -3815,7 +3815,7 @@ window.DBMS_DATA = {
         "Only an index on invoice.date",
         "CHECK(invoiceId > 0)"
       ],
-      "concept": "A foreign key enforces existence, while UNIQUE enforces the maximum of one child per referenced value.",
+      "concept": "A foreign key checks existence, while UNIQUE checks the maximum of one child per referenced value.",
       "checks": []
     },
     {
@@ -3879,7 +3879,7 @@ window.DBMS_DATA = {
         "Yes, if rows are sorted",
         "No attribute can ever be a key"
       ],
-      "concept": "Observed data can disprove a dependency but cannot by itself establish a rule for all valid states.",
+      "concept": "Observed data can disprove a dependency but cannot by itself establish a rule for all allowed contents.",
       "checks": []
     },
     {
@@ -3895,7 +3895,7 @@ window.DBMS_DATA = {
         "3NF only; 2NF holds",
         "Referential integrity necessarily"
       ],
-      "concept": "A non-prime attribute depends on a proper subset of a candidate key.",
+      "concept": "A column that is not part of any candidate key depends on a proper subset of a candidate key.",
       "checks": []
     },
     {
@@ -3975,7 +3975,7 @@ window.DBMS_DATA = {
         "An ORDER BY alone",
         "A COMMIT before checking"
       ],
-      "concept": "A check-then-write race can violate a limit unless concurrent writers are coordinated.",
+      "concept": "A check-then-write race can violate a limit unless users changing data at the same time are coordinated.",
       "checks": []
     },
     {
@@ -4015,7 +4015,7 @@ window.DBMS_DATA = {
       "note": 8,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "A tutor may own no badge; each badge belongs to exactly one tutor, with at most one badge each. Which mapping enforces this?",
+      "question": "A tutor may own no badge; each badge belongs to exactly one tutor, with at most one badge each. Which mapping checks this?",
       "answer": "Badge.tutorId UNIQUE NOT NULL FK",
       "choices": [
         "Badge.tutorId UNIQUE NOT NULL FK",
@@ -4023,7 +4023,7 @@ window.DBMS_DATA = {
         "Badge.tutorId nullable without UNIQUE",
         "Only badge color as a key"
       ],
-      "concept": "Put the required unique reference on Badge to enforce its mandatory and maximum-one participation.",
+      "concept": "Put the required unique reference on Badge to apply its mandatory and maximum-one participation.",
       "checks": []
     },
     {
@@ -4032,10 +4032,10 @@ window.DBMS_DATA = {
       "title": "Reason it through",
       "kind": "choice",
       "question": "Why store the sale price in SaleLine even if Product has currentPrice?",
-      "answer": "It preserves the price agreed at that sale",
+      "answer": "It keeps the price agreed at that sale",
       "choices": [
-        "It preserves the price agreed at that sale",
-        "It always violates 3NF",
+        "It keeps the price agreed at that sale",
+        "It always breaks 3NF",
         "It replaces the product key",
         "It guarantees all prices stay equal"
       ],
@@ -4047,7 +4047,7 @@ window.DBMS_DATA = {
       "note": 8,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "Every team must have at least one player. Does Player.teamId NOT NULL FK alone enforce that?",
+      "question": "Every team must have at least one player. Does Player.teamId NOT NULL FK alone apply that?",
       "answer": "No; it constrains each player, not the existence of players for every team",
       "choices": [
         "No; it constrains each player, not the existence of players for every team",
@@ -4095,7 +4095,7 @@ window.DBMS_DATA = {
       "note": 8,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "A valid-looking schema cannot answer a required historical-resource report. What is the best conclusion?",
+      "question": "A valid-looking schema cannot answer a required historical-resource report. What does this tell you?",
       "answer": "It needs validation against required transactions and possibly another relationship",
       "choices": [
         "It needs validation against required transactions and possibly another relationship",
@@ -4143,7 +4143,7 @@ window.DBMS_DATA = {
       "note": 9,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "A predicate selects 95% of a table. Why might a scan beat repeated index lookups?",
+      "question": "A condition selects 95% of a table. Why might a scan beat repeated index lookups?",
       "answer": "Reading most pages sequentially can be cheaper",
       "choices": [
         "Reading most pages sequentially can be cheaper",
@@ -4260,7 +4260,7 @@ window.DBMS_DATA = {
       "choices": [
         "A lock-upgrade deadlock",
         "Guaranteed immediate success for both",
-        "A foreign-key violation",
+        "A foreign-key broken rule",
         "Only a dirty read"
       ],
       "concept": "Each upgrade may wait for the other shared lock to be released.",
@@ -4327,7 +4327,7 @@ window.DBMS_DATA = {
         "Only if table names are short",
         "Yes, because SQL is declarative"
       ],
-      "concept": "Outer joins introduce NULL-extended rows; predicate placement affects which survive.",
+      "concept": "Outer joins introduce NULL-extended rows; condition placement affects which survive.",
       "checks": []
     },
     {
@@ -4607,7 +4607,7 @@ window.DBMS_DATA = {
       "note": 14,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "What is normally retained in each vertical fragment for reconstruction?",
+      "question": "What is normally retained in each vertical fragment for putting the pieces back together?",
       "answer": "The key identifying corresponding rows",
       "choices": [
         "The key identifying corresponding rows",
@@ -4679,7 +4679,7 @@ window.DBMS_DATA = {
         "To eliminate all remote failures",
         "To remove every join"
       ],
-      "concept": "Shipping a compact sufficient result can reduce communication cost.",
+      "concept": "Shipping a compact enough result can reduce communication cost.",
       "checks": []
     },
     {
@@ -4687,7 +4687,7 @@ window.DBMS_DATA = {
       "note": 15,
       "title": "Reason it through",
       "kind": "choice",
-      "question": "What can distinguish object identity from equality of attribute values?",
+      "question": "What can distinguish object identity from equality of column values?",
       "answer": "Two objects may have equal values yet distinct identities",
       "choices": [
         "Two objects may have equal values yet distinct identities",
@@ -4695,7 +4695,7 @@ window.DBMS_DATA = {
         "Identity must be the current address",
         "Identity changes whenever any attribute changes"
       ],
-      "concept": "An object identifier identifies an object independently of its current attribute values.",
+      "concept": "An object identifier identifies an object independently of its current column values.",
       "checks": []
     },
     {
@@ -4743,7 +4743,7 @@ window.DBMS_DATA = {
         "Only a spreadsheet UI",
         "Only physical storage addresses"
       ],
-      "concept": "Object-relational systems retain relational foundations while adding richer modeling features.",
+      "concept": "Object-relational systems keep relational foundations while adding richer modeling features.",
       "checks": []
     },
     {
@@ -4814,7 +4814,7 @@ window.DBMS_DATA = {
       "title": "Separate facts from software",
       "kind": "essay",
       "question": "A team says its CSV file is a DBMS because it contains customer rows. Explain the distinction and give two reasons to move to a shared DBMS.",
-      "answer": "The file contains data; a Database Management System is software that defines, manages and controls database access. A shared DBMS can enforce constraints and coordinate concurrent updates. It can also centralize access control and recovery. Migration adds operational complexity and does not automatically correct bad data.",
+      "answer": "The file contains data; a Database Management System is software that defines, manages and controls database access. A shared DBMS can apply constraints and coordinate concurrent updates. It can also centralize access control and recovery. Migration adds operational complexity and does not automatically correct bad data.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
@@ -4828,13 +4828,13 @@ window.DBMS_DATA = {
       "note": 1,
       "title": "Two kinds of independence",
       "kind": "essay",
-      "question": "An application survives a new disk layout but breaks when a column is split into two. Identify the two independence issues and suggest an interface strategy.",
-      "answer": "Surviving the disk change demonstrates physical data independence. The schema change challenges logical data independence. A stable view or API can present the old shape while underlying relations evolve, provided its semantics remain valid. Independence is an architectural goal, not a promise that every change is invisible.",
+      "question": "An application survives a new disk layout but breaks when a column is split into two. Find the two independence issues and suggest an interface strategy.",
+      "answer": "Surviving the disk change shows physical data independence. The schema change challenges logical data independence. A stable view or API can present the old shape while underlying relations evolve, provided its semantics remain valid. Independence is an architectural goal, not a promise that every change is invisible.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Identify physical independence correctly.",
-        "Identify logical independence correctly.",
+        "Find physical independence correctly.",
+        "Find logical independence correctly.",
         "Explain a stable view or interface."
       ]
     },
@@ -4858,7 +4858,7 @@ window.DBMS_DATA = {
       "note": 2,
       "title": "Detect broken direct reporting",
       "kind": "sql",
-      "question": "Worker(workerId, supervisorId), where supervisorId is optional. Write a query finding workers whose non-NULL supervisorId has no corresponding Worker. Assume no foreign key currently exists.",
+      "question": "Worker(workerId, supervisorId), where supervisorId is optional. Write a query finding workers whose known (not NULL) supervisorId has no corresponding Worker. Assume no foreign key currently exists.",
       "answer": "SELECT w.workerId, w.supervisorId\nFROM Worker w\nWHERE w.supervisorId IS NOT NULL\n AND NOT EXISTS (SELECT 1 FROM Worker s\n WHERE s.workerId = w.supervisorId);",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
@@ -4880,7 +4880,7 @@ window.DBMS_DATA = {
       "checks": [
         "State multiplicity in both directions.",
         "Map attendance and its relationship attribute.",
-        "Explain why a foreign key does not enforce the coach count."
+        "Explain why a foreign key does not apply the coach count."
       ]
     },
     {
@@ -4888,12 +4888,12 @@ window.DBMS_DATA = {
       "note": 2,
       "title": "Repair an ambiguous model",
       "kind": "essay",
-      "question": "Branch employs Agent; Branch hosts Event. An agent can work at several events. Explain why joining through Branch produces false participation and propose a corrected schema.",
+      "question": "Branch employs Agent; Branch hosts Event. An agent can work at several events. Explain why joining through Branch produces false participation and suggest a corrected schema.",
       "answer": "The shared branch does not show which agent worked at which event. Introduce EventAgent(eventId, agentId, role) with a composite primary key and foreign keys to Event and Agent, assuming one role per pair. Keep Branch references for location and employment. Enforce same-branch participation separately only if that is a business rule.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Identify the false association.",
+        "Find the false association.",
         "Introduce an explicit association relation.",
         "State keys and an assumption."
       ]
@@ -4918,7 +4918,7 @@ window.DBMS_DATA = {
       "note": 3,
       "title": "Union with a deliberate duplicate policy",
       "kind": "sql",
-      "question": "CurrentMember(memberId) and FormerMember(memberId) may overlap. Write SQL returning each identifier once. Explain the alternative that retains duplicates.",
+      "question": "CurrentMember(memberId) and FormerMember(memberId) may overlap. Write SQL returning each identifier once. Explain the alternative that keeps duplicates.",
       "answer": "SELECT memberId FROM CurrentMember\nUNION\nSELECT memberId FROM FormerMember;\n-- UNION removes duplicates; UNION ALL retains them.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
@@ -4934,7 +4934,7 @@ window.DBMS_DATA = {
       "title": "Work through relational algebra",
       "kind": "essay",
       "question": "R(id, team) has (1,A),(2,A),(3,B). S(team, city) has (A,Oslo),(C,Rome). Give the result of selecting team=A from R, projecting team from R, and equijoining R to S on team.",
-      "answer": "Selection returns (1,A),(2,A). Set projection returns (A),(B). The equijoin returns two matched rows: (1,A,A,Oslo) and (2,A,A,Oslo) if both team attributes are retained. A natural join instead presents a single common team column. No row for id 3 matches.",
+      "answer": "Selection returns (1,A),(2,A). Set projection returns (A),(B). The equijoin returns two matched rows: (1,A,A,Oslo) and (2,A,A,Oslo) if both team columns are retained. A natural join instead presents a single common team column. No row for id 3 matches.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
@@ -4948,12 +4948,12 @@ window.DBMS_DATA = {
       "note": 3,
       "title": "Keys and nullable references",
       "kind": "essay",
-      "question": "Parcel(parcelId, trackingCode, lockerId) has a unique required trackingCode and optional lockerId referring to Locker. Identify candidate keys, choose a primary key, and explain entity and referential integrity.",
-      "answer": "Assuming parcelId is a unique required identifier, candidate keys are parcelId and trackingCode. Choose parcelId as the primary key and trackingCode as an alternate key. Entity integrity forbids NULL in the primary key. A non-NULL lockerId must reference an existing Locker; NULL permits an unallocated parcel. Uniqueness and nullability must be declared, not inferred from a sample.",
+      "question": "Parcel(parcelId, trackingCode, lockerId) has a unique required trackingCode and optional lockerId referring to Locker. Find candidate keys, choose a primary key, and explain entity and the rule that foreign keys must point to existing rows or allowed NULL values.",
+      "answer": "Assuming parcelId is a unique required identifier, candidate keys are parcelId and trackingCode. Choose parcelId as the primary key and trackingCode as an alternate key. Entity integrity forbids NULL in the primary key. A known (not NULL) lockerId must reference an existing Locker; NULL permits an unallocated parcel. Uniqueness and nullability must be declared, not inferred from a sample.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Identify both candidate keys under stated assumptions.",
+        "Find both candidate keys under stated assumptions.",
         "Distinguish primary and alternate keys.",
         "Explain both integrity rules."
       ]
@@ -5029,7 +5029,7 @@ window.DBMS_DATA = {
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
         "Use ALTER TABLE ADD CONSTRAINT.",
-        "Use an inclusive nonnegative check.",
+        "Use an inclusive zero or greater check.",
         "Mention existing-data validation."
       ]
     },
@@ -5053,13 +5053,13 @@ window.DBMS_DATA = {
       "note": 5,
       "title": "Design referential actions",
       "kind": "essay",
-      "question": "A member has historical rentals and optional current locker allocation. Explain why deleting a member with CASCADE can be inappropriate for rentals, and propose a retention approach.",
-      "answer": "Cascading deletion could erase transaction history that must be retained. Keep the member row with an inactive status, or use a deliberately designed archival/anonymization policy that preserves required references. For an optional current allocation, SET NULL may be appropriate if permitted by the business rule and column nullability. Choose actions by relationship meaning rather than applying one rule everywhere.",
+      "question": "A member has historical rentals and optional current locker allocation. Explain why deleting a member with CASCADE can be inappropriate for rentals, and suggest a retention approach.",
+      "answer": "Cascading deletion could erase transaction history that must be retained. Keep the member row with an inactive status, or use a deliberately designed archival/anonymization policy that keeps required references. For an optional current allocation, SET NULL may be appropriate if permitted by the business rule and column nullability. Choose actions by relationship meaning rather than applying one rule everywhere.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
         "Explain the history-loss risk.",
-        "Propose a consistent retention approach.",
+        "Suggest a consistent retention approach.",
         "Distinguish optional current state from historical facts."
       ]
     },
@@ -5068,8 +5068,8 @@ window.DBMS_DATA = {
       "note": 5,
       "title": "View behavior",
       "kind": "essay",
-      "question": "A view lists active members and another view groups rentals by member. Compare their likely updatability and explain what WITH CHECK OPTION can enforce on a supported simple view.",
-      "answer": "A simple single-table view may be updatable when rows map unambiguously to base rows. A grouped aggregate view usually cannot map a result edit to one base row. WITH CHECK OPTION can require inserts or updates made through an eligible view to remain visible under its predicate, such as active=1. Vendor rules apply; it does not generally constrain writes made directly to the base table.",
+      "question": "A view lists active members and another view groups rentals by member. Compare their likely updatability and explain what WITH CHECK OPTION can apply on a supported simple view.",
+      "answer": "A simple single-table view may be updatable when rows map unambiguously to base rows. A grouped aggregate view usually cannot map a result edit to one base row. WITH CHECK OPTION can require inserts or updates made through an eligible view to remain visible under its condition, such as active=1. Vendor rules apply; it does not generally constrain writes made directly to the base table.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
@@ -5113,14 +5113,14 @@ window.DBMS_DATA = {
       "note": 6,
       "title": "Normalize a full working relation",
       "kind": "essay",
-      "question": "Work(personId, email, personName, band, rate, taskId, taskName, hours). personId and email each identify a person; band determines rate; taskId determines taskName; each person-task pair determines hours. Find all candidate keys and decompose through 2NF to 3NF.",
+      "question": "Work(personId, email, personName, band, rate, taskId, taskName, hours). personId and email each find a person; band determines rate; taskId determines taskName; each person-task pair determines hours. Find all candidate keys and decompose through 2NF to 3NF.",
       "answer": "Candidate keys are (personId,taskId) and (email,taskId). At 2NF: Person2(personId,email,personName,band,rate), Task(taskId,taskName), Work(personId,taskId,hours). Person2 still has band → rate. At 3NF: Person(personId PK,email UNIQUE NOT NULL,personName,band FK), Band(band PK,rate), Task(taskId PK,taskName), Work(personId PK/FK,taskId PK/FK,hours). Partial person and task facts are separated first; then the transitive rate fact is separated. Email remains an alternate key.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Identify both minimal candidate keys.",
+        "Find both minimal candidate keys.",
         "Separate partial dependencies at 2NF.",
-        "Separate band-rate at 3NF and preserve keys."
+        "Separate band-rate at 3NF and keep keys."
       ]
     },
     {
@@ -5129,12 +5129,12 @@ window.DBMS_DATA = {
       "title": "Compute closures, do not guess",
       "kind": "essay",
       "question": "R(K,L,M,N) has K → L, L → M, and MN → K. Find all candidate keys and explain whether BCNF holds.",
-      "answer": "N never appears on a right-hand side, so every key includes N. KN gives L and M; LN gives M, then K via MN; MN gives K then L. Thus KN, LN and MN are the minimal keys. N alone is not a key and these exhaust the options. BCNF fails because K → L and L → M have determinants that are not superkeys. All attributes are prime, so the given dependencies satisfy 3NF.",
+      "answer": "N never appears on a right-hand side, so every key includes N. KN gives L and M; LN gives M, then K via MN; MN gives K then L. Thus KN, LN and MN are the minimal keys. N alone is not a key and these exhaust the options. BCNF fails because K → L and L → M have determinants that are not superkeys. All columns are prime, so the given dependencies satisfy 3NF.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
         "Use closure and minimality to find all three keys.",
-        "Explain why N is necessary.",
+        "Explain why N is needed.",
         "Distinguish 3NF from BCNF."
       ]
     },
@@ -5158,7 +5158,7 @@ window.DBMS_DATA = {
       "note": 7,
       "title": "Write an explicit cursor",
       "kind": "sql",
-      "question": "PostgreSQL: Trip(tripId primary key, miles NOT NULL, fee NOT NULL). Write a procedure using a cursor to add 6 to fees above 40 miles, 3 above 20, otherwise zero. Exactly one increment applies per call.",
+      "question": "PostgreSQL: Trip(tripId primary key, miles NOT NULL, fee NOT NULL). Write a procedure using a cursor to add 6 to fees above 40 miles, 3 above 20, otherwise zero. Exactly one increase applies per call.",
       "answer": "CREATE PROCEDURE AdjustTripFees() LANGUAGE plpgsql AS $$\nDECLARE\n trips CURSOR FOR SELECT tripId, miles FROM Trip ORDER BY tripId FOR UPDATE;\n row_data RECORD;\n delta NUMERIC;\nBEGIN\n OPEN trips;\n LOOP\n  FETCH trips INTO row_data;\n  EXIT WHEN NOT FOUND;\n  delta := CASE WHEN row_data.miles > 40 THEN 6\n                WHEN row_data.miles > 20 THEN 3 ELSE 0 END;\n  UPDATE Trip SET fee = fee + delta WHERE CURRENT OF trips;\n END LOOP;\n CLOSE trips;\nEND;\n$$;\n-- Try CALL AdjustTripFees() inside BEGIN; ... ROLLBACK; to avoid permanent repeat increments.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
@@ -5173,8 +5173,8 @@ window.DBMS_DATA = {
       "note": 7,
       "title": "Design the entire trigger invariant",
       "kind": "essay",
-      "question": "Mentor(mentorId,totalPeople) and Person(personId,mentorId) must stay consistent, with at most 8 people per mentor. Describe a trigger design covering insertion, deletion, reassignment and concurrent writers.",
-      "answer": "Start with correct counts. On insert increment the new mentor; on delete decrement the old mentor; on reassignment decrement old and increment new. A no-change update must not alter counts. Coordinate mentor-row updates in the same transaction, acquire old/new locks in a consistent identifier order where practical, and conditionally increment only below 8. Reject the change if the increment fails so all effects roll back. Multi-row statements must be handled; retries may still be needed after deadlocks. Prevent unauthorized direct counter edits and test rollback.",
+      "question": "Mentor(mentorId,totalPeople) and Person(personId,mentorId) must stay consistent, with at most 8 people per mentor. Describe a trigger design covering insertion, deletion, reassignment and users changing data at the same time.",
+      "answer": "Start with correct counts. On insert increase the new mentor; on delete decrease the old mentor; on reassignment decrease old and increase new. A no-change update must not alter counts. Coordinate mentor-row updates in the same transaction, acquire old/new locks in a consistent identifier order where practical, and conditionally increase only below 8. Reject the change if the increase fails so all effects roll back. Multi-row statements must be handled; retries may still be needed after deadlocks. Prevent unauthorized direct counter edits and test rollback.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
@@ -5203,7 +5203,7 @@ window.DBMS_DATA = {
       "note": 8,
       "title": "Preserve a historical resource",
       "kind": "sql",
-      "question": "Equipment(equipmentId) and Member(memberId) exist. Create Hire(hireId, memberId, equipmentId, startsAt, endsAt, agreedRate), with required references/start/rate, optional end, nonnegative rate, and end later than start when given.",
+      "question": "Equipment(equipmentId) and Member(memberId) exist. Create Hire(hireId, memberId, equipmentId, startsAt, endsAt, agreedRate), with required references/start/rate, optional end, zero or greater rate, and end later than start when given.",
       "answer": "CREATE TABLE Hire (\n hireId INTEGER PRIMARY KEY,\n memberId INTEGER NOT NULL REFERENCES Member(memberId),\n equipmentId INTEGER NOT NULL REFERENCES Equipment(equipmentId),\n startsAt TIMESTAMP NOT NULL,\n endsAt TIMESTAMP,\n agreedRate DECIMAL(10,2) NOT NULL CHECK (agreedRate >= 0),\n CHECK (endsAt IS NULL OR endsAt > startsAt)\n);",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
@@ -5218,7 +5218,7 @@ window.DBMS_DATA = {
       "note": 8,
       "title": "Find an overlap",
       "kind": "sql",
-      "question": "Appointment(appointmentId, roomId, startsAt, endsAt), all non-NULL. Return each pair of different appointments sharing a room whose half-open intervals overlap. Return a pair only once.",
+      "question": "Appointment(appointmentId, roomId, startsAt, endsAt), all known (not NULL). Return each pair of different appointments sharing a room whose half-open intervals overlap. Return a pair only once.",
       "answer": "SELECT a.appointmentId, b.appointmentId\nFROM Appointment a JOIN Appointment b\n ON a.roomId = b.roomId\n AND a.appointmentId < b.appointmentId\n AND a.startsAt < b.endsAt\n AND b.startsAt < a.endsAt;",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
@@ -5233,14 +5233,14 @@ window.DBMS_DATA = {
       "note": 8,
       "title": "Design a booking lifecycle",
       "kind": "essay",
-      "question": "A workshop sells a booking for 1 or more sessions at an agreed total price. Sessions may be scheduled later with different tutors and rooms. Propose relations and rules without losing historical facts.",
-      "answer": "Booking(bookingId PK,memberId FK,sessionCount,totalPrice,bookedOn) stores the purchase. Session(sessionId PK,bookingId FK,tutorId FK,roomId FK,startsAt,status) stores each scheduled occurrence. Booking.sessionCount must be positive and price nonnegative. Non-cancelled sessions must not exceed the purchased count; completed bookings must satisfy the agreed completion rule. Check tutor, member and room overlaps across schedules. Store the actual tutor and room per session; current allocations cannot reconstruct history.",
+      "question": "A workshop sells a booking for 1 or more sessions at an agreed total price. Sessions may be scheduled later with different tutors and rooms. Suggest relations and rules without losing historical facts.",
+      "answer": "Booking(bookingId PK,memberId FK,sessionCount,totalPrice,bookedOn) stores the purchase. Session(sessionId PK,bookingId FK,tutorId FK,roomId FK,startsAt,status) stores each scheduled occurrence. Booking.sessionCount must be positive and price zero or greater. Non-cancelled sessions must not exceed the purchased count; completed bookings must satisfy the agreed completion rule. Check tutor, member and room overlaps across schedules. Store the actual tutor and room per session; current allocations cannot put back together history.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Separate booking terms from scheduled occurrences.",
+        "Separate booking terms from scheduled items.",
         "Keep actual historical resource references.",
-        "Identify count and overlap rules needing extra enforcement."
+        "Find count and overlap rules needing extra enforcement."
       ]
     },
     {
@@ -5249,7 +5249,7 @@ window.DBMS_DATA = {
       "title": "Validate beyond normalization",
       "kind": "essay",
       "question": "A design has a required UNIQUE invoice.orderId foreign key, and every order must have exactly one invoice. Explain the constraint gap and two design options.",
-      "answer": "The required UNIQUE foreign key gives each invoice exactly one existing order and each order at most one invoice. It does not force an invoice to exist for every order. Either merge the mandatory one-to-one entities while preserving both identifiers as candidate keys, or retain separate tables and enforce complete creation in a controlled transaction with an appropriate deferred check or other rule. Also validate reports and lifecycle transitions.",
+      "answer": "The required UNIQUE foreign key gives each invoice exactly one existing order and each order at most one invoice. It does not force an invoice to exist for every order. Either merge the mandatory one-to-one entities while preserving both identifiers as candidate keys, or keep separate tables and apply complete creation in a controlled transaction with an appropriate deferred check or other rule. Also validate reports and lifecycle transitions.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
@@ -5328,7 +5328,7 @@ window.DBMS_DATA = {
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Use a conditional atomic decrement and check affected rows.",
+        "Use a conditional atomic decrease and check affected rows.",
         "Include both changes in one transaction.",
         "Roll back and propagate failures."
       ]
@@ -5345,7 +5345,7 @@ window.DBMS_DATA = {
       "checks": [
         "Place the savepoint after the first change.",
         "Roll back to the savepoint, not the entire transaction.",
-        "Commit and derive 15."
+        "Commit and work out 15."
       ]
     },
     {
@@ -5368,12 +5368,12 @@ window.DBMS_DATA = {
       "note": 10,
       "title": "Separate blocking from deadlock",
       "kind": "essay",
-      "question": "T1 waits for T2; T2 waits for T3; T3 waits for T2; T4 waits for T1. Identify the cycle, blocked non-cycle transactions, and a recovery action.",
+      "question": "T1 waits for T2; T2 waits for T3; T3 waits for T2; T4 waits for T1. Find the cycle, blocked non-cycle transactions, and a recovery action.",
       "answer": "T2→T3→T2 is the cycle. T1 and T4 are blocked behind it but are not cycle members. Roll back T2 or T3 as a victim, undo its uncommitted changes and release locks; remaining transactions can proceed subject to other conflicts. Retry the victim safely. Rolling back T4 alone does not break the cycle.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Identify cycle members.",
+        "Find cycle members.",
         "Distinguish indirectly blocked transactions.",
         "Choose a victim that breaks the cycle and explain undo/retry."
       ]
@@ -5398,7 +5398,7 @@ window.DBMS_DATA = {
       "note": 11,
       "title": "Reduce rows before aggregation",
       "kind": "sql",
-      "question": "Sale(saleId,branchId,amount,refunded). Return total non-refunded revenue per branch. Show where the row predicate belongs.",
+      "question": "Sale(saleId,branchId,amount,refunded). Return total non-refunded revenue per branch. Show where the row condition belongs.",
       "answer": "SELECT branchId,SUM(amount) AS revenue\nFROM Sale\nWHERE refunded=0\nGROUP BY branchId;",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
@@ -5428,8 +5428,8 @@ window.DBMS_DATA = {
       "note": 11,
       "title": "Safe and unsafe transformations",
       "kind": "essay",
-      "question": "Explain why filtering an inner-join input early is often safe but moving a right-side predicate from WHERE into ON of a LEFT JOIN can change results. Give an unmatched-parent example.",
-      "answer": "For an inner join, an applicable input filter can discard rows that could not survive the final condition. For a left join, a child filter in ON still preserves a parent with no qualifying child. The same child filter in WHERE rejects the parent’s NULL-extended row. A shop with no paid sale appears with a zero count under the ON-filtered version but disappears under WHERE sale.paid=1.",
+      "question": "Explain why filtering an inner-join input early is often safe but moving a right-side condition from WHERE into ON of a LEFT JOIN can change results. Give an unmatched-parent example.",
+      "answer": "For an inner join, an applicable input filter can discard rows that could not survive the final condition. For a left join, a child filter in ON still keeps a parent with no qualifying child. The same child filter in WHERE rejects the parent’s NULL-extended row. A shop with no paid sale appears with a zero count under the ON-filtered version but disappears under WHERE sale.paid=1.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
@@ -5473,12 +5473,12 @@ window.DBMS_DATA = {
       "note": 12,
       "title": "Trace before and after images",
       "kind": "essay",
-      "question": "Initially x=5 and y=10. Durable log: T1 changes x 5→8, commits; T2 changes y 10→17, does not commit. At crash the disk has x=5,y=17. Under simple immediate-update recovery, derive the final values and operations.",
+      "question": "Initially x=5 and y=10. Durable log: T1 changes x 5→8, commits; T2 changes y 10→17, does not commit. At crash the disk has x=5,y=17. Under simple immediate-update recovery, work out the final values and operations.",
       "answer": "Redo committed T1 changes x to 8 because its page update is missing. Undo incomplete T2 restores y to 10 because its uncommitted value reached disk. Final x=8,y=10. Durable log records are essential; redo uses after-images and undo uses before-images in the required recovery order.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Identify the committed winner and incomplete loser.",
+        "Find the committed winner and incomplete loser.",
         "Apply REDO and UNDO to the right values.",
         "State final values and logging requirements."
       ]
@@ -5533,13 +5533,13 @@ window.DBMS_DATA = {
       "note": 13,
       "title": "Choose the grain",
       "kind": "essay",
-      "question": "A rental company wants revenue by day, item type and branch, and also daily stock on hand. Propose fact grains and explain which measures can be added across days.",
+      "question": "A rental company wants revenue by day, item type and branch, and also daily stock on hand. Suggest fact grains and explain which measures can be added across days.",
       "answer": "Use a transaction fact with one row per rental charge or rental line, linked to date, item and branch dimensions; revenue is additive when charges do not overlap. Use a separate inventory snapshot fact with one row per item/branch/day. Stock balances can be added across items or branches at one instant, but summing daily balances is usually meaningless. State currency and snapshot-time assumptions.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
         "Define explicit separate grains.",
-        "Identify additive revenue.",
+        "Find additive revenue.",
         "Explain why inventory balance is not additive across days."
       ]
     },
@@ -5593,14 +5593,14 @@ window.DBMS_DATA = {
       "note": 14,
       "title": "Validate a fragmentation plan",
       "kind": "essay",
-      "question": "Orders are split into region=East and region=West, but region may also be Central or NULL. Discuss completeness, disjointness and reconstruction.",
-      "answer": "The fragments are disjoint for non-NULL region values but incomplete because Central and NULL orders are omitted. Add appropriate fragment predicates or restrict the valid domain deliberately. Reconstruction requires all valid rows to appear in at least one fragment; UNION ALL is appropriate only when the chosen fragments are disjoint. Verify boundary and NULL cases explicitly.",
+      "question": "Orders are split into region=East and region=West, but region may also be Central or NULL. Discuss completeness, disjointness and putting the pieces back together.",
+      "answer": "The fragments are disjoint for known (not NULL) region values but incomplete because Central and NULL orders are omitted. Add appropriate fragment predicates or restrict the valid domain deliberately. Reconstruction requires all valid rows to appear in at least one fragment; UNION ALL is appropriate only when the chosen fragments are disjoint. Verify boundary and NULL cases explicitly.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Identify the omitted values.",
+        "Find the omitted values.",
         "Separate completeness from disjointness.",
-        "Explain a valid reconstruction and repair."
+        "Explain a valid putting the pieces back together and repair."
       ]
     },
     {
@@ -5608,12 +5608,12 @@ window.DBMS_DATA = {
       "note": 14,
       "title": "Think through replicated writes",
       "kind": "essay",
-      "question": "Two sites accept offline edits to the same customer record and later reconnect. Explain why replication alone does not guarantee consistency and identify decisions the design must make.",
+      "question": "Two sites accept offline edits to the same customer record and later reconnect. Explain why replication alone does not guarantee consistency and find decisions the design must make.",
       "answer": "Concurrent disconnected edits can conflict. The system needs an explicit policy for write authority, ordering/versioning, conflict detection and resolution, plus user-visible handling when information cannot be merged safely. Synchronous coordination trades latency/availability for stronger consistency; asynchronous replication allows temporary divergence. The choice depends on requirements and cannot eliminate every tradeoff.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
-        "Identify conflicting concurrent writes.",
+        "Find conflicting concurrent writes.",
         "Describe explicit coordination or resolution decisions.",
         "Explain a consistency/availability or latency tradeoff."
       ]
@@ -5654,7 +5654,7 @@ window.DBMS_DATA = {
       "title": "Compare richer models",
       "kind": "essay",
       "question": "Compare a relational key, an object identifier and a mutable object attribute. Explain why changing an address should not normally create a new identity.",
-      "answer": "A relational candidate key uniquely identifies a tuple using attribute values; it may be a stable surrogate. An object identifier provides identity independently of ordinary state. Address is mutable state, so its change should preserve the same person or object identity. Equality of visible attributes does not necessarily imply two objects are identical.",
+      "answer": "A relational candidate key uniquely identifies a tuple using column values; it may be a stable surrogate. An object identifier provides identity independently of ordinary state. Address is mutable state, so its change should keep the same person or object identity. Equality of visible attributes does not necessarily imply two objects are identical.",
       "choices": [],
       "concept": "State assumptions, follow the required relationships, and check boundary cases.",
       "checks": [
@@ -5712,7 +5712,7 @@ window.DBMS_DATA = {
       "id": "p3n7q11",
       "note": 7,
       "title": "Marginal bands, not one flat rate",
-      "question": "A fictional service fee is 5% of the first 100 chargeable units, 10% of the next 100, and 20% above 200. Invoice(invoiceId,chargeable) has nonnegative values. Write a SQL Server procedure that returns the computed fee per invoice. This is an arithmetic exercise.",
+      "question": "A fictional service fee is 5% of the first 100 chargeable units, 10% of the next 100, and 20% above 200. Invoice(invoiceId,chargeable) has zero or greater values. Write a SQL Server procedure that returns the computed fee per invoice. This is an arithmetic exercise.",
       "answer": "CREATE PROCEDURE ComputeServiceFee\nAS\nBEGIN\n SET NOCOUNT ON;\n SELECT invoiceId, CASE\n WHEN chargeable <= 100 THEN chargeable*0.05\n WHEN chargeable <= 200 THEN 5+(chargeable-100)*0.10\n ELSE 15+(chargeable-200)*0.20 END AS fee\n FROM Invoice;\nEND;\n-- Boundary values 0,100,200,250 give 0,5,15,25.",
       "checks": [
         "Apply each rate only to its own band.",
@@ -5739,64 +5739,14 @@ window.DBMS_DATA = {
       "concept": "Read the exact boundary conditions and name the SQL dialect before implementing the rule."
     }
   ],
-  "worked": {
-    "4": [
-      {
-        "title": "Build a report in five steps",
-        "body": "Task: show every depot and its number of active technicians, including zero.\n1. Start from Depot so every depot is retained.\n2. LEFT JOIN Technician on depotId.\n3. Put active=1 in ON; putting it in WHERE removes empty depots.\n4. COUNT(t.techId), not COUNT(*), so the null-extended row counts as zero.\n5. GROUP BY both d.depotId and d.name.\n\nSELECT d.depotId,d.name,COUNT(t.techId) AS activeCount\nFROM Depot d LEFT JOIN Technician t\n ON t.depotId=d.depotId AND t.active=1\nGROUP BY d.depotId,d.name;\n\nBoundary check: a depot with no technicians and one with only inactive technicians must both appear with zero."
-      }
-    ],
-    "6": [
-      {
-        "title": "From a wide relation to 3NF",
-        "body": "Work(personId,email,personName,band,rate,taskId,taskName,hours)\nRules: personId ↔ email; personId → personName,band; band → rate; taskId → taskName; (personId,taskId) → hours.\n\n1. Keys: (personId,taskId) and (email,taskId). Each identifies a work row; remove either component and it no longer does.\n2. 1NF: one person-task row, atomic attribute values.\n3. Partial dependencies: person details depend on personId; taskName depends on taskId.\n4. 2NF: Person2(personId,email,personName,band,rate), Task(taskId,taskName), Work(personId,taskId,hours).\n5. Transitive dependency remains: personId → band → rate.\n6. 3NF: separate Band(band,rate) and keep band as a foreign key in Person.\n7. Validate: join by declared keys to reconstruct work facts, preserve unique required email, and ensure reports still have their required paths.\n\nCommon mistake: checking only the selected primary key rather than every candidate key."
-      },
-      {
-        "title": "Closure and prime attributes",
-        "body": "R(K,L,M,N), with K→L, L→M, MN→K.\nN is absent from all right sides, so every candidate key must contain N.\n(KN)+ = K,N,L,M. (LN)+ = L,N,M,K. (MN)+ = M,N,K,L.\nN alone determines nothing else; K, L or M alone cannot produce N. Thus KN, LN and MN are all candidate keys.\nEvery attribute occurs in a candidate key and is prime. The dependencies satisfy 3NF, but K→L and L→M violate BCNF because their determinants are not superkeys.\nDefinitions: 3NF requires a trivial dependency, a superkey determinant, or a prime right-side attribute. BCNF allows only the first two conditions."
-      }
-    ],
-    "7": [
-      {
-        "title": "A complete row trigger, including the limit",
-        "body": "PostgreSQL exercise schema: Mentor(mentorId INTEGER PRIMARY KEY,totalPeople INTEGER NOT NULL DEFAULT 0 CHECK(totalPeople BETWEEN 0 AND 8)); Person(personId INTEGER PRIMARY KEY,mentorId INTEGER NOT NULL REFERENCES Mentor). Start with zero people and correct counters.\n\nCREATE FUNCTION maintain_people() RETURNS trigger LANGUAGE plpgsql AS $$\nDECLARE old_id INTEGER; new_id INTEGER;\nBEGIN\n IF TG_OP <> 'INSERT' THEN old_id := OLD.mentorId; END IF;\n IF TG_OP <> 'DELETE' THEN new_id := NEW.mentorId; END IF;\n IF old_id IS NOT DISTINCT FROM new_id THEN RETURN NULL; END IF;\n PERFORM mentorId FROM Mentor\n WHERE mentorId IN (old_id,new_id) ORDER BY mentorId FOR NO KEY UPDATE;\n IF old_id IS NOT NULL THEN\n  UPDATE Mentor SET totalPeople=totalPeople-1 WHERE mentorId=old_id;\n END IF;\n IF new_id IS NOT NULL THEN\n  UPDATE Mentor SET totalPeople=totalPeople+1\n  WHERE mentorId=new_id AND totalPeople<8;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Mentor missing or full'; END IF;\n END IF;\n RETURN NULL;\nEND; $$;\nCREATE TRIGGER people_count AFTER INSERT OR UPDATE OR DELETE ON Person\nFOR EACH ROW EXECUTE FUNCTION maintain_people();\n\nWhy it works: conditional updates and row locks coordinate counters; an error rolls back the whole statement. AFTER-trigger return values are ignored. Test insertion at 7→8, rejection at 8→9, deletion, reassignment, no-change update and full rollback. Multiple-row transactions can still deadlock despite per-row ordering; retry the whole failed transaction. Prevent direct counter edits and TRUNCATE outside the controlled workflow."
-      },
-      {
-        "title": "Cursor and loop checkpoints",
-        "body": "Cursor lifecycle: declare → open → fetch → check fetch status → process → fetch again → close. SQL Server also uses DEALLOCATE. PostgreSQL cursor loops use FOUND after FETCH; SQL Server commonly uses @@FETCH_STATUS.\nCheck strict thresholds from highest to lowest. For >40:+6 and >20:+3, values 20,21,40,41 receive 0,3,3,6.\nA factorial loop starts at result=1 and i=2. For n=0 or n=1 no multiplication is needed. Validate NULL/negative input and numeric overflow. SQL Server BIGINT fits 20! but not 21!.\nUse a rolled-back transaction when testing a procedure that adds a fee on every call; calling it twice otherwise applies two increments."
-      }
-    ],
-    "8": [
-      {
-        "title": "Design with a validation checklist",
-        "body": "1. Identify entities and stable identifiers. Distinguish a product/type from a physical copy.\n2. Write both minimum and maximum multiplicities in words.\n3. Map a many-to-many relationship through an association and place relationship facts there.\n4. Preserve actual resources and agreed prices on historical events.\n5. Name primary, alternate and foreign keys; set nullability deliberately.\n6. Check functional dependencies and normalize.\n7. Walk through each required report and update operation.\n8. Check what ordinary keys cannot enforce: minimum child counts, scheduling overlap, cross-table role restrictions, limits and lifecycle conditions.\n\nFor half-open intervals [start,end), overlap means a.start < b.end AND b.start < a.end. Adjacent intervals sharing only an endpoint do not overlap."
-      }
-    ],
-    "10": [
-      {
-        "title": "Build a graph before judging the schedule",
-        "body": "Schedule: R1(a), W2(a), R2(b), W3(b), R3(c), W1(c).\nCompare operations from different transactions, on the same item, with at least one write.\nOn a: R1 before W2 gives T1→T2.\nOn b: R2 before W3 gives T2→T3.\nOn c: R3 before W1 gives T3→T1.\nThe cycle T1→T2→T3→T1 means it is not conflict serializable.\nRemove W1(c): the remaining graph is a chain, with serial order T1,T2,T3.\n\nDo not confuse this precedence graph with a wait-for graph. A precedence edge means an earlier conflicting operation; a wait-for edge means a current lock wait. A cycle in the latter indicates deadlock."
-      },
-      {
-        "title": "Atomicity is not the whole solution",
-        "body": "For a two-step seat reservation: begin a transaction; conditionally decrement available seats; check that exactly one row changed; insert the booking; commit. On any error, roll back and rethrow.\nThe conditional UPDATE prevents an unchecked read-then-write race. The transaction makes inventory and booking changes succeed or fail together. Locks/isolation coordinate concurrent work; logging and recovery preserve committed results.\nTest missing event, insufficient seats, a duplicate booking key, successful completion and two concurrent reservations for the last seats. A deadlock victim should retry the whole transaction, not just its final statement."
-      }
-    ],
-    "12": [
-      {
-        "title": "Follow the log across a crash",
-        "body": "Initial values: x=5,y=10.\nDurable log: T1 sets x to 8 and commits; T2 sets y to 17 but does not commit.\nDisk at crash: x=5,y=17.\nWith simple immediate-update recovery: REDO T1 gives x=8; UNDO T2 restores y=10.\nWrite-Ahead Logging requires the relevant log to be durable before a changed data page reaches disk. Commit acknowledgment requires durable commit information.\nA checkpoint reduces recovery work but does not make active transactions committed. A transaction active at the checkpoint may need earlier log records for undo. Backups remain necessary for loss of database media."
-      }
-    ]
-  },
   "timedCases": [
     {
       "id": "caseA6",
       "note": 6,
       "title": "Design a rental catalog",
       "kind": "essay",
-      "question": "A center rents physical tool copies. Each tool type has a title and standard daily rate; each copy has a unique copyId and condition. A member may rent the same copy repeatedly over time. Each rental records start, optional return, and the rate agreed at rental time. Design relations with keys, explain two anomalies avoided, and identify how you prevent simultaneous active rentals of one copy.",
-      "answer": "ToolType(typeId PK,title,currentRate); Copy(copyId PK,typeId FK,condition); Member(memberId PK,name); Rental(rentalId PK,copyId FK,memberId FK,startedAt,returnedAt,agreedRate). Separate type details from individual copies and transaction facts. A rentalId distinguishes repeated rentals. Repeating type titles/rates causes update inconsistency; storing only rented copies can lose catalog facts when the last rental is removed. Historical agreedRate is distinct from currentRate. Require valid references, nonnegative prices and returnedAt after startedAt. Enforce one active rental per copy using an appropriate database constraint or synchronized transactional check; check historical overlaps if backdated intervals are allowed.",
+      "question": "A center rents physical tool copies. Each tool type has a title and standard daily rate; each copy has a unique copyId and condition. A member may rent the same copy repeatedly over time. Each rental records start, optional return, and the rate agreed at rental time. Design relations with keys, explain two anomalies avoided, and find how you prevent at the same time active rentals of one copy.",
+      "answer": "ToolType(typeId PK,title,currentRate); Copy(copyId PK,typeId FK,condition); Member(memberId PK,name); Rental(rentalId PK,copyId FK,memberId FK,startedAt,returnedAt,agreedRate). Separate type details from individual copies and transaction facts. A rentalId distinguishes repeated rentals. Repeating type titles/rates causes update inconsistency; storing only rented copies can lose catalog facts when the last rental is removed. Historical agreedRate is distinct from currentRate. Require valid references, zero or greater prices and returnedAt after startedAt. Enforce one active rental per copy using an appropriate database constraint or synchronized transactional check; check historical overlaps if backdated intervals are allowed.",
       "checks": [
         "Separate type, copy, member and rental relations.",
         "Declare all primary and foreign keys and distinguish repeated rentals.",
@@ -5829,14 +5779,14 @@ window.DBMS_DATA = {
       "note": 6,
       "title": "Normalize a service record",
       "kind": "essay",
-      "question": "Service(workerId,email,workerName,tier,hourlyRate,jobId,jobTitle,hours). workerId and email each uniquely identify a worker; tier determines hourlyRate; jobId determines jobTitle; a worker-job pair determines hours. Find both candidate keys, name partial and transitive dependencies, and give a 3NF design with keys. Explain how to reconstruct a work report.",
-      "answer": "Candidate keys: (workerId,jobId) and (email,jobId). Worker facts and jobTitle depend on parts of each composite key. workerId→tier→hourlyRate is transitive. Worker(workerId PK,email UNIQUE NOT NULL,workerName,tier FK); Tier(tier PK,hourlyRate); Job(jobId PK,jobTitle); Service(workerId PK/FK,jobId PK/FK,hours). Join Service to Worker and Job, then Worker to Tier. Declared unique identifiers make these joins preserve each service fact; separating facts prevents repeated rates and names from drifting.",
+      "question": "Service(workerId,email,workerName,tier,hourlyRate,jobId,jobTitle,hours). workerId and email each uniquely find a worker; tier determines hourlyRate; jobId determines jobTitle; a worker-job pair determines hours. Find both candidate keys, name partial and transitive dependencies, and give a 3NF design with keys. Explain how to put back together a work report.",
+      "answer": "Candidate keys: (workerId,jobId) and (email,jobId). Worker facts and jobTitle depend on parts of each composite key. workerId→tier→hourlyRate is transitive. Worker(workerId PK,email UNIQUE NOT NULL,workerName,tier FK); Tier(tier PK,hourlyRate); Job(jobId PK,jobTitle); Service(workerId PK/FK,jobId PK/FK,hours). Join Service to Worker and Job, then Worker to Tier. Declared unique identifiers make these joins keep each service fact; separating facts stops repeated rates and names from drifting.",
       "checks": [
         "Find both candidate keys with minimality.",
-        "Identify partial dependencies.",
-        "Identify tier-rate transitivity.",
+        "Find partial dependencies.",
+        "Find tier-rate transitivity.",
         "Give four relations with primary/alternate/foreign keys.",
-        "Explain reconstruction and reduced anomalies."
+        "Explain putting the pieces back together and reduced anomalies."
       ],
       "concept": "Build your answer step by step and justify each choice.",
       "choices": []
@@ -5846,8 +5796,8 @@ window.DBMS_DATA = {
       "note": 10,
       "title": "Diagnose schedules and recovery",
       "kind": "essay",
-      "question": "Part 1: analyze R1(x), W2(x), R2(y), W1(y); list edges and decide conflict serializability. Part 2: T3 writes z=30 over 20, T4 reads 30 and commits, then T3 aborts. Explain the recovery defect and a locking discipline that prevents it. Distinguish deadlock from non-serializability.",
-      "answer": "Part 1: T1→T2 on x and T2→T1 on y form a cycle, so the schedule is not conflict serializable. Part 2: T4 committed after reading uncommitted T3 data, making this history unrecoverable through ordinary cascading rollback. Strict two-phase locking holds exclusive locks until commit/abort, preventing T4 from reading the uncommitted write under lock-based reads. Rigorous two-phase locking also retains shared locks. Deadlock is a current cycle of waits for resources; non-serializability is a cycle of precedence constraints. They are different graphs and properties.",
+      "question": "Part 1: analyze R1(x), W2(x), R2(y), W1(y); list edges and decide conflict serializability. Part 2: T3 writes z=30 over 20, T4 reads 30 and commits, then T3 aborts. Explain the recovery defect and a locking discipline that stops it. Distinguish deadlock from non-serializability.",
+      "answer": "Part 1: T1→T2 on x and T2→T1 on y form a cycle, so the schedule is not conflict serializable. Part 2: T4 committed after reading uncommitted T3 data, making this history unrecoverable through ordinary cascading rollback. Strict two-phase locking holds exclusive locks until commit/abort, preventing T4 from reading the uncommitted write under lock-based reads. Rigorous two-phase locking also keeps shared locks. Deadlock is a current cycle of waits for resources; non-serializability is a cycle of precedence constraints. They are different graphs and properties.",
       "checks": [
         "Give both precedence edges and their operations.",
         "Use the cycle to reject conflict serializability.",
@@ -5940,5 +5890,6 @@ window.DBMS_DATA = {
         "caseB10"
       ]
     }
-  ]
+  ],
+  "beginnerHelp": "Table notation: Worker(workerId, name) means a table named Worker with columns workerId and name. An ID identifies a row. A → B means each A value tells you one B value. R1(x) means transaction 1 reads x; W1(x) means it writes x. C1 means commit and A1 means abort."
 };

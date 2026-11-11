@@ -4,7 +4,7 @@
 
 15 connected notes, 240 concept cards and **154 independent practice questions**. Concept counts vary from 12–20 per note according to coverage. The concept explanation and its question share one clickable card; the reverse shows only the answer. Each note also has 10–12 independent tasks: 6 multiple-choice questions, 2–4 SQL-writing tasks and 2 written responses. The practice prompts differ from the cards.
 
-Nine worked guides explain report construction, normalization, procedural code, design validation, schedules and recovery. Abbreviations are expanded alongside content and on the terms page.
+Concepts use plain-language explanations and examples. Answers retain the detail needed to understand the reasoning. Abbreviations are expanded alongside content and on the terms page.
 
 Two timed sets each contain 30 choices and two integrated written cases. Their multiple-choice items are disjoint between sets but drawn from independent practice; the UI reports previously checked items. Four integrated cases are reserved for timed mode. Answers stay hidden until submission or expiry. The default 90-minute duration is configurable and is not an official time limit. Automatic marks out of 60 and written self-assessment out of 40 remain separate. Timed submissions are retained, not overwritten by restarts.
 
