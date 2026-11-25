@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#272650"><meta name="description" content="Study seven CS422 database topics through illustrated lessons, pgAdmin exercises, and topic mock exams."><title>Database Atlas · CS422 Final Review</title><style>:root{--ink:#27253e;--muted:#656477;--line:#dedee7;--violet:#5550ab;--paper:#f6f6fb;--nav:247px;color-scheme:light;font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}*{box-sizing:border-box}body{margin:0}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button,summary,label.option{cursor:pointer}button,a,summary{touch-action:manipulation}a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #6864c4;outline-offset:3px}.skip{position:fixed;top:-60px;background:white;z-index:12;padding:12px}.skip:focus{top:0}#rail{width:var(--nav);position:fixed;inset:0 auto 0 0;background:#fff;border-right:1px solid var(--line);padding:30px 20px 22px;display:flex;flex-direction:column;z-index:5;overflow:auto}.brand{display:flex;align-items:center;gap:10px;font:700 1.37rem Georgia,serif;letter-spacing:-.045em}.brand small{display:block;font:650 .65rem/1.8 "DM Sans",sans-serif;letter-spacing:.13em;color:var(--muted)}.mark{display:grid;place-items:center;background:#302e5f;color:#dbd4ff;height:40px;width:40px;border-radius:12px;font:normal 1.75rem/1 monospace}.rail-label,.over,.eyeline{font-weight:700;letter-spacing:.115em;font-size:.74rem;text-transform:uppercase}.rail-label{color:var(--muted);margin:32px 12px 10px}nav{margin-top:34px}nav a{display:flex;align-items:center;gap:9px;border-radius:9px;padding:11px 12px;color:#57566a;font-size:.94rem;line-height:1.35}nav a.active,nav a[aria-current="page"]{background:#edebfb;color:#4b449b;font-weight:700}nav a:hover{background:#f4f3fa}.dot{border-radius:6px;height:23px;width:23px;display:inline-grid;place-items:center;color:var(--t);background:var(--bg);font-size:.77rem;font-weight:750}.rail-foot{margin-top:auto;padding:28px 8px 0;font-size:.86rem}.rail-foot div,footer{display:flex;justify-content:space-between}.rail-foot small{color:var(--muted)}progress{width:100%;height:7px;appearance:none;border:0;border-radius:6px;margin:10px 0;background:#ecebf2}progress::-webkit-progress-bar{background:#ecebf2;border-radius:6px}progress::-webkit-progress-value{background:var(--violet);border-radius:6px}.shell{margin-left:var(--nav)}header{height:62px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,64px);background:#fff;font-size:.86rem;color:var(--muted)}header em{font-style:normal;color:#adaabf;padding:0 7px}.edition{font-size:.75rem;font-weight:650}.mobile{display:none}main{max-width:1320px;margin:auto;padding:30px clamp(16px,4vw,64px) 35px}h1,h2,h3,p{margin-top:0}h1,h2,.display{font-family:"Instrument Serif",Georgia,serif;font-weight:normal;letter-spacing:-.045em}h1{font-size:clamp(2.5rem,4.2vw,4.3rem);line-height:1.03;margin:11px 0 17px}h2{font-size:clamp(1.8rem,2.6vw,2.55rem);line-height:1.15;margin-bottom:12px}h3{font-size:1.12rem;line-height:1.4;margin-bottom:9px}p,li{line-height:1.58}p{margin-bottom:13px}.hero{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1.25fr .75fr;align-items:center;background:#29274f;color:#fff;padding:clamp(26px,3.7vw,54px);border-radius:21px;min-height:285px}.hero .over{color:#cec6ff}.hero h1{font-size:clamp(2.8rem,4.9vw,4.9rem);margin:13px 0 14px}.hero h1 i{color:#d1c6ff;font-weight:normal}.hero p{color:#e0ddef;max-width:450px;margin-bottom:22px}.btn,button.action{border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;gap:8px;background:white;color:var(--ink);font-size:.95rem;font-weight:650;border-radius:9px;padding:11px 17px}.btn:hover,button.action:hover{filter:brightness(.95)}.hero .btn{background:#d8cfff;border:0;color:#282448}.btn.solid{background:var(--violet);color:white;border-color:var(--violet)}.art{position:relative;justify-self:center;width:min(100%,255px);height:210px;transform:rotate(-7deg);display:grid;place-items:center}.art:before,.art:after{content:"";position:absolute;width:145%;height:155%;border:1px solid #56527d;border-radius:50%;z-index:-1;transform:rotate(-24deg) scaleY(.45)}.art:after{transform:rotate(41deg) scaleY(.5)}.deck{position:relative;width:145px;height:145px;transform:rotate(-6deg) skewY(1deg);background:#d7cdf9;border:2px solid #252340;box-shadow:7px 9px #a5a0da,9px 11px #282644,15px 17px #e7a68c,17px 19px #282644,23px 25px #a5cabe;border-radius:14px;padding:16px;color:#302b54}.deck b{display:block;border-bottom:2px solid #8176aa;letter-spacing:.1em;font-size:.65rem;padding-bottom:8px}.deckgrid{margin:13px 0 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.deckgrid i{height:11px;border-radius:2px;background:#a89aca}.deckgrid i:nth-child(3n+1){background:#6c5c95}.deck small{font:11px monospace}.spark{position:absolute;color:#f3be9f;font:2rem Georgia;right:8%;top:5%}.section-title{margin:32px 0 16px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}.section-title h2{margin:0}.meta,.soft,.sub{color:var(--muted)}.meta,.sub{font-size:.85rem}.mapgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.topic,.panel,.strip,.sourcebox{background:#fff;border:1px solid var(--line);border-radius:14px}.topic{padding:20px;min-height:159px;position:relative;transition:transform .18s,border-color .18s}.topic:hover{transform:translateY(-3px);border-color:var(--t)}.tile-icon{display:inline-grid;place-items:center;width:43px;height:43px;border-radius:12px;color:var(--t);background:var(--bg);font:700 1.5rem/1 ui-monospace,monospace}.topic small{float:right;font-size:.72rem;color:var(--muted);font-weight:650}.topic h3{margin:17px 0 4px}.topic p{font-size:.89rem;color:var(--muted);margin:0}.over{color:var(--violet)}.strip{padding:15px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:16px 0;color:var(--muted);font-size:.9rem}.strip strong{color:var(--ink)}.bar{background:linear-gradient(to right,#9e90e3 40%,#474272 40%);height:8px;min-width:80px;flex:1;border-radius:8px}.panel,.sourcebox{padding:clamp(18px,3vw,32px);margin:14px 0}.sourcebox{background:#eeedf7;color:#514d6b}.sourcebox p:last-child,.panel p:last-child{margin-bottom:0}.lesson-head{border-top:5px solid var(--t);border-radius:14px;background:white;padding:24px 28px;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.lesson-head h1{margin-bottom:8px}.lesson-head p{margin:0;color:var(--muted)}.tabs,.frame-controls{display:flex;gap:6px;flex-wrap:wrap;margin:15px 0}.tabs a,.frame-controls button{border:1px solid var(--line);border-radius:8px;padding:9px 14px;background:white;color:var(--muted);font-size:.91rem;font-weight:600}.tabs a.active,.frame-controls button[aria-pressed=true]{background:#302d56;color:white;border-color:#302d56}.lead{font-size:1.17rem;max-width:78ch}.terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.terms div{background:var(--bg);padding:14px;border-radius:10px}.terms p{font-size:.94rem;margin:5px 0 0}.visual{background:#302e54;color:white;border-radius:13px;padding:22px}.visual h3{color:#d6caff}.visual .line{background:#444162;color:#faf8ff;padding:10px 13px;border-radius:7px;margin:5px 0;font-family:ui-monospace,monospace;white-space:pre-wrap}.visual p{margin:15px 0 0;color:#ece9fc}.next{display:flex;justify-content:flex-end;margin:18px 0}.answer{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;background:#f3f2fa;border-left:3px solid #a69bdc;padding:15px 18px;border-radius:0 8px 8px 0;margin:12px 0}.answer.code,pre{font: .91rem/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}details{border-top:1px solid var(--line);padding:14px 0}summary{color:#494288;font-weight:650;line-height:1.5}details:last-child{padding-bottom:0}label.prompt{display:block;font-weight:650;margin:12px 0 7px}textarea{display:block;width:100%;border:1px solid #aaa7be;border-radius:8px;min-height:105px;padding:11px 13px;background:#fdfcff;color:var(--ink);line-height:1.5;resize:vertical}.option{display:flex;align-items:baseline;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;margin:6px 0;line-height:1.45}.option:has(input:checked){background:#eeecfb;border-color:#9e91da}input{accent-color:#6252ac}.status{font-weight:650;color:#514789}.result{margin:14px 0;background:#eeedf8;padding:15px;border-radius:10px}.score{font-weight:bold;color:#4e4688}.codehead{display:flex;justify-content:space-between;align-items:center;margin:12px 0 0;background:#34324e;color:#eeecff;padding:9px 12px;border-radius:9px 9px 0 0;font-size:.84rem}.codehead button{border:1px solid #8c88a8;border-radius:5px;padding:4px 9px;background:none;color:white}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#27263d;color:#f1effc;padding:16px;margin:0 0 14px;border-radius:0 0 9px 9px}.plain-list{padding-left:1.2em}.blue-row{padding:15px 0;border-top:1px solid var(--line)}footer{color:var(--muted);font-size:.8rem;padding:18px clamp(16px,4vw,64px);border-top:1px solid var(--line)}.mobile{border:1px solid var(--line);border-radius:7px;padding:6px 10px;background:#fff}.title-line{display:flex;align-items:center;gap:14px}.gradecheck{display:flex;gap:9px;align-items:baseline;line-height:1.6;margin:5px 0}
+@media(max-width:1120px){:root{--nav:222px}.mapgrid{grid-template-columns:repeat(2,minmax(0,1fr))}#rail{padding-left:14px;padding-right:14px}.art{transform:scale(.88) rotate(-7deg)}}@media(max-width:790px){.shell{margin:0}#rail{display:none;top:60px;box-shadow:7px 10px 30px #25233c22}.open #rail{display:flex}.mobile{display:block}.edition{display:none}header{height:60px;position:sticky;top:0;z-index:6}main{padding-top:17px}.mapgrid{gap:10px}.hero{min-height:225px}.art{height:168px}.lesson-head{padding:20px}.terms{grid-template-columns:1fr}.terms div{padding:10px 14px}.tabs a{padding:8px 10px}}@media(max-width:510px){.hero{grid-template-columns:1fr;padding:23px;min-height:230px}.hero>div:first-child{z-index:1}.hero h1{font-size:2.9rem}.hero p{max-width:82%;font-size:.93rem}.art{position:absolute;right:-64px;bottom:-16px;transform:scale(.49) rotate(-8deg);opacity:.45;z-index:-1}.mapgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.topic{padding:12px;min-height:151px}.topic small{float:none;display:block;margin-top:8px}.topic h3{font-size:1rem;margin:6px 0}.tile-icon{width:32px;height:32px;font-size:1.15rem}.section-title{margin-top:23px}.strip{gap:8px}.bar{display:none}footer{gap:10px}.tabs{gap:4px}.tabs a{font-size:.84rem}.lead{font-size:1.04rem}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><a class="skip" href="#main">Skip to content</a><aside id="rail"><div class="brand"><i class="mark" aria-hidden="true">▤</i><div>Database Atlas<small>CS422 STUDY SPACE</small></div></div><nav aria-label="Study navigation"><a href="#map" id="home-link">▦ &nbsp; Study map</a><a href="#blueprint" id="blue-link">▧ &nbsp; Exam blueprint</a><p class="rail-label">YOUR TOPICS</p><div id="topic-nav"></div></nav><div class="rail-foot"><div><strong>Topic mocks</strong><span id="mock-count"></span></div><progress id="meter" max="7" value="0"></progress><small>Progress saved on this device</small></div></aside>
+<div class="shell"><header><button class="mobile" id="menu" aria-expanded="false" aria-controls="rail">☰ Topics</button><span>CS422 <em>/</em> Final exam <em>/</em> <strong id="crumb">Study map</strong></span><span class="edition">Database systems</span></header><main id="main" tabindex="-1"></main><footer>Database Atlas <span>CS422 · Final exam study space</span></footer></div><script>const lessons = [
+{
+ title: 'Database design', subtitle:'Entities, attributes & relationships', icon:'network',
+ intro:'A database is an organized collection of facts. Designing one means deciding what each row describes and how the rows connect.',
+ source:'Lectures 2, 3 and 8 · Lab 3 · Assignments 5 and 6 · Midterm design essay',
+ evidence:'Lab 3 turns a driving-school story into a diagram and then tables. The midterm example adds facts about an enrollment. Practice both directions.',
+ demo:'Follow a book loan', frames:[
+ ['One reader','Reader','reader_id  ·  7','name  ·  Ada','A row represents one thing. Ada is one reader. Her ID stays the same even if her name changes.'],
+ ['Two loans','Loan','loan_id  ·  31     reader_id  ·  7','loan_id  ·  32     reader_id  ·  7','Two loan rows can point to reader 7. The loan ID identifies the loan. The repeated reader ID tells us who borrowed each book.'],
+ ['Read both ends','Reader  1   ───   0..*  Loan','For one reader  ·  zero or many loans','For one loan  ·  exactly one reader','Read across from one object. A new reader may have zero loans. Each loan must point back to exactly one reader.']],
+ terms:[['Entity','A thing we keep facts about, like a reader.'],['Attribute','One detail about that thing, like its name.'],['Relationship','A link between things, like a reader borrowing a book.']],
+ worked:['A student can join many clubs. A club can have many students. Where does the joining date go?','Put it in Membership(student_id, club_id, joined_on). The date describes one student joining one club. If each pair joins only once, the two IDs together identify a membership. Each ID also points to its own parent table.'],
+ qa:[['How do primary and foreign keys differ?','A primary key uniquely identifies a row and cannot contain NULL. A foreign key points to a key in another table or the same table. Several child rows may reference the same parent.'],['How do you map a one-to-many relationship?','Put the parent key in the child table. If each child must have a parent, declare the foreign key NOT NULL. One parent with no children needs no placeholder row.'],['How do you enforce one-to-one?','For a profile that belongs to exactly one user, put a NOT NULL foreign key in Profile and make it UNIQUE. That lets each user have at most one profile.'],['When does a relationship need its own table?','For many-to-many relationships, create a linking table with both foreign keys. Put facts about the pair there. If repeat events are allowed, include an event identifier or another distinguishing value.']],
+ practice:['Design a tutor–subject relationship. A tutor may teach several subjects. Two tutors may charge different rates for the same subject. Each pair has one rate.','Tutor(tutor_id PK, name)\nSubject(subject_id PK, title)\nTeaching(tutor_id FK, subject_id FK, hourly_rate, PK(tutor_id, subject_id))\n\nBoth IDs in Teaching reference their respective parent tables. The rate depends on the pair. A tutor with no subjects has no Teaching rows.'],
+ mc:[['Each ticket requires one event. An event may have no tickets. Which constraint belongs on Ticket.event_id?',['UNIQUE alone','A nullable foreign key','A NOT NULL foreign key'],2,'Many tickets may repeat an event ID. Every ticket must reference an existing event.'],['A player wears a different number on each team. Where does the number belong?',['Player','Team','TeamMembership'],2,'The number describes one player on one team.']],
+ exam:['A clinic stores doctors, patients, and visits. A patient may see the same doctor twice on the same day. Each visit has one doctor, one patient, a time and a fee. Give the tables, keys, and cardinalities.','Doctor(doctor_id PK, name)\nPatient(patient_id PK, name)\nVisit(visit_id PK, doctor_id NOT NULL FK → Doctor, patient_id NOT NULL FK → Patient, visit_time, fee)\nEach doctor or patient has 0..many visits. Each visit has exactly one of each. The visit ID distinguishes repeat encounters.',['Identify both parent entities and their keys.','Give Visit its own identifier, time and fee.','Use both required foreign keys and state both cardinalities.']]
+},
+{
+ title:'Transactions',subtitle:'COMMIT, ROLLBACK & ACID',icon:'swap',
+ intro:'A transaction bundles changes into one job. Imagine moving two marbles from one jar to another. Both jars must change together, or you want both jars back the way they were.',
+ source:'Lectures 7 and 10 · Assignment 7 · Final review’s sample multiple-choice question',evidence:'The professor’s sample tests atomicity. Assignment 7 also asks about durability and rollback. Practice naming the property and tracing the actual row values.',
+ demo:'Move two marbles',frames:[['Start','Before the transfer','Jar A   ●●●●●   5','Jar B   ●●   2','Seven marbles in total. Start one transaction for the whole transfer.'],['Move','Inside the transaction','Jar A   ●●●   3','Jar B   ●●●●   4','The two updates are visible to the transaction. They still belong to one unfinished job.'],['Roll back','After ROLLBACK','Jar A   ●●●●●   5','Jar B   ●●   2','Rollback restores 5 and 2. If the transaction had committed instead, the saved values would be 3 and 4.']],
+ terms:[['BEGIN','Start the group of changes.'],['COMMIT','Finish the job and keep its changes.'],['ROLLBACK','Cancel the unfinished job and undo its changes.']],
+ worked:['A checkout creates an order, then payment fails. Both steps are in one transaction. What should happen?','Roll back. The order row disappears along with any other changes made by this transaction. This illustrates atomicity.'],
+ qa:[['What does each letter of ACID promise?','Atomicity keeps all the steps together. Consistency means correct transactions preserve the database rules. Isolation controls what concurrent transactions see. Durability keeps a committed result after a crash.'],['Does ROLLBACK undo an earlier COMMIT?','No. A commit ends that transaction. A later rollback undoes only work in the current transaction.'],['A seat update changes zero rows. Is that always a SQL error?','No. A valid UPDATE can match zero rows. If getting a seat is required, check the affected-row count before committing the booking.'],['How does a savepoint help?','A savepoint marks a spot inside a transaction. ROLLBACK TO that spot removes later changes and leaves earlier work pending.']],
+ practice:['A counter starts at 12. Transaction A adds 3 and commits. Transaction B doubles it, then rolls back. What value remains, and why?','15. The first transaction committed 12 + 3. The second transaction temporarily saw 30, and its rollback restored the committed 15.'],
+ mc:[['The database confirms a sale and then loses power. Which property preserves the sale?',['Atomicity','Durability','Isolation'],1,'Durability protects committed work through a crash.'],['Which command keeps earlier work in the same transaction pending while undoing later work?',['ROLLBACK TO SAVEPOINT','COMMIT','ROLLBACK without a savepoint'],0,'A savepoint is a marker inside a still-open transaction.']],
+ exam:['A concert has one seat left. A purchase must claim one seat and insert one booking. Give the transaction steps. Explain what happens if no seat remains and if the insert fails.','BEGIN. Run UPDATE Show SET seats = seats - 1 WHERE show_id = :id AND seats > 0. Require exactly one updated row. If zero, roll back and report sold out. Insert the booking. If the insert succeeds, commit. On failure, roll back the decrement as well. The conditional update guards the last seat and atomicity keeps booking and inventory together.',['Guard the decrement and check one row changed.','Place the booking and the decrement in one transaction.','Commit only on success and roll back either failure.']]
+},
+{
+ title:'Standard SQL',subtitle:'Tables, joins & grouped reports',icon:'table',
+ intro:'SQL is a language for asking a database questions and changing its tables. A table looks like a class list. Each row is one entry, and each column holds one kind of fact.',
+ source:'Lectures 4 and 5 · Lab 1 · Assignment 3',evidence:'Lab 1 builds reports from Employee, Department, Project and WorksOn. Assignment 3 asks when WHERE, GROUP BY and HAVING take effect.',
+ demo:'Build a grouped report',frames:[['Rows','Work log','Atlas   3 h    ·    Atlas   5 h','Beacon   1 h    ·    Beacon   2 h','The question asks for projects with at least six total hours. Start with individual work entries.'],['Group','GROUP BY project','Atlas     3 + 5 = 8 h','Beacon    1 + 2 = 3 h','Grouping makes one bucket per project. SUM adds the hours inside each bucket.'],['Filter','HAVING SUM(hours) >= 6','Atlas      8 h','1 matching group','HAVING checks the finished group totals. A WHERE condition on a single work entry would answer a different question.']],
+ terms:[['JOIN','Match rows that share a key.'],['WHERE','Keep individual rows that pass a test.'],['HAVING','Keep whole groups that pass a test.']],
+ worked:['A club has two members and another has none. How do you show both clubs with counts 2 and 0?','Start from Club, LEFT JOIN Member on club_id, then GROUP BY the club ID. COUNT(Member.member_id) ignores the empty match. COUNT(*) would count that placeholder as one.'],
+ qa:[['How do CREATE, ALTER and DROP differ?','CREATE TABLE defines a new table. ALTER TABLE changes its structure, such as adding a column. DROP TABLE removes the table and its rows.'],['Which commands make up CRUD?','Create a row with INSERT, read it with SELECT, change it with UPDATE, and remove it with DELETE. Use WHERE to target specific rows in an update or delete.'],['In what order do you reason through a grouped query?','Build the rows with FROM and JOIN. Filter rows with WHERE. Form groups with GROUP BY, filter groups with HAVING, choose output with SELECT, then sort with ORDER BY.'],['How do NULLs affect COUNT?','COUNT(*) counts rows. COUNT(column) counts only rows with a non-NULL value in that column. SUM and AVG also ignore NULL inputs.']],
+ practice:['WorkLog(project, hours) has (A,2), (A,6), (B,4), (B,1). Count only entries of at least 2 hours. Return projects whose qualifying hours total at least 6, highest totals first.','SELECT project, SUM(hours) AS total\nFROM WorkLog\nWHERE hours >= 2\nGROUP BY project\nHAVING SUM(hours) >= 6\nORDER BY total DESC, project;\n\nExpected row: A | 8.'],
+ mc:[['Which clause removes employees before a department average is calculated?',['HAVING','WHERE','ORDER BY'],1,'WHERE filters individual input rows.'],['Which statement adds a column to an existing table?',['UPDATE','INSERT INTO','ALTER TABLE'],2,'Changing columns changes the table definition.']],
+ exam:['Project(id, name) and Work(project_id, hours) record time entries. Show project ID, name and total hours for projects with at least two entries of 3 or more hours. Sort by total descending, then ID. Write the query.','SELECT p.id, p.name, SUM(w.hours) AS total\nFROM Project AS p\nJOIN Work AS w ON w.project_id = p.id\nWHERE w.hours >= 3\nGROUP BY p.id, p.name\nHAVING COUNT(*) >= 2\nORDER BY total DESC, p.id;',['Join on the project key and filter entries before grouping.','Group by project and calculate SUM(hours).','Keep groups with at least two qualifying entries and sort as requested.']]
+},
+{
+ title:'Stored procedures',subtitle:'Parameters, decisions & loops',icon:'code',
+ intro:'A stored procedure is a named set of instructions the database remembers. Think of a recipe. The steps stay the same, and an input lets you choose which batch to make.',
+ source:'Lecture 7 · Lab 4 · Final review’s department lookup example',evidence:'The final sample asks for a department parameter, a filtered SELECT and an example call. Lab 4 repeats this pattern for instructor lessons and also tests validation and loops.',
+ demo:'Call a procedure',frames:[['Input','GetStudentsByDepartment','Input    department ID = 10','Students   Ada · 10    Bo · 20    Lia · 10','The caller supplies 10. The input parameter gives that value a name inside the procedure.'],['Filter','WHERE department_id = @dept','Ada · 10     ✓','Bo · 20      ×      Lia · 10     ✓','Compare the table column with the input. Comparing the column to itself would let every non-NULL department through.'],['Return','Matching students','Ada    department 10','Lia    department 10','SQL Server can send this SELECT directly to the caller. In the PostgreSQL lab, a cursor holds the result until you fetch it.']],
+ terms:[['Parameter','A value the caller gives the procedure.'],['Variable','A named place to keep a value while the steps run.'],['Loop','Repeat steps while a condition is true.']],
+ worked:['Final review example · Write GetStudentsByDepartment for Students(student_id, student_name, department_id). Show the SQL Server call for department 10.','CREATE PROCEDURE GetStudentsByDepartment @dept INT\nAS\nBEGIN\n  SELECT student_id, student_name, department_id\n  FROM Students\n  WHERE department_id = @dept;\nEND;\nGO\nEXEC GetStudentsByDepartment @dept = 10;\n\nGO separates batches in SQL Server tools. The pgAdmin lab below uses PostgreSQL syntax.'],
+ qa:[['How do you prove a loop ends?','Initialize a counter, give it a stopping condition, and move it toward the stopping value on every pass. For factorial, start the product at 1 so that factorial(0) is 1.'],['Where should input validation happen?','Check missing, invalid or out-of-range inputs before changing rows. Use IF to reject the bad case and report the error. Continue only along the valid branch.'],['What belongs in an error handler for a two-step change?','In SQL Server, put the transaction in TRY, commit on success, and in CATCH roll back an active transaction and rethrow the error. Printing an error alone leaves the transaction outcome unresolved.'],['How do IF and ELSE differ from a loop?','IF and ELSE choose which branch runs once. WHILE repeats its body as long as the condition stays true.']],
+ practice:['Write a SQL Server procedure SumToN that adds 1 through n, accepts 0, rejects NULL and values outside 0–1000, then call it for 3.','CREATE PROCEDURE SumToN @n INT\nAS\nBEGIN\n  IF @n IS NULL OR @n < 0 OR @n > 1000\n    THROW 50001, \'Use 0 through 1000\', 1;\n  DECLARE @i INT = 1, @total INT = 0;\n  WHILE @i <= @n\n  BEGIN\n    SET @total = @total + @i;\n    SET @i = @i + 1;\n  END;\n  SELECT @total AS total;\nEND;\nGO\nEXEC SumToN @n = 3;\n\nExpected total: 6.'],
+ mc:[['A procedure tests WHERE instructor_id = instructor_id. Why might it return lessons for every instructor?',['The parameter is too small.','The column is compared with itself.','The table has a primary key.'],1,'Qualify the table column and compare it with a separately named parameter.'],['A factorial loop handles inputs 0–10. Which initial product works for 0?',['NULL','0','1'],2,'The loop runs zero times for 0, and 0! equals 1.']],
+ exam:['Lesson(lesson_id, instructor_id, fee) stores driving lessons. Write a SQL Server procedure to return one instructor’s lessons, reject a missing or nonpositive instructor ID, and demonstrate a call for instructor 12.','CREATE PROCEDURE GetLessons @instructor INT\nAS\nBEGIN\n  IF @instructor IS NULL OR @instructor <= 0\n    THROW 50001, \'Positive instructor ID required\', 1;\n  SELECT lesson_id, instructor_id, fee\n  FROM Lesson AS l WHERE l.instructor_id = @instructor;\nEND;\nGO\nEXEC GetLessons @instructor = 12;',['Declare a named procedure with a typed input.','Reject NULL or nonpositive input before the query.','Filter by the parameter and show a valid call for 12.']]
+},
+{
+ title:'Concurrency control',subtitle:'Schedules, locks & deadlocks',icon:'layers',
+ intro:'Concurrency means several people use the database at the same time. If two people read the same score and both write their own new score, one person’s point can disappear.',
+ source:'Lecture 10 · Lab 5 · Assignment 7',evidence:'Lab 5 asks for conflict serializability. Assignment 7 asks you to explain anomalies, serial schedules and timestamp methods. Draw the order of events before naming a problem.',
+ demo:'Catch a lost update',frames:[['Read','Score = 10','Session A reads 10','Session B reads 10','Both players score one point. Each session plans to write the number it read, plus one.'],['Write','Two writes','A writes 11','B writes 11','The second write replaces the first. The final score is 11, but two points should produce 12.'],['Protect','One increment per turn','A adds 1 to the current score → 11','B adds 1 to the current score → 12','Use an atomic UPDATE score = score + 1. For a longer read–decide–write sequence, lock before reading or validate a version and retry.']],
+ terms:[['Schedule','The order in which transactions take their turns.'],['Lock','Permission to read or change an item while others may need to wait.'],['Deadlock','Transactions form a circle, each waiting for another to let go.']],
+ worked:['A holds a lock on X and wants Y. B holds Y and wants X. Why can neither finish?','The wait-for graph has A → B and B → A. A detector can abort one transaction, release its locks, and let the other finish. Having both programs lock X before Y prevents this particular cycle.'],
+ qa:[['How do three common anomalies differ?','Lost update means one write overwrites another change. Dirty read means using a value another transaction has yet to commit. Inconsistent analysis means combining facts from different moments, such as reading half a transfer before and half after it.'],['How do you test conflict serializability?','For different transactions on the same item, draw an edge from the earlier operation to the later one whenever at least one writes. A cycle rules out conflict serializability. An acyclic graph gives a serial order by topological sorting.'],['What are the two phases of two-phase locking (2PL)?','First acquire locks. After releasing the first lock, acquire no new ones. This ensures conflict serializability. Deadlocks are still possible. Strict 2PL keeps exclusive locks through commit or abort.'],['When do timestamp ordering and optimistic control check for conflicts?','Timestamp ordering gives each transaction an age and checks operations against that order. An incompatible operation can force a restart. Optimistic control does work privately, validates it, then installs the writes if validation succeeds.']],
+ practice:['A writes X, B reads X, B writes Y, A reads Y. Draw the precedence edges. Can a serial order preserve both conflicts?','X gives A → B. Y gives B → A. The cycle prevents conflict serializability. These are operation-order edges. A wait-for graph instead describes who is currently blocked by whom.'],
+ mc:[['A report reads one balance before a transfer and another after it. What went wrong?',['Lost update','Dirty write','Inconsistent analysis'],2,'The total mixes different database states.'],['In basic 2PL, what follows the first unlock?',['Only further releases or actions using held locks','A new growing phase','Automatic deadlock recovery'],0,'The transaction has entered its shrinking phase.']],
+ exam:['Schedule: A reads X, B writes X, A writes Y, B reads Y. List all conflict edges, decide whether the schedule is conflict-serializable, and give a serial order if possible.','Both pairs concern the same item with at least one write. A reads X before B writes it, and A writes Y before B reads it. Both give A → B. There is no reverse edge and no cycle. The equivalent serial order is A then B.',['Find both conflicting pairs.','Give their common direction and identify the acyclic graph.','Give A then B as an equivalent serial order.']]
+},
+{
+ title:'Database recovery',subtitle:'Logs, checkpoints, UNDO & REDO',icon:'restore',
+ intro:'Recovery puts the database back in order after something breaks. Imagine a scorekeeper with a notebook. The notebook records what changed and which turns finished, so the score can be rebuilt.',
+ source:'Lecture 10 · Assignment 8',evidence:'Assignment 8 asks how a log supports forward and backward recovery and how immediate and deferred update differ. Practice tracing before-values and after-values.',
+ demo:'Recover two changes',frames:[['Log','Before the crash','T1   A: 5 → 8    COMMIT','T2   B: 4 → 9    no commit','Suppose this immediate-update system may write unfinished changes to disk or leave committed changes only in memory.'],['Crash','Disk after power loss','A = 5    committed update missing','B = 9    unfinished change reached disk','The log survived. Read the commit records before deciding which values belong in the recovered database.'],['Recover','Consistent result','REDO T1    A = 8','UNDO T2    B = 4','Use T1’s after-value to restore the saved work. Use T2’s before-value to remove the unfinished work.']],
+ terms:[['Log','A durable record of changes and transaction decisions.'],['UNDO','Use earlier values to remove unfinished work.'],['REDO','Reapply changes that must survive.']],
+ worked:['A committed change is in the log but its data page still holds the old value. Which recovery action protects durability?','REDO the missing change using its after-value. In this textbook model, a commit record establishes that the transaction finished.'],
+ qa:[['Which failures require different recovery tools?','A rejected or cancelled transaction may need rollback. A system crash loses memory but can leave the disk and log intact. A destroyed disk needs a surviving backup or replica and available log records.'],['What does write-ahead logging require?','The relevant log record must be durable before its changed data page reaches disk. Before acknowledging a durable commit, flush the transaction’s required log records including its commit record.'],['Why take a checkpoint?','It records a recovery starting point and information about active work. It can reduce how much log must be examined after a crash. A transaction active at a checkpoint may still need recovery.'],['Compare deferred update, immediate update and shadow paging.','With deferred update, unfinished changes do not reach the database pages, so committed work may need REDO. With immediate update, unfinished changes can reach disk, so UNDO may also be needed. Shadow paging writes new pages separately and commits by switching the durable root pointer.']],
+ practice:['A shadow-paging system wrote new pages but crashed before switching the root pointer. Which version can it use? What if the switch completed durably first?','Before the atomic switch, the durable root still points to the old committed pages. After the durable switch, it points to the new version. Unreachable pages can be reclaimed later.'],
+ mc:[['Which record must reach stable storage before its changed data page?',['Its write-ahead log record','The next checkpoint','Every other transaction’s commit'],0,'The log must contain enough recovery information before the page is written.'],['A storage drive and the only local log are physically destroyed. What can restore the information?',['A local rollback','A previous SELECT statement','A surviving backup and available archived logs'],2,'Media loss requires a surviving copy of the data.']],
+ exam:['In an immediate-update system, T1 changes X from 4 to 7 and commits. T2 changes Y from 2 to 5 and is active at the crash. The disk has X=4 and Y=5. Give the recovery action for each and the final values.','REDO T1 using X’s after-value, 7, because its committed update is missing from disk. UNDO T2 using Y’s before-value, 2, because the uncommitted change reached disk. Final state: X=7 and Y=2.',['Classify T1 as committed and T2 as unfinished.','Use REDO with 7 and UNDO with 2.','State both final values and explain why.']]
+},
+{
+ title:'Query optimization',subtitle:'Plans, filters & algebra trees',icon:'tree',
+ intro:'A query asks for an answer. The database can take different routes to find it. Optimization means choosing a route that gives the same answer while doing less work.',
+ source:'Lecture 11 · Lab 6 · Assignment 9',evidence:'Lab 6 uses initial and improved query trees. Assignment 9 asks for the processing phases and useful heuristics. Explain which rows and columns can move down the tree safely.',
+ demo:'Shrink a join',frames:[['Start','Join first','Customer     1,000 rows','Orders       8,000 rows','Imagine a report that only needs orders from Chicago customers. A simple plan joins first and checks the city afterward.'],['Filter early','Select customers','Customer     1,000 → 80 rows','Keep rows where city = Chicago','For this inner join, the city test uses only Customer. Move it to that input so fewer customer rows reach the join.'],['Keep keys','Project the needed columns','Customer      customer_id, name','Orders        customer_id, total','Keep the join key on both sides until the match is complete. Then the final projection can return just the requested output columns.']],
+ terms:[['Selection (σ)','Keep rows that pass a condition.'],['Projection (π)','Keep only specified columns.'],['Join (⋈)','Match rows from two inputs.']],
+ worked:['A report joins every employee to a department, then keeps only employees earning over 70,000. Where can that filter go in an inner join?','Filter Employee before joining because the condition uses only Employee.salary. Keep department_id for the join. The same employees qualify and the join can process fewer rows.'],
+ qa:[['What are the phases of query processing?','Decomposition parses and checks the SQL, then translates it into an internal representation. Optimization compares equivalent plans. Code generation prepares executable operations. Execution runs them and produces rows.'],['How do you read an algebra tree?','Start at the leaves, which are tables. Read upward through filters, projections and joins. The root produces the answer.'],['What information helps select a cheaper plan?','Row counts, distinct-value counts, value distributions and available indexes help estimate input sizes and work. A cheaper estimate is a prediction. Actual costs depend on the data.'],['When can an early projection break a query?','Dropping a column still needed for a join, filter, grouping or output makes the plan invalid. Moving a predicate across an outer join can also change which unmatched rows survive.']],
+ practice:['Room(hotel_id, price) joins Hotel(id, city). Return prices for Boston hotels. Describe a smaller inner-join plan from the leaves up.','Filter Hotel by city first and keep id. Keep hotel_id and price from Room. Join on Hotel.id = Room.hotel_id. Project price at the root. Preserve duplicate prices if the SQL request uses ordinary SELECT.'],
+ mc:[['Which operation chooses columns?',['Selection','Projection','Join'],1,'Projection narrows each row to the requested columns.'],['Which input can safely receive salary > 90000 before an inner join of Staff and Office?',['Office alone','Neither input','Staff, where salary is stored'],2,'A predicate using only Staff columns can filter that input.']],
+ exam:['Sale(shop_id, amount) joins Shop(id, region). Return sale amounts for East-region shops. Sketch or describe a tree from the leaves up, move work earlier, and explain why the answer stays the same.','Shop → select region = East → project id. Sale → project shop_id, amount. Join on Shop.id = Sale.shop_id. At the root project amount. The region test uses only Shop. Both join keys survive until the join, and amount survives to output. Preserve multiplicities for SQL SELECT.',['Push the region condition down to Shop.','Keep both join keys and amount until needed.','Join on matching keys, then return amount and justify equivalence.']]
+}
+];
+</script><script>// Each lab runs in a fresh pgAdmin Query Tool tab. All fixtures are session-local.
+const labs = {
+  0: {
+    title:'Link a reader to two loans', task:'Create a one-to-many relationship, then list Ada’s loan IDs. Predict whether the foreign key may repeat.',
+    setup:`CREATE TEMP TABLE cs_reader (
+  reader_id integer PRIMARY KEY,
+  name text NOT NULL
+);
+CREATE TEMP TABLE cs_loan (
+  loan_id integer PRIMARY KEY,
+  reader_id integer NOT NULL REFERENCES cs_reader(reader_id)
+);
+INSERT INTO cs_reader VALUES (7, 'Ada'), (8, 'Bo');
+INSERT INTO cs_loan VALUES (31, 7), (32, 7);`,
+    solution:`SELECT r.name, l.loan_id
+FROM cs_reader AS r
+JOIN cs_loan AS l ON l.reader_id = r.reader_id
+WHERE r.reader_id = 7
+ORDER BY l.loan_id;`,
+    expected:'Ada | 31 and Ada | 32. Each loan has a unique loan_id and both refer to reader 7.'
+  },
+  1: {
+    title:'Watch a rollback restore both jars',task:'Move two marbles from jar A to jar B in a transaction. Undo the move and inspect both balances. Repeat using COMMIT and predict the difference.',
+    setup:`CREATE TEMP TABLE cs_jar (
+  jar text PRIMARY KEY,
+  marbles integer NOT NULL CHECK (marbles >= 0)
+);
+INSERT INTO cs_jar VALUES ('A', 5), ('B', 2);`,
+    solution:`BEGIN;
+UPDATE cs_jar SET marbles = marbles - 2 WHERE jar = 'A';
+UPDATE cs_jar SET marbles = marbles + 2 WHERE jar = 'B';
+SELECT * FROM cs_jar ORDER BY jar;
+ROLLBACK;
+SELECT * FROM cs_jar ORDER BY jar;`,
+    expected:'Inside the transaction, A = 3 and B = 4. The last SELECT returns A = 5 and B = 2. Replacing ROLLBACK with COMMIT keeps 3 and 4.'
+  },
+  2: {
+    title:'Write a project-hours report',task:'For each project, total entries of at least 2 hours. Keep totals of at least 6 and sort largest first. Include the project name.',
+    setup:`CREATE TEMP TABLE cs_project (
+  id integer PRIMARY KEY, name text NOT NULL
+);
+CREATE TEMP TABLE cs_work (
+  project_id integer REFERENCES cs_project(id), hours integer NOT NULL
+);
+INSERT INTO cs_project VALUES (1, 'Atlas'), (2, 'Beacon'), (3, 'Comet');
+INSERT INTO cs_work VALUES (1, 2), (1, 6), (2, 4), (2, 1), (3, 9);`,
+    solution:`SELECT p.name, SUM(w.hours) AS total
+FROM cs_project AS p JOIN cs_work AS w ON p.id = w.project_id
+WHERE w.hours >= 2
+GROUP BY p.id, p.name
+HAVING SUM(w.hours) >= 6
+ORDER BY total DESC, p.name;`,
+    expected:'Comet | 9, then Atlas | 8. Beacon has just 4 qualifying hours.'
+  },
+  3: {
+    title:'Run the final review’s department lookup',task:'Return every student in department 10. In PostgreSQL, use a procedure that opens a cursor, then fetch the rows while the transaction is open.',
+    setup:`CREATE TEMP TABLE cs_students (
+  student_id integer PRIMARY KEY,
+  student_name text NOT NULL,
+  department_id integer NOT NULL
+);
+INSERT INTO cs_students VALUES
+  (1, 'Ada', 10), (2, 'Bo', 20), (3, 'Lia', 10);`,
+    solution:`CREATE OR REPLACE PROCEDURE pg_temp.GetStudentsByDepartment(
+  IN p_department integer, IN p_results refcursor
+)
+LANGUAGE plpgsql AS $$
+BEGIN
+  IF p_department IS NULL THEN
+    RAISE EXCEPTION 'Supply a department ID';
+  END IF;
+  OPEN p_results FOR
+    SELECT student_id, student_name, department_id
+    FROM pg_temp.cs_students
+    WHERE department_id = p_department
+    ORDER BY student_id;
+END;
+$$;
+
+BEGIN;
+CALL pg_temp.GetStudentsByDepartment(10, 'student_results');
+FETCH ALL FROM student_results;
+-- Inspect Data Output after FETCH. Then execute the last line:
+COMMIT;`,
+    expected:'FETCH returns (1, Ada, 10) and (3, Lia, 10). Repeat the BEGIN/CALL/FETCH block with 20 to see only Bo, then COMMIT.'
+  },
+  6: {
+    title:'Read two equivalent query plans',task:'Compare a join with a filter written after it and the same filter inside a subquery. Inspect the scan and filter nodes. Check the two results agree.',
+    setup:`CREATE TEMP TABLE cs_shop (id integer PRIMARY KEY, region text);
+CREATE TEMP TABLE cs_sale (shop_id integer REFERENCES cs_shop(id), amount integer);
+INSERT INTO cs_shop VALUES (1, 'East'), (2, 'West');
+INSERT INTO cs_sale VALUES (1, 12), (1, 15), (2, 20);
+ANALYZE cs_shop;
+ANALYZE cs_sale;`,
+    solution:`EXPLAIN (COSTS OFF)
+SELECT s.amount FROM cs_sale AS s
+JOIN cs_shop AS h ON h.id = s.shop_id
+WHERE h.region = 'East';
+
+EXPLAIN (COSTS OFF)
+SELECT s.amount FROM cs_sale AS s
+JOIN (SELECT id FROM cs_shop WHERE region = 'East') AS h
+ON h.id = s.shop_id;
+
+SELECT s.amount FROM cs_sale AS s
+JOIN cs_shop AS h ON h.id = s.shop_id
+WHERE h.region = 'East'
+ORDER BY s.amount;`,
+    expected:'The sorted answer is 12, 15. The optimizer may produce the same plan for both forms. Exact nodes and costs depend on the PostgreSQL version and statistics.'
+  }
+};
+</script><script>'use strict';
+const phases = ['Learn', 'Theory', 'Practice', 'Mock exam'];
+const palette = [
+ ['#4d4789','#ece8fc','⌘'],['#1d695a','#dbf1e6','⇄'],['#82512a','#fae9d5','▦'],
+ ['#785082','#f4e5f5','{ }'],['#356585','#e1eef9','≋'],['#985045','#f8e5df','↶'],['#586b38','#e9efd9','⋈']
+];
+const storeKey = 'cs422-atlas-1';
+const main = document.getElementById('main');
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem(storeKey)) || {}; } catch {}
+if (Array.isArray(saved) || typeof saved !== 'object') saved = {};
+let topic = 0, phase = 0, frame = 0;
+function persist() {
+  try { localStorage.setItem(storeKey, JSON.stringify(saved)); }
+  catch { document.querySelector('.rail-foot small').textContent = 'Progress available in this tab only'; }
+}
+function record(i) {
+  if (!saved[i] || typeof saved[i] !== 'object') saved[i] = {};
+  return saved[i];
+}
+function escapeText(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function path(i, step=0) { return '#topic-'+(i+1)+'-'+(step+1); }
+function color(i) { return '--t:'+palette[i][0]+';--bg:'+palette[i][1]; }
+function answer(text) { return '<div class="answer'+(text.includes('\n')?' code':'')+'">'+escapeText(text)+'</div>'; }
+function disclose(title, body) { return '<details><summary>'+escapeText(title)+'</summary>'+body+'</details>'; }
+function panel(title, body) { return '<section class="panel"><h2>'+escapeText(title)+'</h2>'+body+'</section>'; }
+function closedMocks() { return lessons.filter((_,i)=>record(i).submitted).length; }
+function updateNav() {
+  document.getElementById('mock-count').textContent = closedMocks()+' / 7';
+  document.getElementById('meter').value = closedMocks();
+  document.querySelectorAll('nav a').forEach(a=>{
+    const href=a.getAttribute('href');
+    const selected=href===location.hash || (href==='#map' && !location.hash) ||
+      (href.startsWith('#topic-') && location.hash.startsWith(href.slice(0,-1)));
+    if(selected) a.setAttribute('aria-current','page');
+    else a.removeAttribute('aria-current');
+  });
+}
+document.getElementById('topic-nav').innerHTML=lessons.map((l,i)=>'<a href="'+path(i)+'"><span class="dot" style="'+color(i)+'">'+(i+1)+'</span>'+l.title+'</a>').join('');
+function mapView() {
+  const n=Number.isInteger(saved.last) && lessons[saved.last] ? saved.last : 0;
+  const start=Number.isInteger(saved.last)?'Continue learning':'Start learning';
+  return '<section class="hero"><div><div class="over">CS422 / Final review</div><h1>Database <i>Atlas</i></h1><p>Learn one concept, work through a real example, then test yourself on a fresh problem.</p><a class="btn" href="'+path(n,record(n).phase||0)+'">'+start+'</a></div><div class="art" aria-hidden="true"><div class="deck"><b>RELATIONAL MODEL</b><div class="deckgrid">'+('<i></i>'.repeat(12))+'</div><small>rows × columns</small></div><span class="spark">✦</span></div></section>'+
+    '<a class="strip" href="#blueprint"><strong>Final exam</strong> <span>40 pts · Multiple choice</span><span class="bar"></span><span>60 pts · Written problems</span></a>'+
+    '<div class="section-title"><h2>Your study map</h2><span class="meta">7 topics</span></div><div class="mapgrid">'+lessons.map((l,i)=>'<a class="topic" href="'+path(i,record(i).phase||0)+'" style="'+color(i)+'"><span class="tile-icon" aria-hidden="true">'+palette[i][2]+'</span><small>'+ (record(i).submitted?'Mock submitted':'Topic '+(i+1))+'</small><h3>'+l.title+'</h3><p>'+l.subtitle+'</p></a>').join('')+'</div>';
+}
+function blueprint() {
+  return '<div class="over">CS422 / Final review</div><h1>Exam blueprint</h1>'+panel('Where the points are','<p><strong>40 points of multiple choice</strong> can come from any of the seven topics. The professor illustrates the format with an all-or-nothing transaction question.</p><p><strong>60 points of essay or problem solving</strong> cover topics 1–4. The review illustrates this with a procedure that accepts a department ID and retrieves matching students.</p><p>The review specifies points and topics. The practice prompts, counts and scoring on this site are study choices. Applied exercises in topics 5–7 help you reason through multiple-choice scenarios.</p>')+
+    panel('What to practice',lessons.map((l,i)=>'<div class="blue-row"><a href="'+path(i)+'"><strong>'+ (i+1)+'. '+l.title+'</strong></a><p>'+l.evidence+'</p><small class="soft">'+l.source+'</small></div>').join(''));
+}
+function frames() {
+  const item=lessons[topic], current=item.frames[frame];
+  return '<div class="frame-controls" aria-label="Example steps">'+item.frames.map((f,i)=>'<button type="button" data-frame="'+i+'" aria-pressed="'+(i===frame)+'">'+(i+1)+'. '+f[0]+'</button>').join('')+'</div><div class="visual" aria-live="polite"><h3>'+escapeText(current[1])+'</h3><div class="line">'+escapeText(current[2])+'</div><div class="line">'+escapeText(current[3])+'</div><p>'+escapeText(current[4])+'</p></div>';
+}
+function learn(l) {
+  return panel('The idea','<p class="lead">'+l.intro+'</p><div class="terms">'+l.terms.map(([term,def])=>'<div><strong>'+term+'</strong><p>'+def+'</p></div>').join('')+'</div>')+
+   panel(l.demo,'<div id="frames">'+frames()+'</div>')+panel('Worked example','<h3>'+escapeText(l.worked[0])+'</h3>'+answer(l.worked[1]));
+}
+function theory(l) {
+  return panel('Theory questions','<p class="soft">Say your answer out loud, then open the question to check your reasoning.</p>'+l.qa.map(([q,a])=>disclose(q,answer(a))).join(''))+
+    '<aside class="sourcebox"><strong>Why practice this?</strong><p>'+l.evidence+'</p><small>'+l.source+'</small></aside>';
+}
+function codeBlock(label, sql) {
+  return '<div class="codehead"><strong>'+label+'</strong><button data-copy type="button">Copy SQL</button></div><pre><code>'+escapeText(sql)+'</code></pre>';
+}
+function labView(lab) {
+  return panel('pgAdmin lab','<div class="over">PostgreSQL</div><h3>'+lab.title+'</h3><p>'+lab.task+'</p><p class="soft">Open a fresh Query Tool tab with Auto-commit on. Run the setup once. In the same tab, highlight and execute each statement or transaction section you want to inspect. Start a fresh tab to repeat from scratch.</p>'+
+    codeBlock('Setup and sample rows',lab.setup)+disclose('Show runnable solution and expected output',codeBlock('PostgreSQL solution',lab.solution)+'<p><strong>Expected result</strong> · '+lab.expected+'</p>'));
+}
+function practice(l) {
+  return panel('Your turn','<h3>'+escapeText(l.practice[0])+'</h3><label class="prompt" for="practice-draft">Your solution</label><textarea id="practice-draft" data-draft="practice" placeholder="Write SQL or explain your reasoning…">'+escapeText(record(topic).practice)+'</textarea>'+disclose('Compare with the model answer',answer(l.practice[1])))+(labs[topic]?labView(labs[topic]):'');
+}
+function score(s,l) {
+  let correct=l.mc.filter((q,i)=>s['pick'+i]===q[2]).length;
+  let criteria=l.exam[2].filter((_,i)=>s['criterion'+i]).length;
+  return '<span class="score">Multiple choice '+correct+' / '+l.mc.length+' · Written self-check '+criteria+' / '+l.exam[2].length+'</span>';
+}
+function mock(l) {
+  const s=record(topic), locked=!!s.submitted;
+  const questions=l.mc.map(([q,opts,right,why],i)=>'<section class="panel"><div class="over">Multiple choice · '+(i+1)+'</div><h3>'+escapeText(q)+'</h3>'+opts.map((o,j)=>'<label class="option"><input type="radio" name="pick'+i+'" value="'+j+'" '+(s['pick'+i]===j?'checked ':'')+(locked?'disabled':'required')+'>'+escapeText(o)+'</label>').join('')+(locked?'<div class="result"><strong>'+(s['pick'+i]===right?'Correct.':'Correct answer: '+escapeText(opts[right])+'.')+'</strong> '+escapeText(why)+'</div>':'')+'</section>').join('');
+  const rubric=locked?'<h3>Model answer</h3>'+answer(l.exam[1])+'<strong>Check each point your response earned</strong>'+l.exam[2].map((c,i)=>'<label class="gradecheck"><input type="checkbox" data-criterion="'+i+'" '+(s['criterion'+i]?'checked':'')+'>'+escapeText(c)+'</label>').join(''):'';
+  return '<p class="soft">'+(topic<4?'Practice the two formats in the professor’s review.':'The final lists this topic in multiple choice. The written exercise builds the reasoning behind those choices.')+'</p><form id="mock-form">'+questions+'<section class="panel"><div class="over">Applied problem</div><h3>'+escapeText(l.exam[0])+'</h3><label class="prompt" for="mock-draft">Your exam answer</label><textarea id="mock-draft" data-draft="written" required '+(locked?'readonly':'')+'>'+escapeText(s.written)+'</textarea>'+rubric+'</section>'+
+    (locked?'<div class="strip"><div id="grade">'+score(s,l)+'</div><button class="action" data-retry type="button">Retry mock</button></div>':'<button class="btn solid" type="submit">Submit mock and see answers</button>')+'</form>';
+}
+function render() {
+  const hash=location.hash, match=/^#topic-([1-7])-([1-4])$/.exec(hash);
+  let label;
+  if(match) {
+    topic=Number(match[1])-1;phase=Number(match[2])-1;frame=0;
+    const l=lessons[topic];saved.last=topic;record(topic).phase=phase;persist();label=l.title;
+    main.innerHTML='<div style="'+color(topic)+'"><div class="lesson-head"><div class="over">Topic '+(topic+1)+' of 7 · '+(topic<4?'Multiple choice + written':'Multiple choice')+'</div><h1>'+l.title+'</h1><p>'+l.subtitle+'</p></div><div class="tabs" aria-label="Lesson sections">'+phases.map((p,i)=>'<a class="'+(phase===i?'active':'')+'" '+(phase===i?'aria-current="step"':'')+' href="'+path(topic,i)+'">'+p+'</a>').join('')+'</div>'+
+      [learn,theory,practice,mock][phase](l)+(phase<3?'<div class="next"><a class="btn solid" href="'+path(topic,phase+1)+'">Continue to '+phases[phase+1].toLowerCase()+'</a></div>':record(topic).submitted?'<div class="next"><a class="btn solid" href="'+(topic<6?path(topic+1):'#map')+'">'+(topic<6?'Next topic':'Study map')+'</a></div>':'')+'</div>';
+  } else if(hash==='#blueprint') { label='Exam blueprint';main.innerHTML=blueprint(); }
+  else {label='Study map';main.innerHTML=mapView();}
+  document.getElementById('crumb').textContent=label;document.title=label+' · Database Atlas';
+  document.body.classList.remove('open');document.getElementById('menu').setAttribute('aria-expanded','false');updateNav();
+}
+document.getElementById('menu').onclick=e=>e.currentTarget.setAttribute('aria-expanded', String(document.body.classList.toggle('open')));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.body.classList.remove('open');document.getElementById('menu').setAttribute('aria-expanded','false');}});
+main.addEventListener('input',e=>{
+  const el=e.target,s=record(topic);
+  if(el.matches('[data-draft]')) {s[el.dataset.draft]=el.value;el.setCustomValidity('');}
+  else if(el.type==='radio') s[el.name]=Number(el.value);
+  else if(el.matches('[data-criterion]')) {s['criterion'+el.dataset.criterion]=el.checked;document.getElementById('grade').innerHTML=score(s,lessons[topic]);}
+  else return;
+  persist();
+});
+main.addEventListener('submit',e=>{
+  e.preventDefault();const field=document.getElementById('mock-draft');
+  if(!field.value.trim()){field.setCustomValidity('Write your answer before submitting.');field.reportValidity();return;}
+  record(topic).submitted=true;persist();render();main.focus();window.scrollTo(0,0);
+});
+main.addEventListener('click',async e=>{
+  const button=e.target.closest('button');if(!button)return;
+  if(button.hasAttribute('data-frame')) {frame=Number(button.dataset.frame);document.getElementById('frames').innerHTML=frames();document.querySelector('[data-frame="'+frame+'"]').focus();}
+  if(button.hasAttribute('data-copy')){
+    const block=button.parentElement.nextElementSibling;
+    try{await navigator.clipboard.writeText(block.textContent);button.textContent='Copied';}
+    catch{const range=document.createRange();range.selectNodeContents(block);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);button.textContent='Use ⌘C / Ctrl+C';}
+  }
+  if(button.hasAttribute('data-retry')){
+    const s=record(topic);if(!window.confirm('Start this topic mock again? This replaces its current answers and score.'))return;
+    for(const k of Object.keys(s))if(/^(pick|criterion)/.test(k)||k==='submitted'||k==='written')delete s[k];
+    persist();render();window.scrollTo(0,0);main.focus();
+  }
+});
+window.addEventListener('hashchange',()=>{if(location.hash==='#main'){main.focus();return;}render();window.scrollTo(0,0);main.focus({preventScroll:true});});
+render();
+</script></body></html>
